@@ -10,24 +10,12 @@ public class cameracontroller : MonoBehaviour {
 
 	private float charMode = 0f;
 
-	private float Timer;
-
-
-
-
-
-
-
 	// Use this for initialization
 	void Start () {
 
 	  offset = transform.position - player.transform.position;
 
 	}
-	void Update (){
-		Timer += Time.deltaTime;
-
-}
 
 	void FixedUpdate () {
 
@@ -52,7 +40,6 @@ public class cameracontroller : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
 		transform.position = player.transform.position + offset;
-
 	}
 
 
