@@ -21,13 +21,13 @@ public class cameracontroller : MonoBehaviour {
 
 
 		if (Input.GetKeyDown ("z") && charMode != 1f) {
-			offset = offset*6;
+			offset = offset*5;
 			charMode += 1f;		
 		}
 
 		
 		if (Input.GetKeyDown ("x") && charMode != -1f ) {
-			offset = offset/6;
+			offset = offset/5;
 			charMode -= 1f;		
 		}
 
@@ -39,7 +39,8 @@ public class cameracontroller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		transform.position = player.transform.position + offset;
+		transform.position = new Vector3 (player.transform.position.x + offset.x, transform.position.y, player.transform.position.z+offset.z); 
+			
 	}
 
 
