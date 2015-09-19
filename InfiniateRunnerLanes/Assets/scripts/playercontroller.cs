@@ -3,7 +3,7 @@ using System.Collections;
 
 public class playercontroller : MonoBehaviour {
 
-
+	public float fieldOfView; 
 
 
 	private float charMode = 0;
@@ -32,8 +32,7 @@ public class playercontroller : MonoBehaviour {
 	public float AngZ = 0f;
 
 
-
-
+	public GameObject prefabexplosion;
 
 
 	private float boost = 0f;
@@ -44,6 +43,7 @@ public class playercontroller : MonoBehaviour {
 	{
 		player = gameObject;
 
+	
 
     }
 
@@ -93,7 +93,7 @@ public class playercontroller : MonoBehaviour {
 		////move charachter to choz
         if (Mathf.Round(pos.x * 100f) / 100f != lane*30 && pos.x > lane*30)
         {
-            Debug.Log("input");
+           
             pos.x = pos.x - step * Time.deltaTime;
 			AngY = 160f;
 
@@ -111,7 +111,7 @@ public class playercontroller : MonoBehaviour {
         }
 
 
-		Debug.Log (vertical);
+	
 
 		///if verticle input rotate ship///
 		if (Mathf.Round(vertical * 100f) / 100f >= .1 )
@@ -128,13 +128,15 @@ public class playercontroller : MonoBehaviour {
 		/// 
 	
        
-
+////////////////////////////BOOOOOOOST//////////////////////////////
 		if (Input.GetButtonDown ("Jump")) {
 			boost = boostAmount;
+			Camera.main.fieldOfView = 120f;
 		}
 
 		if (Input.GetButtonUp("Jump")){
 			boost = 0f;
+			Camera.main.fieldOfView = 60f;
 		}
 
 
@@ -159,7 +161,7 @@ public class playercontroller : MonoBehaviour {
         /////laneTimer
         if (laneTimer <= 4) {
             laneTimer = laneTimer + (1 * Time.deltaTime);
-            Debug.Log(laneTimer);
+       
         }
 
 
@@ -170,23 +172,19 @@ public class playercontroller : MonoBehaviour {
 
 
 
-        ///
-        /// 
-        /// 
-        ////////////////Death if player stops moving////////////////////
-       /// if (player.transform.position.z <= (lastZ+.005f)) {
-          ///  deathCounter = deathCounter + (1 * Time.deltaTime);
-           /// if (deathCounter > 3)
-          ///  {
-            ///    player.transform.position = new Vector3(0, 45, 0);
+	}
 
-           /// }
-       // } else {
-          ///  deathCounter = 0;
-		///}
-        ///Set Last frames z for next frame testing///
-      // lastZ = player.transform.position.z;
-    }
+
+	void OnTriggerStay(Collider target)
+	{
+		if(target.tag == "wall")
+		{
+			Destroy(this.gameObject);
+			Instantiate(prefabexplosion, new Vector3(gameObject.transform.position.x , gameObject.transform.position.y,gameObject.transform.position.z+1f), gameObject.transform.rotation);
+			Destroy(prefabexplosion, .2f);
+
+		}
+	}
 
 
 
