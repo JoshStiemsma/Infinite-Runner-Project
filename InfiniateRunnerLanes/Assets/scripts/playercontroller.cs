@@ -31,6 +31,14 @@ public class playercontroller : MonoBehaviour {
 	public float AngY = 180f;
 	public float AngZ = 0f;
 
+
+
+
+
+
+	private float boost = 0f;
+	public float boostAmount = 5f;
+
     // Use this for initialization
     void Start () 
 	{
@@ -47,16 +55,21 @@ public class playercontroller : MonoBehaviour {
         pos = player.transform.position;
 	;
 		/////Character Change/////
+		/// 
+		/// 
+
+
+
 		if (Input.GetKeyDown ("z") && charMode != 1) {
 			prevTransform.y = pos.y;
-            player.transform.localScale = player.transform.localScale * 5;
+            player.transform.localScale = player.transform.localScale * 3;
 			pos.y = pos.y-1.5f;
 			charMode += 1;
 
 		}
 		if (Input.GetKeyDown ("x") && charMode != -1) {
 			prevTransform.y = pos.y;
-            player.transform.localScale = player.transform.localScale / 5;
+            player.transform.localScale = player.transform.localScale / 3;
 			pos.y = pos.y +1.5f;
             charMode -= 1;
 
@@ -111,14 +124,26 @@ public class playercontroller : MonoBehaviour {
 			AngX = 90f;
 		}
 
-	
-
-
-
-
-
        ////Movement stuff///
-        pos.z = (pos.z + (speed* Time.deltaTime));
+		/// 
+	
+       
+
+		if (Input.GetButtonDown ("Jump")) {
+			boost = boostAmount;
+		}
+
+		if (Input.GetButtonUp("Jump")){
+			boost = 0f;
+		}
+
+
+
+		pos.z = (pos.z + (speed* Time.deltaTime)+boost);
+
+
+
+
 
 		pos.y = (pos.y + (vertical * Time.deltaTime* speed));
 		if (pos.y >= 20f) {
@@ -126,9 +151,7 @@ public class playercontroller : MonoBehaviour {
 		} else if (pos.y <= 0f) {
 			pos.y = 0f;
 		} else {
-
 		}
-
 		transform.eulerAngles = new Vector3(AngX,AngY,AngZ);
         player.transform.position = new Vector3(pos.x, pos.y, pos.z);
 
