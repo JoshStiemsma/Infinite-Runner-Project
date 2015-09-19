@@ -1,8 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\playercontroller.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\cameracontroller1.cs">
     <Files>
-      <File FileName="Assets\scripts\playercontroller.cs" Line="84" Column="2" />
+      <File FileName="Assets\scripts\playercontroller.cs" Line="14" Column="26" />
+      <File FileName="Assets\scripts\cameracontroller.cs" Line="7" Column="1" />
+      <File FileName="Assets\scripts\cameracontroller1.cs" Line="43" Column="1" />
+      <File FileName="Assets\scripts\particleController.cs" Line="20" Column="37" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

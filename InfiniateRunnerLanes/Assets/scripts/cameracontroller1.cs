@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class cameracontroller : MonoBehaviour {
+public class cameracontroller1 : MonoBehaviour {
 
 
 	public GameObject player;
@@ -9,7 +9,7 @@ public class cameracontroller : MonoBehaviour {
 	public Vector3 offset;
 
 	private float charMode = 0f;
-	public float camHeight = 3f;
+	public float camHeight = 6f;
 	// Use this for initialization
 	void Start () {
 
@@ -41,7 +41,7 @@ public class cameracontroller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		transform.position = new Vector3 (player.transform.position.x, camHeight, player.transform.position.z+offset.z); 
+		transform.position = new Vector3 (player.transform.position.x, transform.position.y, player.transform.position.z+offset.z); 
 			
 	}
 

@@ -11,7 +11,7 @@ public class playercontroller : MonoBehaviour {
 
     private GameObject player;
 
-    public float step = 1f;
+    public float step = 3f;
     public float speed;
     public float lane = 0;
     public float laneTimer = 3f;
@@ -49,14 +49,14 @@ public class playercontroller : MonoBehaviour {
 		/////Character Change/////
 		if (Input.GetKeyDown ("z") && charMode != 1) {
 			prevTransform.y = pos.y;
-            player.transform.localScale = player.transform.localScale * 10;
+            player.transform.localScale = player.transform.localScale * 5;
 			pos.y = pos.y-1.5f;
 			charMode += 1;
 
 		}
 		if (Input.GetKeyDown ("x") && charMode != -1) {
 			prevTransform.y = pos.y;
-            player.transform.localScale = player.transform.localScale / 10;
+            player.transform.localScale = player.transform.localScale / 5;
 			pos.y = pos.y +1.5f;
             charMode -= 1;
 
@@ -78,14 +78,14 @@ public class playercontroller : MonoBehaviour {
         }
 
 		////move charachter to choz
-        if (Mathf.Round(pos.x * 100f) / 100f != lane*10 && pos.x > lane*10)
+        if (Mathf.Round(pos.x * 100f) / 100f != lane*30 && pos.x > lane*30)
         {
             Debug.Log("input");
             pos.x = pos.x - step * Time.deltaTime;
 			AngY = 160f;
 
         }
-        else if (Mathf.Round(pos.x* 100f) / 100f != lane*10 && pos.x < lane*10)
+        else if (Mathf.Round(pos.x* 100f) / 100f != lane*30 && pos.x < lane*30)
         {
             pos.x = pos.x + step*Time.deltaTime;		
 			//tilt player here
@@ -121,8 +121,8 @@ public class playercontroller : MonoBehaviour {
         pos.z = (pos.z + (speed* Time.deltaTime));
 
 		pos.y = (pos.y + (vertical * Time.deltaTime* speed));
-		if (pos.y >= 7f) {
-			pos.y = 7;
+		if (pos.y >= 20f) {
+			pos.y = 20;
 		} else if (pos.y <= 0f) {
 			pos.y = 0f;
 		} else {
