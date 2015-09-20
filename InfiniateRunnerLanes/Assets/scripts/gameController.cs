@@ -10,36 +10,42 @@ public class gameController : MonoBehaviour {
 	public GameObject enSpinningPrefab;
 	public GameObject enBholePrefab;
 
-
-	public float enBasicDelay = 10f;
-	public float enSpinDelay = 30f;
-	public float enBholeDelay = 60f;
+	public float enBasicDelay;
+	public float enSpinDelay;
+	public float enBholeDelay;
+	
 	
 	void Start () {
+		enBasicDelay = 3f;
+		enSpinDelay = 5f;
+		enBholeDelay = 10f;
+
 		StartCoroutine ("StartSpawningBasic");
 
 		StartCoroutine ("StartSpawningSpin");
 
 		StartCoroutine ("StartSpawningbhole");
-		
+
+
+
 	}
 
 	void FixedUpdate(){
 	if (Input.GetButtonDown ("Jump")) {
-			enBasicDelay = enBasicDelay/2;
-			enSpinDelay = enSpinDelay/2;
-			enBholeDelay = enBholeDelay/2;
+			enBasicDelay = 1f;
+			enSpinDelay = 2f;
+			enBholeDelay = 3;
 	}
 	if (Input.GetButton ("Jump")) {
-			enBasicDelay = enBasicDelay/2;
-			enSpinDelay = enSpinDelay/2;
-			enBholeDelay = enBholeDelay/2;
+			enBasicDelay = 1f;
+			enSpinDelay = 2;
+			enBholeDelay = 3;
 		}
 	
 	if (Input.GetButtonUp("Jump")){
-			enBasicDelay = enBasicDelay*2;
-			enSpinDelay = enSpinDelay*2;
-			enBholeDelay = enBholeDelay*2;
+			enBasicDelay = 3f;
+			enSpinDelay = 5f;
+			enBholeDelay = 10f;
 			
 		}
 
@@ -50,9 +56,13 @@ public class gameController : MonoBehaviour {
 	GameObject SpawnBasicEnemy(){
 		return Instantiate (enBasicPrefab);
 	}
-
-
-
+	GameObject SpawnSpinningEnemy(){
+		return Instantiate (enSpinningPrefab);
+	}
+	GameObject SpawnBholeEnemy(){
+		return Instantiate (enBholePrefab);
+	}
+	
 	/// <summary>
 	/// A coroutine that spawns enemies every half second.
 	/// </summary>
@@ -66,9 +76,7 @@ public class gameController : MonoBehaviour {
 
 
 
-	GameObject SpawnSpinningEnemy(){
-		return Instantiate (enSpinningPrefab);
-	}
+
 	IEnumerator StartSpawningSpin(){
 		while(true){
 			SpawnSpinningEnemy();
@@ -78,9 +86,7 @@ public class gameController : MonoBehaviour {
 	
 
 
-	GameObject SpawnBholeEnemy(){
-		return Instantiate (enBholePrefab);
-	}
+
 	IEnumerator StartSpawningbhole(){
 		while(true){
 			SpawnBholeEnemy();
