@@ -177,7 +177,7 @@ public class playercontroller : MonoBehaviour {
 
 	void OnTriggerStay(Collider target)
 	{
-		if(target.tag == "wall")
+		if(target.tag == "enemy")
 		{
 			Destroy(this.gameObject);
 			Instantiate(prefabexplosion, new Vector3(gameObject.transform.position.x , gameObject.transform.position.y,gameObject.transform.position.z+1f), gameObject.transform.rotation);

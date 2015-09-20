@@ -8,7 +8,8 @@ public class enBholeController : MonoBehaviour {
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
 	public float speed;
-	public float scale = Random.Range(.1f, 2f);
+	public float scale;
+	public Vector3 ObjScale;
 	/// <summary>
 	/// A helper for storing euler angles. We store this to avoid gimbal lock.
 	/// </summary>
@@ -16,6 +17,8 @@ public class enBholeController : MonoBehaviour {
 	
 	void Start () {
 		speed = 25f;
+		scale =  Random.Range(1f, 3f);
+		ObjScale = new Vector3 (1f, 1f, 1f);
 		/////////// Random starting angles:
 		//angles.x = Random.Range (0, 360);
 		//angles.y = Random.Range (0, 360);
@@ -24,17 +27,15 @@ public class enBholeController : MonoBehaviour {
 		/////////// Spawn off the top of the screen in a random x position:
 		
 		transform.position = new Vector3 (Random.Range(-40f, 40f), Random.Range(-10f, 20f), 200);
-		transform.localScale = new Vector3(scale, scale, scale);
+		transform.localScale = ObjScale;
 	}
-	
+
+
 	void OnCollisionEnter(Collision col)
 	{
 		
 		Debug.Log ("HIT SOMETHING");
 		
-	}
-	void FixedUpdate(){
-		Debug.Log (transform.localScale);
 	}
 	
 	void Update () {

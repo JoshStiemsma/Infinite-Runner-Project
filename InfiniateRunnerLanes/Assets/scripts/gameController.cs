@@ -9,43 +9,51 @@ public class gameController : MonoBehaviour {
 	public GameObject enBasicPrefab;
 	public GameObject enSpinningPrefab;
 	public GameObject enBholePrefab;
+	public GameObject enSwipePrefab;
 
 	public float enBasicDelay;
 	public float enSpinDelay;
 	public float enBholeDelay;
+	public float enSwipeDelay;
 	
 	
 	void Start () {
 		enBasicDelay = 3f;
 		enSpinDelay = 5f;
 		enBholeDelay = 10f;
-
+		enSwipeDelay = 10f;
+		
 		StartCoroutine ("StartSpawningBasic");
 
+
+		
 		StartCoroutine ("StartSpawningSpin");
 
 		StartCoroutine ("StartSpawningbhole");
 
-
-
+		StartCoroutine ("StartSpawningSwipe");
+		
 	}
 
 	void FixedUpdate(){
 	if (Input.GetButtonDown ("Jump")) {
-			enBasicDelay = 1f;
-			enSpinDelay = 2f;
-			enBholeDelay = 3;
-	}
+			enBasicDelay = .5f;
+			enSpinDelay = 1f;
+			enBholeDelay = 2;
+			enSwipeDelay = 3f;
+		}
 	if (Input.GetButton ("Jump")) {
-			enBasicDelay = 1f;
-			enSpinDelay = 2;
-			enBholeDelay = 3;
+			enBasicDelay = .5f;
+			enSpinDelay = 1;
+			enBholeDelay = 2;
+			enSwipeDelay = 3f;
 		}
 	
 	if (Input.GetButtonUp("Jump")){
 			enBasicDelay = 3f;
 			enSpinDelay = 5f;
 			enBholeDelay = 10f;
+			enSwipeDelay = 15f;
 			
 		}
 
@@ -61,6 +69,9 @@ public class gameController : MonoBehaviour {
 	}
 	GameObject SpawnBholeEnemy(){
 		return Instantiate (enBholePrefab);
+	}
+	GameObject SpawnSwipeEnemy(){
+		return Instantiate (enSwipePrefab);
 	}
 	
 	/// <summary>
@@ -94,7 +105,12 @@ public class gameController : MonoBehaviour {
 		}
 	}
 	
-
-
+	IEnumerator StartSpawningSwipe(){
+		while(true){
+			SpawnSwipeEnemy();
+			yield return new WaitForSeconds(enSwipeDelay);
+		}
+	}
+	
 
 }
