@@ -49,6 +49,10 @@
      <Compile Include="Assets\scripts\JetParticleController.cs" />
      <Compile Include="Assets\scripts\cameracontroller.cs" />
      <Compile Include="Assets\scripts\cameracontroller1.cs" />
+     <Compile Include="Assets\scripts\enBasicController.cs" />
+     <Compile Include="Assets\scripts\enBholeController.cs" />
+     <Compile Include="Assets\scripts\enSpinningController.cs" />
+     <Compile Include="Assets\scripts\gameController.cs" />
      <Compile Include="Assets\scripts\particleController.cs" />
      <Compile Include="Assets\scripts\planetRotation.cs" />
      <Compile Include="Assets\scripts\playercontroller.cs" />

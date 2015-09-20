@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{9805EE30-B217-3A6C-1D33-8724F9022706}</ProjectGuid>
+	<ProjectGuid>{29E93D6B-0094-B7F5-B9F9-02CBD958F491}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,17 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\JetParticleController.cs" />
-     <Compile Include="Assets\scripts\cameracontroller.cs" />
-     <Compile Include="Assets\scripts\cameracontroller1.cs" />
-     <Compile Include="Assets\scripts\enBasicController.cs" />
-     <Compile Include="Assets\scripts\enBholeController.cs" />
-     <Compile Include="Assets\scripts\enSpinningController.cs" />
-     <Compile Include="Assets\scripts\gameController.cs" />
-     <Compile Include="Assets\scripts\particleController.cs" />
-     <Compile Include="Assets\scripts\planetRotation.cs" />
-     <Compile Include="Assets\scripts\playercontroller.cs" />
-     <Compile Include="Assets\scripts\resetGui.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTween\iTween.cs" />
+     <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

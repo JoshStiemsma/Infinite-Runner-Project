@@ -131,7 +131,7 @@ public class playercontroller : MonoBehaviour {
 ////////////////////////////BOOOOOOOST//////////////////////////////
 		if (Input.GetButtonDown ("Jump")) {
 			boost = boostAmount;
-			Camera.main.fieldOfView = 120f;
+			Camera.main.fieldOfView = 65f;
 		}
 
 		if (Input.GetButtonUp("Jump")){
@@ -141,7 +141,7 @@ public class playercontroller : MonoBehaviour {
 
 
 
-		pos.z = (pos.z + (speed* Time.deltaTime)+boost);
+		//pos.z = (pos.z + (speed* Time.deltaTime)+boost);
 
 
 
