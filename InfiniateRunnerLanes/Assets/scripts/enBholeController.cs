@@ -8,26 +8,27 @@ public class enBholeController : MonoBehaviour {
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
 	public float speed;
-	public float scale;
-	public Vector3 ObjScale;
+	private float scale;
 	/// <summary>
 	/// A helper for storing euler angles. We store this to avoid gimbal lock.
 	/// </summary>
 	Vector3 angles = Vector3.zero;
-	
-	void Start () {
+    Vector3 scales = Vector3.zero;
+
+    void Start () {
 		speed = 25f;
-		scale =  Random.Range(1f, 3f);
-		ObjScale = new Vector3 (1f, 1f, 1f);
-		/////////// Random starting angles:
-		//angles.x = Random.Range (0, 360);
-		//angles.y = Random.Range (0, 360);
-		//angles.z = Random.Range (0, 360);
-		
-		/////////// Spawn off the top of the screen in a random x position:
-		
-		transform.position = new Vector3 (Random.Range(-40f, 40f), Random.Range(-10f, 20f), 200);
-		transform.localScale = ObjScale;
+        scale = Random.Range(5f, 25f);
+        scales = new Vector3(10, 10, 10);
+
+        /////////// Random starting angles:
+        angles.x = Random.Range (0, 360);
+        angles.y = Random.Range (0, 360);
+        angles.z = Random.Range (0, 360);
+
+        /////////// Spawn off the top of the screen in a random x position:
+
+        transform.position = new Vector3 (Random.Range(-40f, 40f), Random.Range(-10f, 20f), 200);
+		transform.localScale = scales;
 	}
 
 
@@ -52,22 +53,22 @@ public class enBholeController : MonoBehaviour {
 		if (Input.GetButtonUp("Jump")){
 			speed = 25f;
 		}
-		
-		
-		
-		
-	
-		
-		
-		
-		
-		//////////// Spin the object:
-		//angles.x += 20 * Time.deltaTime;
-		//angles.z += 40 * Time.deltaTime;
-		//transform.rotation = Quaternion.Euler (angles);
-		
-		//////////// Move the object:
-		Vector3 pos = transform.position;
+
+
+        transform.localScale = scales;
+
+
+
+
+
+
+        //////////// Spin the object:
+        angles.x += 20 * Time.deltaTime;
+        angles.z += 40 * Time.deltaTime;
+        transform.rotation = Quaternion.Euler (angles);
+
+        //////////// Move the object:
+        Vector3 pos = transform.position;
 		pos.z -= speed * Time.deltaTime;
 		transform.position = pos;
 		

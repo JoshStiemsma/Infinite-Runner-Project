@@ -11,10 +11,14 @@ public class gameController : MonoBehaviour {
 	public GameObject enBholePrefab;
 	public GameObject enSwipePrefab;
 
+    public GameObject tubePrefab;
+
 	public float enBasicDelay;
 	public float enSpinDelay;
 	public float enBholeDelay;
 	public float enSwipeDelay;
+
+    public float tubeDelay;
 	
 	
 	void Start () {
@@ -22,18 +26,21 @@ public class gameController : MonoBehaviour {
 		enSpinDelay = 5f;
 		enBholeDelay = 10f;
 		enSwipeDelay = 10f;
-		
-		StartCoroutine ("StartSpawningBasic");
+        tubeDelay = 10f;
 
 
-		
+        StartCoroutine ("StartSpawningBasic");
+
 		StartCoroutine ("StartSpawningSpin");
 
 		StartCoroutine ("StartSpawningbhole");
 
 		StartCoroutine ("StartSpawningSwipe");
-		
-	}
+
+        StartCoroutine("StartSpawningTube");
+
+
+    }
 
 	void FixedUpdate(){
 	if (Input.GetButtonDown ("Jump")) {
@@ -41,21 +48,23 @@ public class gameController : MonoBehaviour {
 			enSpinDelay = 1f;
 			enBholeDelay = 2;
 			enSwipeDelay = 3f;
-		}
+            tubeDelay = 5f;
+        }
 	if (Input.GetButton ("Jump")) {
 			enBasicDelay = .5f;
 			enSpinDelay = 1;
 			enBholeDelay = 2;
 			enSwipeDelay = 3f;
-		}
+            tubeDelay = 5f;
+        }
 	
 	if (Input.GetButtonUp("Jump")){
 			enBasicDelay = 3f;
 			enSpinDelay = 5f;
 			enBholeDelay = 10f;
 			enSwipeDelay = 15f;
-			
-		}
+            tubeDelay = 10f;
+        }
 
 }
 	/// <summary>
@@ -73,11 +82,15 @@ public class gameController : MonoBehaviour {
 	GameObject SpawnSwipeEnemy(){
 		return Instantiate (enSwipePrefab);
 	}
-	
-	/// <summary>
-	/// A coroutine that spawns enemies every half second.
-	/// </summary>
-	IEnumerator StartSpawningBasic(){
+    GameObject Spawntube()
+    {
+        return Instantiate(tubePrefab);
+    }
+
+    /// <summary>
+    /// A coroutine that spawns enemies every half second.
+    /// </summary>
+    IEnumerator StartSpawningBasic(){
 		while(true){
 			SpawnBasicEnemy();
 			yield return new WaitForSeconds(enBasicDelay);
@@ -111,6 +124,15 @@ public class gameController : MonoBehaviour {
 			yield return new WaitForSeconds(enSwipeDelay);
 		}
 	}
-	
+
+
+    IEnumerator StartSpawningTube()
+    {
+        while (true)
+        {
+            Spawntube();
+            yield return new WaitForSeconds(tubeDelay);
+        }
+    }
 
 }
