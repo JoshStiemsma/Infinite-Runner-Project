@@ -2,49 +2,49 @@
 using System.Collections;
 
 public class cameracontroller1 : MonoBehaviour {
-
-
+	
+	
 	public GameObject player;
-
+	
 	public Vector3 offset;
-
+	
 	private float charMode = 0f;
 	public float camHeight = 6f;
 	// Use this for initialization
 	void Start () {
-
-	  offset = transform.position - player.transform.position;
-
+		
+		offset = transform.position - player.transform.position;
+		
 	}
-
+	
 	void FixedUpdate () {
-
-
+		
+		
 		if (Input.GetKeyDown ("z") && charMode != 1f) {
-			//offset = offset*5;
+			offset = offset*2;
 			charMode += 1f;	
 			camHeight = camHeight*3f;
 		}
-
+		
 		
 		if (Input.GetKeyDown ("x") && charMode != -1f ) {
-			//offset = offset/5;
+			offset = offset/2;
 			charMode -= 1f;	
 			camHeight = camHeight/3f;
 		}
-
-	
+		
+		
 	}
-
-
-
+	
+	
+	
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y+3f, player.transform.position.z+offset.z); 
-			
+		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y+2f, player.transform.position.z+offset.z); 
+		
 	}
-
-
-
+	
+	
+	
 }

@@ -1,12 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\planetMovement.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\enBasicController.cs">
     <Files>
-      <File FileName="Assets\scripts\gameController.cs" Line="34" Column="41" />
-      <File FileName="Assets\scripts\playercontroller.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\enSwipingController.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\planetRotation.cs" Line="6" Column="1" />
-      <File FileName="Assets\scripts\planetMovement.cs" Line="23" Column="76" />
+      <File FileName="Assets\scripts\enBasicController.cs" Line="78" Column="1" />
+      <File FileName="Assets\scripts\gameController.cs" Line="152" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
