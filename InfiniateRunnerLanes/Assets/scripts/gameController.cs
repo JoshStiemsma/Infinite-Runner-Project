@@ -20,10 +20,12 @@ public class gameController : MonoBehaviour {
 	
 	public float tubeDelay; 
 	private bool firstFrame = false;
+
+	private float health;
 	
 	
 	void Start () {
-		enBasicDelay = .7f;
+		enBasicDelay = .1f;
 		enSpinDelay = 25f;
 		enBholeDelay = 10f;
 		enSwipeDelay = 10f;
@@ -41,18 +43,18 @@ public class gameController : MonoBehaviour {
 		StartCoroutine("StartSpawningTube");
 		
 		
-		
+
 	}
 	void FixedUpdate(){
 		if (Input.GetButtonDown ("Jump")) {
-			enBasicDelay = .1f;
+			enBasicDelay = .05f;
 			enSpinDelay = 5f;
 			enBholeDelay = 2;
 			enSwipeDelay = 3f;
 			tubeDelay = 5f;
 		}
 		if (Input.GetButton ("Jump")) {
-			enBasicDelay = .1f;
+			enBasicDelay = .05f;
 			enSpinDelay = 5;
 			enBholeDelay = 2;
 			enSwipeDelay = 3f;
@@ -60,14 +62,25 @@ public class gameController : MonoBehaviour {
 		}
 		
 		if (Input.GetButtonUp("Jump")){
-			enBasicDelay = .7f;
+			enBasicDelay = .1f;
 			enSpinDelay = 25f;
 			enBholeDelay = 10f;
 			enSwipeDelay = 15f;
 			tubeDelay = 10f;
 		}
-		
-		
+
+		//grab players health from plyer//
+		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+
+	
+
+	}
+
+
+
+	void Update() {
+		 
+
 	}
 	
 	/// <summary>
@@ -76,8 +89,9 @@ public class gameController : MonoBehaviour {
 	/// 
 	
 	GameObject SpawnBasicEnemy(){
-		return Instantiate (enBasicPrefab);
-		
+	
+			return Instantiate (enBasicPrefab);
+
 	}
 	GameObject SpawnSpinningEnemy(){
 		return Instantiate (enSpinningPrefab);
@@ -102,10 +116,10 @@ public class gameController : MonoBehaviour {
 	/// </summary>
 	IEnumerator StartSpawningBasic(){
 		while(true){
-			
+
 			SpawnBasicEnemy();
 			yield return new WaitForSeconds(enBasicDelay);
-			
+
 		}
 	}
 	

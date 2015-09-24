@@ -5,6 +5,8 @@ public class playercontroller : MonoBehaviour {
 
 	public float fieldOfView; 
 
+	public float health = 100f;
+
 
 	private float charMode = 0;
 
@@ -172,19 +174,24 @@ public class playercontroller : MonoBehaviour {
 
 
 
-	}
 
 
-	void OnTriggerStay(Collider target)
-	{
-		if(target.tag == "enemy")
+
+		if(health <= 0f)
 		{
 			Destroy(this.gameObject);
 			Instantiate(prefabexplosion, new Vector3(gameObject.transform.position.x , gameObject.transform.position.y,gameObject.transform.position.z+1f), gameObject.transform.rotation);
 			Destroy(prefabexplosion, .2f);
-
+			
 		}
+
+
 	}
+
+
+
+
+	
 
 
 

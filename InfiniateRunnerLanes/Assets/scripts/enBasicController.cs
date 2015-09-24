@@ -28,13 +28,20 @@ public class enBasicController : MonoBehaviour {
 		
 		transform.position = new Vector3 (Random.Range(-100f, 100f), Random.Range(-60f, 80f), 600);
 		transform.localScale = scales;
+
+		GameObject thePlayer = GameObject.Find("player");
+		playercontroller playercontroller = thePlayer.GetComponent<playercontroller>();
+
+
+
+
 	}
 	
 	void OnCollisionEnter(Collision col)
 	{
 		
 		Debug.Log ("HIT SOMETHING");
-		
+		GameObject.Find("player").GetComponent<playercontroller>().health -= 25.0f;;
 	}
 	
 	
