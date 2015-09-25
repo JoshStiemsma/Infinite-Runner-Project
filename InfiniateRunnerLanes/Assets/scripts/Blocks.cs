@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class enBasicController : MonoBehaviour {
+public class Blocks : MonoBehaviour {
 	
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
 	public float speed;
 	private float health;
-	Vector3 angles = Vector3.zero;
 	Vector3 scales = Vector3.zero;
 
 
@@ -23,13 +22,10 @@ public class enBasicController : MonoBehaviour {
 		} else {
 			speed = 25f;
 			/////////// Random starting angles:
-			angles.x = Random.Range (0, 360);
-			angles.y = Random.Range (0, 360);
-			angles.z = Random.Range (0, 360);
 		
-			scales.x = Random.Range (75f, 250f);
-			scales.y = Random.Range (75f, 250f);
-			scales.z = Random.Range (75f, 250f);
+			scales.x = Random.Range (1f, 100f);
+			scales.y = Random.Range (1f, 100f);
+			scales.z = Random.Range (1f, 100f);
 		
 			/////////// Spawn off the top of the screen in a random x position:
 		
@@ -63,12 +59,6 @@ public class enBasicController : MonoBehaviour {
 			speed = 50f;
 		}
 
-		//////////// Spin the object:
-		angles.x += 20 * Time.deltaTime;
-		angles.z += 40 * Time.deltaTime;
-
-
-
 		
 		
 		//////////// Move the object:
@@ -76,7 +66,6 @@ public class enBasicController : MonoBehaviour {
 		pos.z -= speed * Time.deltaTime;
 
 		if(health >= .1f){
-		transform.rotation = Quaternion.Euler (angles);
 		transform.position = pos;
 		} else{//if health is under 0
 			transform.position = transform.position;

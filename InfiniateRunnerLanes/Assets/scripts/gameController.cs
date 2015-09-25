@@ -10,6 +10,7 @@ public class gameController : MonoBehaviour {
 	public GameObject enSpinningPrefab;
 	public GameObject enBholePrefab;
 	public GameObject enSwipePrefab;
+	public GameObject BlocksPrefab;
 	
 	public GameObject tubePrefab;
 	
@@ -17,15 +18,20 @@ public class gameController : MonoBehaviour {
 	public float enSpinDelay;
 	public float enBholeDelay;
 	public float enSwipeDelay;
-	
+	public float BlocksDelay;
 	public float tubeDelay; 
-	private bool firstFrame = false;
 
+
+	private bool firstFrame = false;
 	private float health;
-	
+
+
+
+
 	
 	void Start () {
-		enBasicDelay = .3f;
+		BlocksDelay = 2f;
+		enBasicDelay = .7f;
 		enSpinDelay = 25f;
 		enBholeDelay = 10f;
 		enSwipeDelay = 10f;
@@ -40,21 +46,24 @@ public class gameController : MonoBehaviour {
 			StartCoroutine ("StartSpawningSwipe");
 		
 			StartCoroutine ("StartSpawningTube");
-		
+
+		StartCoroutine ("StartSpawningBlocks");
 		
 
 	}
 	void FixedUpdate(){
 		firstFrame = true;
 		if (Input.GetButtonDown ("Jump")) {
-			enBasicDelay = .1f;
+			BlocksDelay = 1f;
+			enBasicDelay = .5f;
 			enSpinDelay = 5f;
 			enBholeDelay = 2;
 			enSwipeDelay = 3f;
 			tubeDelay = 5f;
 		}
 		if (Input.GetButton ("Jump")) {
-			enBasicDelay = .1f;
+			BlocksDelay = 1f;
+			enBasicDelay = .5f;
 			enSpinDelay = 5;
 			enBholeDelay = 2;
 			enSwipeDelay = 3f;
@@ -62,7 +71,8 @@ public class gameController : MonoBehaviour {
 		}
 		
 		if (Input.GetButtonUp("Jump")){
-			enBasicDelay = .3f;
+			BlocksDelay = 2f;
+			enBasicDelay = .7f;
 			enSpinDelay = 25f;
 			enBholeDelay = 10f;
 			enSwipeDelay = 15f;
@@ -87,11 +97,11 @@ public class gameController : MonoBehaviour {
 	/// Spawns an enemy.
 	/// </summary>
 	/// 
-	
-	GameObject SpawnBasicEnemy(){
-	
-			return Instantiate (enBasicPrefab);
-		
+	GameObject SpawnSpinningBlocks(){
+		return Instantiate (BlocksPrefab);
+	}
+	GameObject SpawnBasicEnemy(){	
+			return Instantiate (enBasicPrefab);		
 	}
 	GameObject SpawnSpinningEnemy(){
 		return Instantiate (enSpinningPrefab);
@@ -114,6 +124,16 @@ public class gameController : MonoBehaviour {
 	/// <summary>
 	/// A coroutine that spawns enemies every half second.
 	/// </summary>
+
+
+	IEnumerator StartSpawningBlocks(){
+		while(true){
+			SpawnSpinningBlocks();
+			yield return new WaitForSeconds(BlocksDelay);
+		}
+	}
+
+
 	IEnumerator StartSpawningBasic(){
 
 		while(true){

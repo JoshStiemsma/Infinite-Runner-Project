@@ -8,6 +8,8 @@ public class playercontroller : MonoBehaviour {
 	public float health = 100f;
 
 
+
+
 	private float charMode = 0;
 
 
