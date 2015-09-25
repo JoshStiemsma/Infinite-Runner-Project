@@ -30,8 +30,7 @@ public class gameController : MonoBehaviour {
 		enBholeDelay = 10f;
 		enSwipeDelay = 10f;
 		tubeDelay = 10f;
-		
-		while (firstFrame=true) {
+
 			StartCoroutine ("StartSpawningBasic");
 		
 			StartCoroutine ("StartSpawningSpin");
@@ -41,7 +40,7 @@ public class gameController : MonoBehaviour {
 			StartCoroutine ("StartSpawningSwipe");
 		
 			StartCoroutine ("StartSpawningTube");
-		}
+		
 		
 
 	}
