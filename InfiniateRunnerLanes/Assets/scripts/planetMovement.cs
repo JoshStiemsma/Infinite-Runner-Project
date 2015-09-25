@@ -8,7 +8,7 @@ public class planetMovement : MonoBehaviour {
 	private Vector3 movement = new Vector3(0,1,0);
 	public float Speed = -50f;
 	private Vector3 pos;
-	
+	private float health;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,9 +17,11 @@ public class planetMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 		pos = transform.position;
 		
-		
-		transform.position = new Vector3(pos.x,pos.y,pos.z+(Speed*Time.deltaTime));
+		if (health >=.1) {
+			transform.position = new Vector3 (pos.x, pos.y, pos.z + (Speed * Time.deltaTime));
+		}
 	}
 }

@@ -41,11 +41,13 @@ public class playercontroller : MonoBehaviour {
 	private float boost = 0f;
 	public float boostAmount = 5f;
 
-    // Use this for initialization
+
+	public Rigidbody rb;
+	// Use this for initialization
     void Start () 
 	{
 		player = gameObject;
-
+		rb = GetComponent<Rigidbody>();
 	
 
     }
@@ -56,7 +58,7 @@ public class playercontroller : MonoBehaviour {
     void FixedUpdate ()
 	{
         pos = player.transform.position;
-	;
+		rb.velocity = new Vector3(0, 0, 0);
 		/////Character Change/////
 		/// 
 		/// 

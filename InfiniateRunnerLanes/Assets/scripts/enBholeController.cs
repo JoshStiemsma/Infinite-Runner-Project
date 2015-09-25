@@ -3,6 +3,7 @@ using System.Collections;
 
 public class enBholeController : MonoBehaviour {
 
+	private float playerHealth;
 	
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
@@ -16,6 +17,7 @@ public class enBholeController : MonoBehaviour {
     Vector3 scales = Vector3.zero;
 
     void Start () {
+		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 		speed = 25f;
         scale = Random.Range(5f, 25f);
         scales = new Vector3(10, 10, 10);
@@ -65,13 +67,16 @@ public class enBholeController : MonoBehaviour {
         //////////// Spin the object:
         angles.x += 20 * Time.deltaTime;
         angles.z += 40 * Time.deltaTime;
-        transform.rotation = Quaternion.Euler (angles);
+
 
         //////////// Move the object:
         Vector3 pos = transform.position;
-		pos.z -= speed * Time.deltaTime;
-		transform.position = pos;
-		
+
+		if (playerHealth >= .1f) {
+			transform.rotation = Quaternion.Euler (angles);
+			pos.z -= speed * Time.deltaTime;
+			transform.position = pos;
+		}
 		//////////// If off the bottom of the screen, destroy this object:
 		if (pos.z < -8) Destroy (gameObject);
 	}

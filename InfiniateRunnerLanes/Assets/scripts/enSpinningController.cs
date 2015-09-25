@@ -11,8 +11,12 @@ public class enSpinningController : MonoBehaviour {
 	/// A helper for storing euler angles. We store this to avoid gimbal lock.
 	/// </summary>
 	Vector3 angles = Vector3.zero;
-	
+
+	private float playerHealth;
+
 	void Start () {
+
+		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 		/////////// Random starting angles:
 		//angles.x = Random.Range (0, 360);
 		//angles.y = Random.Range (0, 360);
@@ -49,13 +53,17 @@ public class enSpinningController : MonoBehaviour {
 		//////////// Spin the object:
 		//angles.x += 20 * Time.deltaTime;
 		angles.z += 40 * Time.deltaTime;
-		transform.rotation = Quaternion.Euler (angles);
+
 		
 		//////////// Move the object:
 		Vector3 pos = transform.position;
-		pos.z -= speed * Time.deltaTime;
-		transform.position = pos;
-		
+	if (playerHealth >= .1f) {
+			transform.rotation = Quaternion.Euler (angles);
+			pos.z -= speed * Time.deltaTime;
+			transform.position = pos;
+		} else {
+			Destroy (gameObject);
+		}
 		//////////// If off the bottom of the screen, destroy this object:
 		if (pos.z < -8) Destroy (gameObject);
 	}

@@ -14,7 +14,11 @@ using System.Collections;
 		/// </summary>
 		Vector3 angles = Vector3.zero;
 		
+	private float playerHealth;
+
 		void Start () {
+
+		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 			speed = 25f;
 			/////////// Random starting angles:
 			//angles.x = Random.Range (0, 360);
@@ -75,9 +79,13 @@ using System.Collections;
 		}
 		pos.x += direction * speed * Time.deltaTime;
 
+
+		if (playerHealth >= .1f) {
 			pos.z -= speed * Time.deltaTime;
 			transform.position = pos;
-			
+		}else {
+			Destroy (gameObject);
+		}
 			//////////// If off the bottom of the screen, destroy this object:
 			if (pos.z < -8) Destroy (gameObject);
 		}

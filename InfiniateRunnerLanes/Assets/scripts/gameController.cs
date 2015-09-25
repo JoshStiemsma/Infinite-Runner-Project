@@ -31,21 +31,22 @@ public class gameController : MonoBehaviour {
 		enSwipeDelay = 10f;
 		tubeDelay = 10f;
 		
+		while (firstFrame=true) {
+			StartCoroutine ("StartSpawningBasic");
 		
-		StartCoroutine ("StartSpawningBasic");
+			StartCoroutine ("StartSpawningSpin");
 		
-		StartCoroutine ("StartSpawningSpin");
+			StartCoroutine ("StartSpawningbhole");
 		
-		StartCoroutine ("StartSpawningbhole");
+			StartCoroutine ("StartSpawningSwipe");
 		
-		StartCoroutine ("StartSpawningSwipe");
-		
-		StartCoroutine("StartSpawningTube");
-		
+			StartCoroutine ("StartSpawningTube");
+		}
 		
 
 	}
 	void FixedUpdate(){
+		firstFrame = true;
 		if (Input.GetButtonDown ("Jump")) {
 			enBasicDelay = .1f;
 			enSpinDelay = 5f;
@@ -69,8 +70,7 @@ public class gameController : MonoBehaviour {
 			tubeDelay = 10f;
 		}
 
-		//grab players health from plyer//
-		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+	
 
 	
 
@@ -80,7 +80,8 @@ public class gameController : MonoBehaviour {
 
 	void Update() {
 		 
-
+		//grab players health from plyer//
+		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 	}
 	
 	/// <summary>
@@ -91,7 +92,7 @@ public class gameController : MonoBehaviour {
 	GameObject SpawnBasicEnemy(){
 	
 			return Instantiate (enBasicPrefab);
-
+		
 	}
 	GameObject SpawnSpinningEnemy(){
 		return Instantiate (enSpinningPrefab);
@@ -115,11 +116,12 @@ public class gameController : MonoBehaviour {
 	/// A coroutine that spawns enemies every half second.
 	/// </summary>
 	IEnumerator StartSpawningBasic(){
-		while(true){
 
+		while(true){
+		
 			SpawnBasicEnemy();
 			yield return new WaitForSeconds(enBasicDelay);
-
+			
 		}
 	}
 	
