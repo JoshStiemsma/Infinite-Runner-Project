@@ -59,6 +59,7 @@
      <Compile Include="Assets\scripts\planetMovement.cs" />
      <Compile Include="Assets\scripts\planetRotation.cs" />
      <Compile Include="Assets\scripts\playercontroller.cs" />
+     <Compile Include="Assets\scripts\playercontrollerLANES.cs" />
      <Compile Include="Assets\scripts\resetGui.cs" />
      <Compile Include="Assets\scripts\sunMovement.cs" />
      <Compile Include="Assets\scripts\tubeController.cs" />

@@ -26,7 +26,7 @@ public class enBasicController : MonoBehaviour {
 		
 		/////////// Spawn off the top of the screen in a random x position:
 		
-		transform.position = new Vector3 (Random.Range(-100f, 100f), Random.Range(-60f, 80f), 600);
+		transform.position = new Vector3 (Random.Range(-50f, 50f), Random.Range(-40f, 40f), 600);
 		transform.localScale = scales;
 
 		GameObject thePlayer = GameObject.Find("player");

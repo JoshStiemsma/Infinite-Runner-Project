@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class playercontroller : MonoBehaviour {
+public class playercontrollerLANES : MonoBehaviour {
 
 	public float fieldOfView; 
 
@@ -33,7 +33,6 @@ public class playercontroller : MonoBehaviour {
 	public float AngY = 180f;
 	public float AngZ = 0f;
 
-	private bool tilted = false;
 
 	public GameObject prefabexplosion;
 
@@ -65,14 +64,14 @@ public class playercontroller : MonoBehaviour {
 
 		if (Input.GetKeyDown ("z") && charMode != 1) {
 			prevTransform.y = pos.y;
-            player.transform.localScale = player.transform.localScale * 7;
+            player.transform.localScale = player.transform.localScale * 3;
 			pos.y = pos.y-1.5f;
 			charMode += 1;
 
 		}
 		if (Input.GetKeyDown ("x") && charMode != -1) {
 			prevTransform.y = pos.y;
-            player.transform.localScale = player.transform.localScale / 7;
+            player.transform.localScale = player.transform.localScale / 3;
 			pos.y = pos.y +1.5f;
             charMode -= 1;
 
@@ -82,7 +81,36 @@ public class playercontroller : MonoBehaviour {
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
 
+        if (Mathf.Round(horizontal * 100f) / 100f >= .1 &&  lane !=1 && laneTimer >= .5f)
+        {
+            lane = lane + 1;
+            laneTimer = 0f;
+        }
+        if (Mathf.Round(horizontal * 100f) / 100f <= -.1 && lane != -1 && laneTimer >= .5f)
+        {
+            lane = lane - 1;
+            laneTimer = 0f;
+        }
 
+		////move charachter to choz
+        if (Mathf.Round(pos.x * 100f) / 100f != lane*30 && pos.x > lane*30)
+        {
+           
+            pos.x = pos.x - step * Time.deltaTime;
+			AngY = 160f;
+
+        }
+        else if (Mathf.Round(pos.x* 100f) / 100f != lane*30 && pos.x < lane*30)
+        {
+            pos.x = pos.x + step*Time.deltaTime;		
+			//tilt player here
+			AngY = 200f;
+        }
+        else {
+            pos.x = pos.x;
+			//tilt back player here
+			AngY = 180f;
+        }
 
 
 	
@@ -98,16 +126,9 @@ public class playercontroller : MonoBehaviour {
 			AngX = 90f;
 		}
 
-		///if horizontal input rotate ship///
-		if (Mathf.Round(horizontal * 100f) / 100f >= .1 )
-		{
-			AngY = 210f;
-		}else if (Mathf.Round(horizontal * 100f) / 100f <= -.1 )
-		{
-			AngY = 160f;
-		}else {
-			AngY = 180f;
-		}
+       ////Movement stuff///
+		/// 
+	
        
 ////////////////////////////BOOOOOOOST//////////////////////////////
 		if (Input.GetButtonDown ("Jump")) {
@@ -122,30 +143,28 @@ public class playercontroller : MonoBehaviour {
 
 
 
+		//pos.z = (pos.z + (speed* Time.deltaTime)+boost);
+
 
 
 
 
 		pos.y = (pos.y + (vertical * Time.deltaTime* speed));
-		pos.x = (pos.x + (horizontal * Time.deltaTime * speed));
-
-		if (pos.y >= 40f) {
-			pos.y = 40;
-		} else if (pos.y <= -25f) {
-			pos.y = -25f;
-		} 
-		if (pos.x >= 50f) {
-			pos.x = 50;
-		} else if (pos.x <= -50f) {
-			pos.x = -50f;
-		} 
-
-		if (health >= .1f) {
-			transform.eulerAngles = new Vector3 (AngX, AngY, AngZ);
-			player.transform.position = new Vector3 (pos.x, pos.y, 0);
+		if (pos.y >= 20f) {
+			pos.y = 20;
+		} else if (pos.y <= 0f) {
+			pos.y = 0f;
+		} else {
 		}
+		transform.eulerAngles = new Vector3(AngX,AngY,AngZ);
+        player.transform.position = new Vector3(pos.x, pos.y, pos.z);
 
-    
+
+        /////laneTimer
+        if (laneTimer <= 4) {
+            laneTimer = laneTimer + (1 * Time.deltaTime);
+       
+        }
 
 
 		lastZ = player.transform.position.z;

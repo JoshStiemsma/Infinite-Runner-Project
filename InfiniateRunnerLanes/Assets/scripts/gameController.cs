@@ -25,7 +25,7 @@ public class gameController : MonoBehaviour {
 	
 	
 	void Start () {
-		enBasicDelay = .1f;
+		enBasicDelay = .3f;
 		enSpinDelay = 25f;
 		enBholeDelay = 10f;
 		enSwipeDelay = 10f;
@@ -47,14 +47,14 @@ public class gameController : MonoBehaviour {
 	}
 	void FixedUpdate(){
 		if (Input.GetButtonDown ("Jump")) {
-			enBasicDelay = .05f;
+			enBasicDelay = .1f;
 			enSpinDelay = 5f;
 			enBholeDelay = 2;
 			enSwipeDelay = 3f;
 			tubeDelay = 5f;
 		}
 		if (Input.GetButton ("Jump")) {
-			enBasicDelay = .05f;
+			enBasicDelay = .1f;
 			enSpinDelay = 5;
 			enBholeDelay = 2;
 			enSwipeDelay = 3f;
@@ -62,7 +62,7 @@ public class gameController : MonoBehaviour {
 		}
 		
 		if (Input.GetButtonUp("Jump")){
-			enBasicDelay = .1f;
+			enBasicDelay = .3f;
 			enSpinDelay = 25f;
 			enBholeDelay = 10f;
 			enSwipeDelay = 15f;

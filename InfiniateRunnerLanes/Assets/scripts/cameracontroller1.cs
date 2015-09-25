@@ -9,7 +9,7 @@ public class cameracontroller1 : MonoBehaviour {
 	public Vector3 offset;
 	
 	private float charMode = 0f;
-	public float camHeight = 6f;
+	public float camHeight = 1f;
 	// Use this for initialization
 	void Start () {
 		
@@ -21,16 +21,16 @@ public class cameracontroller1 : MonoBehaviour {
 		
 		
 		if (Input.GetKeyDown ("z") && charMode != 1f) {
-			offset = offset*2;
+			offset = offset*4;
 			charMode += 1f;	
-			camHeight = camHeight*3f;
+			camHeight = camHeight+2.5f;
 		}
 		
 		
 		if (Input.GetKeyDown ("x") && charMode != -1f ) {
-			offset = offset/2;
+			offset = offset/4;
 			charMode -= 1f;	
-			camHeight = camHeight/3f;
+			camHeight = camHeight = camHeight-2.5f;
 		}
 		
 		
@@ -41,7 +41,7 @@ public class cameracontroller1 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y+2f, player.transform.position.z+offset.z); 
+		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y+camHeight, player.transform.position.z+offset.z); 
 		
 	}
 	
