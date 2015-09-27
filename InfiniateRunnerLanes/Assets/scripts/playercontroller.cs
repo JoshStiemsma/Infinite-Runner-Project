@@ -5,15 +5,21 @@ public class playercontroller : MonoBehaviour {
 
 	public float fieldOfView; 
 
-	public float health = 100f;
+	
+	private GameObject player;
+	public GameObject playerPrefab;
+	public GameObject startPositionObj;
+	public Vector3 startPos;
+	public Rigidbody rb;
+	public float health = 25f;
+	public bool playerAlive;
 
-
+	public bool launchedExplosion;
 
 
 	private float charMode = 0;
 
 
-    private GameObject player;
 
     public float step = 3f;
     public float speed;
@@ -23,12 +29,19 @@ public class playercontroller : MonoBehaviour {
     public Transform target;
 
     /// Reset Testings//
-    public float lastZ = 0f;
+	public Vector3 initPos;
+	public Quaternion initRot;
+
+	private GameObject cloneExp;
+	
+	public float lastZ = 0f;
 	public float lastX = 0f;
 	public float lastY = 0f;
     public float deathCounter;
     private Vector3 pos;
 	private Vector3 prevTransform;
+
+
 
 
 	public float AngX = 90f;
@@ -44,22 +57,36 @@ public class playercontroller : MonoBehaviour {
 	public float boostAmount = 5f;
 
 
-	public Rigidbody rb;
+
+
+	public GameObject[] EnemyObjects;
+
+
+	public float pickUpCount;
+
+
 	// Use this for initialization
     void Start () 
 	{
+		startPos = startPositionObj.transform.position;
+		///instantiate player
+
+
 		player = gameObject;
 		rb = GetComponent<Rigidbody>();
-	
-
+		playerAlive = true;
+		launchedExplosion = false;
+		EnemyObjects = GameObject.FindGameObjectsWithTag ("enemy");
+		initPos = player.transform.position;
+		initRot = player.transform.localRotation;
     }
-
 
 
 
     void FixedUpdate ()
 	{
-        pos = player.transform.position;
+		EnemyObjects = GameObject.FindGameObjectsWithTag ("enemy");
+		pos = player.transform.position;
 		rb.velocity = new Vector3(0, 0, 0);
 		/////Character Change/////
 		/// 
@@ -114,12 +141,12 @@ public class playercontroller : MonoBehaviour {
 		}
        
 ////////////////////////////BOOOOOOOST//////////////////////////////
-		if (Input.GetButtonDown ("Jump")) {
+		if (Input.GetButtonDown ("Jump") && playerAlive==true) {
 			boost = boostAmount;
 			Camera.main.fieldOfView = 65f;
 		}
 
-		if (Input.GetButtonUp("Jump")){
+		if (Input.GetButtonUp("Jump")&& playerAlive==true){
 			boost = 0f;
 			Camera.main.fieldOfView = 60f;
 		}
@@ -164,13 +191,43 @@ public class playercontroller : MonoBehaviour {
 
 		if(health <= 0f)
 		{
-			Destroy(this.gameObject);
-			Instantiate(prefabexplosion, new Vector3(gameObject.transform.position.x , gameObject.transform.position.y,gameObject.transform.position.z+1f), gameObject.transform.rotation);
-			Destroy(prefabexplosion, .2f);
-			
+			health = 0f;
+			playerAlive = false;
+			Debug.Log("player dead");
+			//GetComponent<Renderer>().gameObject.active = false;
+			pickUpCount = 0;
 		}
 
+		if (playerAlive == false && launchedExplosion == false) {
+			var cloneExp = Instantiate (prefabexplosion, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 1f), gameObject.transform.rotation);
+			Destroy(cloneExp, 1f);
+			Debug.Log ("played explosion");
+			launchedExplosion = true;
+		} 
 
+
+		if (playerAlive==false && Input.GetButtonDown("Submit")){
+			//GetComponent<Renderer>().gameObject.active = true;
+
+			Debug.Log("player pressed enter");
+			//Destroy enemies
+			for(var i = 0 ; i < EnemyObjects.Length ; i ++)
+			{
+				Destroy(EnemyObjects[i]);
+			}
+				player.transform.position = initPos;
+				player.transform.localRotation = initRot;
+				GameObject.Find ("player").GetComponent<playercontroller> ().health = 100f;
+				playerAlive = true;
+				
+			
+			//Reorient player
+
+
+		}
+		
+		
+		
 	}
 
 

@@ -18,7 +18,7 @@ using System.Collections;
 
 		void Start () {
 
-		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 			speed = 25f;
 			/////////// Random starting angles:
 			//angles.x = Random.Range (0, 360);

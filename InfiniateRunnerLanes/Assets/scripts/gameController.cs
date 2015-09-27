@@ -6,80 +6,62 @@ public class gameController : MonoBehaviour {
 	/// <summary>
 	/// The enemy prefab to spawn.
 	/// </summary>
+	//enemies
 	public GameObject enBasicPrefab;
 	public GameObject enSpinningPrefab;
 	public GameObject enBholePrefab;
 	public GameObject enSwipePrefab;
 	public GameObject BlocksPrefab;
-	
+	//exteriors
 	public GameObject tubePrefab;
-	
+	//pickups
+	public GameObject pickUp01Prefab;
+
+
+
+
 	public float enBasicDelay;
 	public float enSpinDelay;
 	public float enBholeDelay;
 	public float enSwipeDelay;
 	public float BlocksDelay;
 	public float tubeDelay; 
-
+	public float pickUpDelay;
 
 	private bool firstFrame = false;
 	private float health;
 
-
-
+	public float playerHealth;
+	private bool playerAlive = true;
 
 	
 	void Start () {
-		BlocksDelay = 2f;
-		enBasicDelay = .7f;
-		enSpinDelay = 25f;
-		enBholeDelay = 10f;
-		enSwipeDelay = 10f;
-		tubeDelay = 10f;
 
-			StartCoroutine ("StartSpawningBasic");
-		
-			StartCoroutine ("StartSpawningSpin");
-		
-			StartCoroutine ("StartSpawningbhole");
-		
-			StartCoroutine ("StartSpawningSwipe");
-		
-			StartCoroutine ("StartSpawningTube");
+		initObsticleDelays ();
+		StartCoroutines();
 
-		StartCoroutine ("StartSpawningBlocks");
-		
+		//grab players health from plyer//
+		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 
 	}
 	void FixedUpdate(){
 		firstFrame = true;
-		if (Input.GetButtonDown ("Jump")) {
-			BlocksDelay = 1f;
-			enBasicDelay = .5f;
-			enSpinDelay = 5f;
-			enBholeDelay = 2;
-			enSwipeDelay = 3f;
-			tubeDelay = 5f;
+		if (Input.GetButtonDown ("Jump")&& health >=.1f) {
+			initBoostDelays();
 		}
-		if (Input.GetButton ("Jump")) {
-			BlocksDelay = 1f;
-			enBasicDelay = .5f;
-			enSpinDelay = 5;
-			enBholeDelay = 2;
-			enSwipeDelay = 3f;
-			tubeDelay = 5f;
+		if (Input.GetButton ("Jump")&& health >=.1f) {
+			initBoostDelays();
+
 		}
 		
-		if (Input.GetButtonUp("Jump")){
-			BlocksDelay = 2f;
-			enBasicDelay = .7f;
-			enSpinDelay = 25f;
-			enBholeDelay = 10f;
-			enSwipeDelay = 15f;
-			tubeDelay = 10f;
+		if (Input.GetButtonUp("Jump")&& health >=.1f){
+			initObsticleDelays ();
 		}
 
 	
+
+
+
 
 	
 
@@ -91,12 +73,67 @@ public class gameController : MonoBehaviour {
 		 
 		//grab players health from plyer//
 		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		playerHealth = health;
+		if (health <= 0) {
+			Debug.Log ("Pause enemies");
+			BlocksDelay = 100000f;
+			enBasicDelay = 100000f;
+			enSpinDelay = 100000f;
+			enBholeDelay = 100000f;
+			enSwipeDelay = 100000f;
+			tubeDelay = 100000f;
+			pickUpDelay = 1000000000f;
+			playerAlive = false;
+			StopAllCoroutines();
+		
+		
+		} 
+		if (playerAlive== false) {
+			if (health >= .1f && Input.GetButtonDown ("Submit")) {
+				Debug.Log ("Resume enemies");
+				initObsticleDelays ();
+				playerAlive = true;
+				StartCoroutines();
+			}
+		}
 	}
 	
 	/// <summary>
 	/// Spawns an enemy.
 	/// </summary>
 	/// 
+	void StartCoroutines(){
+		StartCoroutine ("StartSpawningBasic");	
+		StartCoroutine ("StartSpawningSpin");			
+		StartCoroutine ("StartSpawningbhole");		
+		StartCoroutine ("StartSpawningSwipe");		
+		StartCoroutine ("StartSpawningTube");		
+		StartCoroutine ("StartSpawningBlocks");
+		StartCoroutine ("PickUp01");
+		
+	}
+	void initObsticleDelays(){
+		BlocksDelay = 2f;
+		enBasicDelay = .7f;
+		enSpinDelay = 25f;
+		enBholeDelay = 10f;
+		enSwipeDelay = 10f;
+		tubeDelay = 10f;
+		pickUpDelay = 25;
+	}
+
+	void initBoostDelays(){
+		BlocksDelay = 1f;
+		enBasicDelay = .5f;
+		enSpinDelay = 5;
+		enBholeDelay = 2;
+		enSwipeDelay = 3f;
+		tubeDelay = 5f;
+		pickUpDelay = 15f;
+	}
+
+
+
 	GameObject SpawnSpinningBlocks(){
 		return Instantiate (BlocksPrefab);
 	}
@@ -116,6 +153,9 @@ public class gameController : MonoBehaviour {
 	GameObject Spawntube() {
 		return Instantiate(tubePrefab);
 	}
+	GameObject SpawnPickUp01() {
+		return Instantiate (pickUp01Prefab);
+	}
 	
 	
 	
@@ -124,7 +164,12 @@ public class gameController : MonoBehaviour {
 	/// <summary>
 	/// A coroutine that spawns enemies every half second.
 	/// </summary>
-
+	IEnumerator PickUp01(){
+		while(true){
+			SpawnPickUp01();
+			yield return new WaitForSeconds(pickUpDelay);
+		}
+	}
 
 	IEnumerator StartSpawningBlocks(){
 		while(true){

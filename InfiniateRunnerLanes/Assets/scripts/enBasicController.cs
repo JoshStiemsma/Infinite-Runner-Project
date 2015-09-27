@@ -15,8 +15,7 @@ public class enBasicController : MonoBehaviour {
 	
 	void Start () {
 
-		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
-
+	health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		if (health <= 0f) {
 			Destroy(gameObject);
 
@@ -50,7 +49,7 @@ public class enBasicController : MonoBehaviour {
 	
 	
 	void Update () {
-		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 
 			////////////////////////////BOOOOOOOST//////////////////////////////
 		if (Input.GetButtonDown ("Jump")) {

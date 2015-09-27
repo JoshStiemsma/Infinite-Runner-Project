@@ -7,7 +7,7 @@ public class tubeController : MonoBehaviour {
 	private float playerHealth;
     // Use this for initialization
     void Start () {
-		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
         speed = 350f;
         transform.position = new Vector3( 0f, 6.42f, 4000f);
     }

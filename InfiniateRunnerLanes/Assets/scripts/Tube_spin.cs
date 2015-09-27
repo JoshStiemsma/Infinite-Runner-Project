@@ -15,7 +15,7 @@ public class Tube_spin : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 
 		if (health >= .1f) {
 			transform.Rotate (rotateDirection * Time.deltaTime, rotateSpeed);

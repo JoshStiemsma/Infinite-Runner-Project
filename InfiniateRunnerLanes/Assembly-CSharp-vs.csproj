@@ -49,6 +49,7 @@
      <Compile Include="Assets\scripts\Blocks.cs" />
      <Compile Include="Assets\scripts\HUD.cs" />
      <Compile Include="Assets\scripts\JetParticleController.cs" />
+     <Compile Include="Assets\scripts\Pickup01.cs" />
      <Compile Include="Assets\scripts\Tube_spin.cs" />
      <Compile Include="Assets\scripts\cameracontroller.cs" />
      <Compile Include="Assets\scripts\cameracontroller1.cs" />

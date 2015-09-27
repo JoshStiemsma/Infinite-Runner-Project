@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class enBholeController : MonoBehaviour {
@@ -17,7 +17,7 @@ public class enBholeController : MonoBehaviour {
     Vector3 scales = Vector3.zero;
 
     void Start () {
-		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;;
 		speed = 25f;
         scale = Random.Range(5f, 25f);
         scales = new Vector3(10, 10, 10);
@@ -38,7 +38,7 @@ public class enBholeController : MonoBehaviour {
 	{
 		
 		Debug.Log ("HIT SOMETHING");
-		
+		GameObject.Find("player").GetComponent<playercontroller>().health -= 100f;;
 	}
 	
 	void Update () {

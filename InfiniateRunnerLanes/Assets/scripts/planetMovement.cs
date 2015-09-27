@@ -9,6 +9,7 @@ public class planetMovement : MonoBehaviour {
 	public float Speed = -50f;
 	private Vector3 pos;
 	private float health;
+	public float playerHealth;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,7 +18,7 @@ public class planetMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		pos = transform.position;
 		
 		if (health >=.1) {
