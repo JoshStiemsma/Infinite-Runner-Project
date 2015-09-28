@@ -46,8 +46,8 @@ public class playercontroller : MonoBehaviour {
 
 
 
-	public float AngX = 90f;
-	public float AngY = 180f;
+	public float AngX = 0f;
+	public float AngY = 0f;
 	public float AngZ = 0f;
 
 	private bool tilted = false;
@@ -140,25 +140,26 @@ public class playercontroller : MonoBehaviour {
 		///if verticle input rotate ship/////////////////////////
 		if (Mathf.Round(vertical * 100f) / 100f >= .1 )
 		{
-			AngX = 110f;
+			AngX = -15f;
 		}else if (Mathf.Round(vertical * 100f) / 100f <= -.1 )
 		{
-			AngX = 70f;
+			AngX = 15f;
 		}else {
-			AngX = 90f;
+			AngX = 0f;
 		}
 
 		///if horizontal input rotate ship////////////////////////////////////////////
 		if (Mathf.Round(horizontal * 100f) / 100f >= .1 )
 		{
-			AngY = 210f;
+			AngZ = -20f;
 		}else if (Mathf.Round(horizontal * 100f) / 100f <= -.1 )
 		{
-			AngY = 160f;
+			AngZ = 20f;
 		}else {
-			AngY = 180f;
+			AngZ = 0.0f;
 		}
        
+		AngY = 0f;
 		/////////////////////////fuel/////////////////
 		
 
