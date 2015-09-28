@@ -6,7 +6,7 @@ public class enSpinningController : MonoBehaviour {
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
-	public float speed = 25f;
+	public float speed;
 	/// <summary>
 	/// A helper for storing euler angles. We store this to avoid gimbal lock.
 	/// </summary>
@@ -15,7 +15,7 @@ public class enSpinningController : MonoBehaviour {
 	private float playerHealth;
 
 	void Start () {
-
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 		/////////// Random starting angles:
 		//angles.x = Random.Range (0, 360);
@@ -36,17 +36,7 @@ public class enSpinningController : MonoBehaviour {
 	
 	void Update () {
 		////////////////////////////BOOOOOOOST//////////////////////////////
-		if (Input.GetButtonDown ("Jump")) {
-			speed = 250f;
-		}
-		if (Input.GetButton ("Jump")) {
-			speed = 250f;
-		}
-		
-		
-		if (Input.GetButtonUp("Jump")){
-			speed = 25f;
-		}
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 
 
 

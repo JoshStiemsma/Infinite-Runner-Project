@@ -18,7 +18,7 @@ public class enBholeController : MonoBehaviour {
 
     void Start () {
 		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;;
-		speed = 25f;
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
         scale = Random.Range(5f, 25f);
         scales = new Vector3(10, 10, 10);
 
@@ -44,17 +44,7 @@ public class enBholeController : MonoBehaviour {
 	void Update () {
 		
 		////////////////////////////BOOOOOOOST//////////////////////////////
-		if (Input.GetButtonDown ("Jump")) {
-			speed = 250f;
-		}
-		if (Input.GetButton ("Jump")) {
-			speed = 250f;
-		}
-		
-		
-		if (Input.GetButtonUp("Jump")){
-			speed = 25f;
-		}
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 
 
         transform.localScale = scales;

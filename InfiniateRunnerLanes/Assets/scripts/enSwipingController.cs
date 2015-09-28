@@ -19,7 +19,7 @@ using System.Collections;
 		void Start () {
 
 		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-			speed = 25f;
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 			/////////// Random starting angles:
 			//angles.x = Random.Range (0, 360);
 			//angles.y = Random.Range (0, 360);
@@ -42,17 +42,7 @@ using System.Collections;
 		void Update () {
 			
 			////////////////////////////BOOOOOOOST//////////////////////////////
-			if (Input.GetButtonDown ("Jump")) {
-				speed = 250f;
-			}
-			if (Input.GetButton ("Jump")) {
-				speed = 250f;
-			}
-			
-			
-			if (Input.GetButtonUp("Jump")){
-				speed = 25f;
-			}
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 			
 			
 			

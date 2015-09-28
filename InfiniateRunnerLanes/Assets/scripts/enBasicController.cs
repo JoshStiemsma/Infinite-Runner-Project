@@ -20,7 +20,7 @@ public class enBasicController : MonoBehaviour {
 			Destroy(gameObject);
 
 		} else {
-			speed = 25f;
+			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;;
 			/////////// Random starting angles:
 			angles.x = Random.Range (0, 360);
 			angles.y = Random.Range (0, 360);
@@ -52,15 +52,7 @@ public class enBasicController : MonoBehaviour {
 		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 
 			////////////////////////////BOOOOOOOST//////////////////////////////
-		if (Input.GetButtonDown ("Jump")) {
-			speed = 250f;
-		}
-		if (Input.GetButton ("Jump")) {
-			speed = 250f;
-		}		
-		if (Input.GetButtonUp("Jump")){
-			speed = 50f;
-		}
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 
 		//////////// Spin the object:
 		angles.x += 20 * Time.deltaTime;

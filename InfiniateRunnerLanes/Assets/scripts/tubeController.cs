@@ -8,26 +8,13 @@ public class tubeController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-        speed = 350f;
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
         transform.position = new Vector3( 0f, 6.42f, 4000f);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Jump"))
-        {
-            speed = 500f;
-        }
-        if (Input.GetButton("Jump"))
-        {
-            speed = 500f;
-        }
-
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            speed = 250f;
-        }
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 
         angles.x = transform.rotation.x;
         angles.y = transform.rotation.y;

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Pickup01 : MonoBehaviour {
+public class fuelCellController : MonoBehaviour {
 
-	public Vector3 rot;
+	private Vector3 rot;
 	private Vector3 pos;
-	public float speed;
+	private float speed;
 	private float playerHealth;
 	
 	// Use this for initialization
@@ -17,20 +17,21 @@ public class Pickup01 : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col)
 	{
-		GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount++;
+		GameObject.Find ("player").GetComponent<playercontroller> ().fuel = GameObject.Find ("player").GetComponent<playercontroller> ().fuel + 25f;
 		Destroy (gameObject);
 	}
 	// Update is called once per frame
 	void Update () {
-		////////////////////////////BOOOOOOOST//////////////////////////////
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		////////////////////////////BOOOOOOOST//////////////////////////////
+
 		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		
 		//////////// Move the object:
 		Vector3 pos = transform.position;
 		pos.z -= speed * Time.deltaTime;
-		rot.x += 20 * Time.deltaTime;
-		rot.y += 20 * Time.deltaTime;
+		rot.x += 50 * Time.deltaTime;
+		rot.y += 50 * Time.deltaTime;
 
 
 

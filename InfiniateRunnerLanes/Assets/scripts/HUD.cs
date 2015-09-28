@@ -6,13 +6,13 @@ public class HUD : MonoBehaviour {
 	public Text Health;
 	private float playerHealth;
 
-	public Text Score;
-	public float playerScore;
+	public Text Fuel;
+	public float playerFuel;
 
 
 	public Text restart;
 	private bool playerAlive = true;
-	private float finalScore;
+
 
 	public Text Pickups;
 	public float pickUpCount;
@@ -22,11 +22,11 @@ public class HUD : MonoBehaviour {
 	void Start () {
 		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		pickUpCount =  GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount;
+		playerFuel = GameObject.Find ("player").GetComponent<playercontroller> ().fuel;
 
-		playerScore = 0;
 		Health.text = "Health:" + playerHealth.ToString();
 		Pickups.text = "Pickups:" + pickUpCount.ToString ();	
-		Score.text = "Score:" + playerScore.ToString ("F1");
+		Fuel.text = "Fuel:" + playerFuel.ToString ("F1") + "/100";
 		restart.text = "";
 	}
 	
@@ -34,23 +34,24 @@ public class HUD : MonoBehaviour {
 	void Update () {
 		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		pickUpCount =  GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount;
+		playerFuel = GameObject.Find ("player").GetComponent<playercontroller> ().fuel;
 		Health.text = "Health:"  + playerHealth.ToString();
 		Pickups.text = "Pickups:" + pickUpCount.ToString();
-	
+		Fuel.text = "Fuel:" + playerFuel.ToString ("F1") + "/100";
 			
 
 
 		if (playerHealth <= 0) {
 			restart.text = "Press Enter to Restart!";
 			playerAlive = false;
-			finalScore = playerScore;
-			Score.text = "Score:" + finalScore.ToString ("F1");
+
+
 
 
 		} else {
-			playerScore = playerScore+1*Time.deltaTime;
+
 			restart.text = "";
-			Score.text = "Score:" + playerScore.ToString ("F1");
+
 		}
 
 

@@ -12,30 +12,45 @@ public class gameController : MonoBehaviour {
 	public GameObject enBholePrefab;
 	public GameObject enSwipePrefab;
 	public GameObject BlocksPrefab;
-	//exteriors
+	//exteriors and walls
 	public GameObject tubePrefab;
+	public GameObject MedHoleWallPrefab;
 	//pickups
 	public GameObject pickUp01Prefab;
+	public GameObject fuelCellPrefab;
 
 
 
+	private float enBasicDelay;
+	private float enSpinDelay;
+	private float enBholeDelay;
+	private float enSwipeDelay;
+	private float BlocksDelay;
 
-	public float enBasicDelay;
-	public float enSpinDelay;
-	public float enBholeDelay;
-	public float enSwipeDelay;
-	public float BlocksDelay;
-	public float tubeDelay; 
-	public float pickUpDelay;
+	private float tubeDelay; 
+	private float MedHoleWallDelay;
+
+	private float pickUpDelay;
+	private float fuelCellDelay;
 
 	private bool firstFrame = false;
 	private float health;
 
+
+	//fuel
+	private float fuel;
+
 	public float playerHealth;
 	private bool playerAlive = true;
 
-	
+
+
+
+
 	void Start () {
+	
+	
+
 
 		initObsticleDelays ();
 		StartCoroutines();
@@ -60,7 +75,7 @@ public class gameController : MonoBehaviour {
 
 	
 
-
+	
 
 
 	
@@ -71,6 +86,8 @@ public class gameController : MonoBehaviour {
 
 	void Update() {
 		 
+	
+
 		//grab players health from plyer//
 		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 		playerHealth = health;
@@ -83,6 +100,8 @@ public class gameController : MonoBehaviour {
 			enSwipeDelay = 100000f;
 			tubeDelay = 100000f;
 			pickUpDelay = 1000000000f;
+			fuelCellDelay = 100000000f;
+			MedHoleWallDelay = 100000000000f;
 			playerAlive = false;
 			StopAllCoroutines();
 		
@@ -110,6 +129,8 @@ public class gameController : MonoBehaviour {
 		StartCoroutine ("StartSpawningTube");		
 		StartCoroutine ("StartSpawningBlocks");
 		StartCoroutine ("PickUp01");
+		StartCoroutine ("StartSpawningFuelCell");
+		StartCoroutine ("StartSpawningMedHoleWall");
 		
 	}
 	void initObsticleDelays(){
@@ -119,7 +140,9 @@ public class gameController : MonoBehaviour {
 		enBholeDelay = 10f;
 		enSwipeDelay = 10f;
 		tubeDelay = 10f;
-		pickUpDelay = 25;
+		pickUpDelay = 40;
+		fuelCellDelay =25;
+		MedHoleWallDelay = 40;
 	}
 
 	void initBoostDelays(){
@@ -129,7 +152,9 @@ public class gameController : MonoBehaviour {
 		enBholeDelay = 2;
 		enSwipeDelay = 3f;
 		tubeDelay = 5f;
-		pickUpDelay = 15f;
+		pickUpDelay = 30f;
+		fuelCellDelay = 15f;
+		MedHoleWallDelay = 20f;
 	}
 
 
@@ -150,13 +175,23 @@ public class gameController : MonoBehaviour {
 	GameObject SpawnSwipeEnemy(){
 		return Instantiate (enSwipePrefab);	
 	}
+
+	GameObject SpawnMedHoleWall(){
+		return Instantiate (MedHoleWallPrefab);
+	}
+
 	GameObject Spawntube() {
 		return Instantiate(tubePrefab);
 	}
+
+
 	GameObject SpawnPickUp01() {
 		return Instantiate (pickUp01Prefab);
 	}
-	
+	GameObject SpawnFuelCells() {
+		return Instantiate (fuelCellPrefab);
+	}
+
 	
 	
 	
@@ -164,10 +199,23 @@ public class gameController : MonoBehaviour {
 	/// <summary>
 	/// A coroutine that spawns enemies every half second.
 	/// </summary>
+	IEnumerator StartSpawningMedHoleWall(){
+		while(true){
+			SpawnMedHoleWall();
+			yield return new WaitForSeconds(MedHoleWallDelay);
+		}
+	}
+
 	IEnumerator PickUp01(){
 		while(true){
 			SpawnPickUp01();
 			yield return new WaitForSeconds(pickUpDelay);
+		}
+	}
+	IEnumerator StartSpawningFuelCell(){
+		while(true){
+			SpawnFuelCells();
+			yield return new WaitForSeconds(fuelCellDelay);
 		}
 	}
 
