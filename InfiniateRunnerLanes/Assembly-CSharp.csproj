@@ -46,7 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\HUD.cs" />
+     <Compile Include="Assets\scripts\HUD\HUD.cs" />
+     <Compile Include="Assets\scripts\HUD\HealthBar.cs" />
      <Compile Include="Assets\scripts\JetParticleController.cs" />
      <Compile Include="Assets\scripts\Obsticles\Blocks.cs" />
      <Compile Include="Assets\scripts\Obsticles\enBasicController.cs" />
@@ -70,6 +71,9 @@
      <Compile Include="Assets\scripts\playercontroller.cs" />
      <Compile Include="Assets\scripts\playercontrollerLANES.cs" />
      <Compile Include="Assets\scripts\resetGui.cs" />
+     <None Include="Assets\Images\sprites.xml" />
+     <None Include="Assets\Images\Health01.xml" />
+     <None Include="Assets\Images\HealthSpirit.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

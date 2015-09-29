@@ -3,11 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class HUD : MonoBehaviour {
+
 	public Text Health;
 	private float playerHealth;
 
 	public Text Fuel;
 	public float playerFuel;
+
 
 
 	public Text restart;

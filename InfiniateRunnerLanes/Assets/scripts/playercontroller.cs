@@ -90,7 +90,7 @@ public class playercontroller : MonoBehaviour {
 		forwardSpeed = 150f;
 		shield = false;
 
-		Debug.Log ("is shield on?" + shield);
+	
 
 		playerRoll = GetComponent<Animation> ();
 		BarrelRollDegs = Mathf.Clamp(BarrelRollDegs, -10, 10);
@@ -113,7 +113,7 @@ public class playercontroller : MonoBehaviour {
     void FixedUpdate ()
 	{
 
-
+		Debug.Log (health);
 		EnemyObjects = GameObject.FindGameObjectsWithTag ("enemy");
 		pos = player.transform.position;
 		rb.velocity = new Vector3(0, 0, 0);
@@ -288,15 +288,6 @@ public class playercontroller : MonoBehaviour {
 
 
 
-		//////OUT OF HEALTH
-		if(health <= 0f && fuel >= .1f)
-		{
-			health = 0f;
-			playerAlive = false;
-
-			//GetComponent<Renderer>().gameObject.active = false;
-			pickUpCount = 0;
-		}
 
 		if (playerAlive == false && launchedExplosion == false) {
 			var cloneExp = Instantiate (prefabexplosion, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 1f), gameObject.transform.rotation);
@@ -338,7 +329,16 @@ public class playercontroller : MonoBehaviour {
 
 		}
 		
-		
+		//////OUT OF HEALTH
+		if(health <= 0f && fuel >= .1f)
+		{
+			health = 0f;
+			playerAlive = false;
+			
+			//GetComponent<Renderer>().gameObject.active = false;
+			pickUpCount = 0;
+		}
+
 		
 	}
 

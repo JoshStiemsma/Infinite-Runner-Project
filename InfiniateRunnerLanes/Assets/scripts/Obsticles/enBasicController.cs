@@ -11,6 +11,8 @@ public class enBasicController : MonoBehaviour {
 	Vector3 angles = Vector3.zero;
 	Vector3 scales = Vector3.zero;
 
+	public bool shieldOn;
+
 
 	
 	void Start () {
@@ -42,18 +44,22 @@ public class enBasicController : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision col)
 	{
-		GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
-		Debug.Log ("HIT SOMETHING");
+
+	
+		if (shieldOn == false) {
 		
-		if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = true) {
-			GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
-		} else if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = false) {
 			GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
-		}
+		} else if (shieldOn == true) {
+			GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+		} 
+		//GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+		Destroy (this.gameObject);
 	}
 	
 	
 	void Update () {
+		Debug.Log (shieldOn);
+		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
 		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 
 			////////////////////////////BOOOOOOOST//////////////////////////////
