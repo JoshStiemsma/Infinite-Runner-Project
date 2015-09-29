@@ -17,6 +17,7 @@ public class Pickup01 : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col)
 	{
+		Debug.Log ("GRABBED Pickup");
 		GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount++;
 		Destroy (gameObject);
 	}

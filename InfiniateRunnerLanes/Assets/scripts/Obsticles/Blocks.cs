@@ -39,10 +39,14 @@ public class Blocks : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision col)
 	{
-		
+		GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
 		Debug.Log ("HIT SOMETHING");
-		GameObject.Find("player").GetComponent<playercontroller>().health -= 25.0f;
 
+		if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = true) {
+			GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+		} else if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = false) {
+			GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+		}
 	}
 	
 	

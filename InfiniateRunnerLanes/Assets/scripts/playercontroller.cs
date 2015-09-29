@@ -13,12 +13,23 @@ public class playercontroller : MonoBehaviour {
 	public Rigidbody rb;
 	public float health = 25f;
 	public bool playerAlive;
+	public bool shield = false;
+
 
 	public bool launchedExplosion;
 	private bool launchedStall;
 
 
 	private float charMode = 0;
+
+	//Barrel Roll double clic
+	private int hzH = 0;//Axis
+	private bool hzSwitch = false; //Switch
+	private float pressedTime; //Time
+	private float BarrelRollDegs = 0;
+	private bool inRoll = false;
+	private float rollAnimCounter;
+
 
 
 
@@ -68,11 +79,21 @@ public class playercontroller : MonoBehaviour {
 	public float pickUpCount;
 
 
+	private Animation playerRoll;
+
+
+
 	// Use this for initialization
     void Start () 
 	{
 		fuel = 100f;
 		forwardSpeed = 150f;
+		shield = false;
+
+		Debug.Log ("is shield on?" + shield);
+
+		playerRoll = GetComponent<Animation> ();
+		BarrelRollDegs = Mathf.Clamp(BarrelRollDegs, -10, 10);
 
 		startPos = startPositionObj.transform.position;
 		///instantiate player
@@ -149,18 +170,63 @@ public class playercontroller : MonoBehaviour {
 		}
 
 		///if horizontal input rotate ship////////////////////////////////////////////
-		if (Mathf.Round(horizontal * 100f) / 100f >= .1 )
+		if (Mathf.Round(horizontal * 100f) / 100f >= .1) //&& inRoll==false// )
 		{
 			AngZ = -20f;
-		}else if (Mathf.Round(horizontal * 100f) / 100f <= -.1 )
+		}else if (Mathf.Round(horizontal * 100f) / 100f <= -.1)// && inRoll==false )
 		{
 			AngZ = 20f;
 		}else {
 			AngZ = 0.0f;
-		}
-       
+		}     
 		AngY = 0f;
-		/////////////////////////fuel/////////////////
+
+		////double tap testers
+		if(hzH == 2)
+		{
+			//player.transform.localRotation = Quaternion.Euler(0, 0, BarrelRollDegs);
+			GetComponent<Animation>().Play ("BarrelRoll");
+			Debug.Log("HE PRESSED IT TWICE "); 
+			pressedTime = 0; //Return time value
+			hzH = 0; //Return press value
+			inRoll = true;
+		}
+		if(hzH == 1)
+		{ //If we pressed once count down seconds
+			pressedTime += Time.deltaTime;    
+		}
+		//We pressed anything?
+		if (Input.GetAxis ("Horizontal") >= .1f) {       
+		if (Input.GetAxis ("Horizontal") >= .1f && hzH < 2) {
+			
+				hzSwitch = true; //We preseed horinzontal
+			}
+		}
+			else if (hzSwitch && pressedTime <= 2)
+			{ //Time is not up? We must press again that axis to turn on hzSwitch
+				if(hzH == 0)
+				{
+					hzH = 1;
+					hzSwitch = false;
+				}
+				else if(hzH == 1)
+				{
+					hzH = 2;
+					hzSwitch = false;				
+			}
+		}
+		if(hzH == 1 && pressedTime >= 2)
+		{ //We only pressed it once and time is up
+			pressedTime=0;
+			hzH=0;
+		}
+		if (inRoll = true) {
+			rollAnimCounter += 1*Time.deltaTime;
+		}
+		if (rollAnimCounter >= 3f) {
+			inRoll=false;
+			rollAnimCounter = 0f;
+		}		/////////////////////////fuel/////////////////
 		
 
 
@@ -193,15 +259,15 @@ public class playercontroller : MonoBehaviour {
 		pos.y = (pos.y + (vertical * Time.deltaTime* speed));
 		pos.x = (pos.x + (horizontal * Time.deltaTime * speed));
 
-		if (pos.y >= 40f) {
-			pos.y = 40;
+		if (pos.y >= 35f) {
+			pos.y = 35;
 		} else if (pos.y <= -25f) {
 			pos.y = -25f;
 		} 
-		if (pos.x >= 50f) {
-			pos.x = 50;
-		} else if (pos.x <= -50f) {
-			pos.x = -50f;
+		if (pos.x >= 40f) {
+			pos.x = 40;
+		} else if (pos.x <= -40f) {
+			pos.x = -40f;
 		} 
 
 		if (health >= .1f && fuel >= .1f) {
@@ -227,7 +293,7 @@ public class playercontroller : MonoBehaviour {
 		{
 			health = 0f;
 			playerAlive = false;
-			Debug.Log("player dead");
+
 			//GetComponent<Renderer>().gameObject.active = false;
 			pickUpCount = 0;
 		}

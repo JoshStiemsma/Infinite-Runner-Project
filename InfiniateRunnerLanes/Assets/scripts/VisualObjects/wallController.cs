@@ -26,7 +26,7 @@ public class wallController : MonoBehaviour {
 
 			/////////// Spawn off the top of the screen in a random x position:
 		
-			transform.position = new Vector3 (0, 0, 600);
+			transform.position = new Vector3 (0, 50, 600);
 	
 		}
 

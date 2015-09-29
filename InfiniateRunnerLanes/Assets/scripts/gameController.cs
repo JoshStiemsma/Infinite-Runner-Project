@@ -19,6 +19,8 @@ public class gameController : MonoBehaviour {
 	public GameObject pickUp01Prefab;
 	public GameObject fuelCellPrefab;
 
+	public GameObject shieldPrefab;
+
 
 
 	private float enBasicDelay;
@@ -32,6 +34,8 @@ public class gameController : MonoBehaviour {
 
 	private float pickUpDelay;
 	private float fuelCellDelay;
+	private float shieldDelay;
+
 
 	private bool firstFrame = false;
 	private float health;
@@ -44,13 +48,27 @@ public class gameController : MonoBehaviour {
 	private bool playerAlive = true;
 
 
+	private float delayTimer;
 
 
+	/// <summary>
+	/// /initiations
+	/// </summary>
+	private bool initBasic;
+	private bool initSpin;
+	private bool initBhole;
+	private bool initSwipe;
+	private bool initTube;
+	private bool initBlocks;
+	private bool initMedHole;
+	private bool initPickup;
+	private bool initFuelCell;
+	private bool initShield;
 
 	void Start () {
 	
-	
 
+		delayTimer = 0f;
 
 		initObsticleDelays ();
 		StartCoroutines();
@@ -84,9 +102,8 @@ public class gameController : MonoBehaviour {
 
 
 
-	void Update() {
-		 
-	
+	void Update() {	
+		delayTimer = delayTimer + (4 * Time.deltaTime);
 
 		//grab players health from plyer//
 		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
@@ -102,11 +119,14 @@ public class gameController : MonoBehaviour {
 			pickUpDelay = 1000000000f;
 			fuelCellDelay = 100000000f;
 			MedHoleWallDelay = 100000000000f;
+			shieldDelay = 100000000000000000000f;
 			playerAlive = false;
-			StopAllCoroutines();
-		
+			StopAllCoroutines();		
 		
 		} 
+		if (health >= .1f) {
+			initObsticleDelays ();
+		}
 		if (playerAlive== false) {
 			if (health >= .1f && Input.GetButtonDown ("Submit")) {
 				Debug.Log ("Resume enemies");
@@ -115,24 +135,58 @@ public class gameController : MonoBehaviour {
 				StartCoroutines();
 			}
 		}
+
+		///////////////////Start SPawning each object after delay only once!
+
+		if (delayTimer >= enBasicDelay && initBasic==false ) {
+			StartCoroutine ("StartSpawningBasic");
+			initBasic=true;
+		}
+		
+		if (delayTimer >= enSpinDelay && initSpin==false) {
+			StartCoroutine ("StartSpawningSpin");
+			initSpin=true;
+		}
+		if (delayTimer >= enBholeDelay && initBhole==false) {
+			StartCoroutine ("StartSpawningbhole");
+			initBhole=true;
+		}
+		if (delayTimer >= enSwipeDelay && initSwipe==false) {
+			StartCoroutine ("StartSpawningSwipe");
+			initSwipe=true;
+		}
+		if (delayTimer >= tubeDelay && initTube==false) {
+			StartCoroutine ("StartSpawningTube");
+			initTube=true;
+		}
+		if (delayTimer >= BlocksDelay && initBlocks==false) {
+			StartCoroutine ("StartSpawningBlocks");
+			initBlocks=true;
+		}
+		if (delayTimer >= pickUpDelay && initPickup==false) {
+			StartCoroutine ("PickUp01");
+			initPickup=true;
+		}
+		if (delayTimer >= fuelCellDelay && initFuelCell==false) {
+			StartCoroutine ("StartSpawningFuelCell");
+			initFuelCell=true;
+		}
+		if (delayTimer >= MedHoleWallDelay && initMedHole==false) {
+			StartCoroutine ("StartSpawningMedHoleWall");
+			initMedHole=true;
+		}
+		if (delayTimer >= shieldDelay && initShield==false) {
+			StartCoroutine ("StartSpawningShield");
+			initShield=true;
+		}
+
 	}
 	
 	/// <summary>
 	/// Spawns an enemy.
 	/// </summary>
 	/// 
-	void StartCoroutines(){
-		StartCoroutine ("StartSpawningBasic");	
-		StartCoroutine ("StartSpawningSpin");			
-		StartCoroutine ("StartSpawningbhole");		
-		StartCoroutine ("StartSpawningSwipe");		
-		StartCoroutine ("StartSpawningTube");		
-		StartCoroutine ("StartSpawningBlocks");
-		StartCoroutine ("PickUp01");
-		StartCoroutine ("StartSpawningFuelCell");
-		StartCoroutine ("StartSpawningMedHoleWall");
-		
-	}
+
 	void initObsticleDelays(){
 		BlocksDelay = 2f;
 		enBasicDelay = .7f;
@@ -143,6 +197,7 @@ public class gameController : MonoBehaviour {
 		pickUpDelay = 40;
 		fuelCellDelay =25;
 		MedHoleWallDelay = 40;
+		shieldDelay = 10;
 	}
 
 	void initBoostDelays(){
@@ -155,8 +210,11 @@ public class gameController : MonoBehaviour {
 		pickUpDelay = 30f;
 		fuelCellDelay = 15f;
 		MedHoleWallDelay = 20f;
+		shieldDelay = 10;
 	}
+	void StartCoroutines(){
 
+	}
 
 
 	GameObject SpawnSpinningBlocks(){
@@ -191,6 +249,9 @@ public class gameController : MonoBehaviour {
 	GameObject SpawnFuelCells() {
 		return Instantiate (fuelCellPrefab);
 	}
+	GameObject SpawnShield() {
+		return Instantiate (shieldPrefab);
+	}
 
 	
 	
@@ -216,6 +277,12 @@ public class gameController : MonoBehaviour {
 		while(true){
 			SpawnFuelCells();
 			yield return new WaitForSeconds(fuelCellDelay);
+		}
+	}
+	IEnumerator StartSpawningShield(){
+		while(true){
+			SpawnShield();
+			yield return new WaitForSeconds(shieldDelay);
 		}
 	}
 
