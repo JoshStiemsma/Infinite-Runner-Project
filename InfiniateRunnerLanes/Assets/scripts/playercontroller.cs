@@ -15,6 +15,13 @@ public class playercontroller : MonoBehaviour {
 	public bool playerAlive;
 	public bool shield = false;
 
+	public GameObject gun;
+	public GameObject bulletPrefab;
+	public GameObject blueringPrefab;
+	public float fireRate;
+	private float nextFire;
+
+
 
 	public bool launchedExplosion;
 	private bool launchedStall;
@@ -29,7 +36,7 @@ public class playercontroller : MonoBehaviour {
 	private float BarrelRollDegs = 0;
 	private bool inRoll = false;
 	private float rollAnimCounter;
-
+	private float rollTimeCount;
 
 
 
@@ -68,6 +75,7 @@ public class playercontroller : MonoBehaviour {
 
 	private float boost = 0f;
 	public float boostAmount = 5f;
+	public bool inBoost;
 
 	public float fuel;
 	private float subBoost;
@@ -113,7 +121,7 @@ public class playercontroller : MonoBehaviour {
     void FixedUpdate ()
 	{
 
-		Debug.Log (health);
+
 		EnemyObjects = GameObject.FindGameObjectsWithTag ("enemy");
 		pos = player.transform.position;
 		rb.velocity = new Vector3(0, 0, 0);
@@ -158,6 +166,9 @@ public class playercontroller : MonoBehaviour {
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
 
+
+
+
 		///if verticle input rotate ship/////////////////////////
 		if (Mathf.Round(vertical * 100f) / 100f >= .1 )
 		{
@@ -165,27 +176,41 @@ public class playercontroller : MonoBehaviour {
 		}else if (Mathf.Round(vertical * 100f) / 100f <= -.1 )
 		{
 			AngX = 15f;
-		}else {
+		}else if(inRoll==false) {
 			AngX = 0f;
 		}
 
-		///if horizontal input rotate ship////////////////////////////////////////////
-		if (Mathf.Round(horizontal * 100f) / 100f >= .1) //&& inRoll==false// )
+		//////////////////if horizontal input rotate ship////////////////////////////////////////////
+		if (Mathf.Round(horizontal * 100f) / 100f >= .1 && inRoll==false )
 		{
 			AngZ = -20f;
-		}else if (Mathf.Round(horizontal * 100f) / 100f <= -.1)// && inRoll==false )
+			AngY = 20f;
+		}else if (Mathf.Round(horizontal * 100f) / 100f <= -.1 && inRoll==false )
 		{
 			AngZ = 20f;
-		}else {
+			AngY = -20f;
+		}else if(inRoll==false)  {
 			AngZ = 0.0f;
-		}     
-		AngY = 0f;
+			AngY = 0f;
+		}   
 
-		////double tap testers
+
+
+
+
+		if(horizontal>=-.2f && horizontal<=.2f && vertical==0 && inRoll==false && playerAlive){
+			player.transform.localRotation = initRot;
+
+		//	Debug.Log("At Rest");
+		}
+		/////////////////////////////double tap testers
 		if(hzH == 2)
 		{
-			//player.transform.localRotation = Quaternion.Euler(0, 0, BarrelRollDegs);
-			GetComponent<Animation>().Play ("BarrelRoll");
+			//transform.RotateAround(Vector3.zero, Vector3.up, 360.0f * Time.deltaTime / 3);
+			//transform.RotateAround (Vector3.zero, Vector3.up, 360 * Time.deltaTime/300);
+
+			//transform.Rotate(Vector3.up * Time.deltaTime * speed);
+			//GetComponent<Animation>().Play ("BarrelRoll");
 			Debug.Log("HE PRESSED IT TWICE "); 
 			pressedTime = 0; //Return time value
 			hzH = 0; //Return press value
@@ -220,15 +245,27 @@ public class playercontroller : MonoBehaviour {
 			pressedTime=0;
 			hzH=0;
 		}
-		if (inRoll = true) {
-			rollAnimCounter += 1*Time.deltaTime;
-		}
-		if (rollAnimCounter >= 3f) {
-			inRoll=false;
-			rollAnimCounter = 0f;
-		}		/////////////////////////fuel/////////////////
-		
 
+
+		if (inRoll) {
+			rollTimeCount++;
+			if(AngZ>360){
+				AngZ++;
+			}
+			if(rollTimeCount>=50f){
+				rollTimeCount=0f;
+				inRoll=false;
+			}
+		}
+	/////////////////////////fuel/////////////////
+		
+		/////Shooting/////
+		if (Input.GetButton("Fire1") && Time.time > nextFire) 
+		{
+			nextFire = Time.time + fireRate;
+			Instantiate(bulletPrefab, gun.transform.position ,Quaternion.identity);
+			Instantiate(blueringPrefab, gun.transform.position ,Quaternion.identity);
+		}
 
 ////////////////////////////BOOOOOOOST//////////////////////////////
 
@@ -236,6 +273,7 @@ public class playercontroller : MonoBehaviour {
 			subBoost = 3f;
 			forwardSpeed = 300;
 			boost = boostAmount;
+			inBoost=true;
 			//Camera.main.fieldOfView = 65f;
 		}
 
@@ -244,7 +282,10 @@ public class playercontroller : MonoBehaviour {
 			subBoost = 0f;
 			//Camera.main.fieldOfView = 60f;
 			forwardSpeed = 150f;
+			inBoost=false;
 		}
+
+
 		if (playerAlive== true) {
 			fuel = fuel - (1*Time.deltaTime)-(subBoost*Time.deltaTime);
 		}
@@ -272,6 +313,7 @@ public class playercontroller : MonoBehaviour {
 
 		if (health >= .1f && fuel >= .1f) {
 			transform.eulerAngles = new Vector3 (AngX, AngY, AngZ);
+
 			player.transform.position = new Vector3 (pos.x, pos.y, 0);
 		}
 		if (fuel <= 0f) {
@@ -285,7 +327,7 @@ public class playercontroller : MonoBehaviour {
 		lastY = player.transform.position.y;
 
 
-
+		transform.Rotate(speed*Time.deltaTime,0, 0);
 
 
 
@@ -301,7 +343,7 @@ public class playercontroller : MonoBehaviour {
 			fuel = 0f;
 			playerAlive = false;
 			Debug.Log("player out of fuel");
-			//GetComponent<Renderer>().gameObject.active = false;
+
 			pickUpCount = 0;
 		}
 		
@@ -309,7 +351,6 @@ public class playercontroller : MonoBehaviour {
 
 		////////////////////if player dead and user pressed enter//////////////
 		if (playerAlive==false && Input.GetButtonDown("Submit")){
-			//GetComponent<Renderer>().gameObject.active = true;
 
 			Debug.Log("player pressed enter");
 			fuel = 100f;
@@ -318,14 +359,11 @@ public class playercontroller : MonoBehaviour {
 			{
 				Destroy(EnemyObjects[i]);
 			}
+			//Reorient player
 				player.transform.position = initPos;
 				player.transform.localRotation = initRot;
 				GameObject.Find ("player").GetComponent<playercontroller> ().health = 100f;
 				playerAlive = true;
-				
-			
-			//Reorient player
-
 
 		}
 		
@@ -334,8 +372,6 @@ public class playercontroller : MonoBehaviour {
 		{
 			health = 0f;
 			playerAlive = false;
-			
-			//GetComponent<Renderer>().gameObject.active = false;
 			pickUpCount = 0;
 		}
 

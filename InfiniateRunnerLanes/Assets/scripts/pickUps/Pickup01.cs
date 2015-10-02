@@ -7,7 +7,7 @@ public class Pickup01 : MonoBehaviour {
 	private Vector3 pos;
 	public float speed;
 	private float playerHealth;
-	
+	private bool picked;
 	// Use this for initialization
 	void Start () {
 		rot = transform.eulerAngles;
@@ -17,9 +17,12 @@ public class Pickup01 : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col)
 	{
-		Debug.Log ("GRABBED Pickup");
-		GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount++;
-		Destroy (gameObject);
+		if (col.gameObject.tag == "Player" && picked==false) {
+			picked=true;
+			Debug.Log ("GRABBED Pickup");
+			GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount++;
+			Destroy (gameObject);
+		}
 	}
 	// Update is called once per frame
 	void Update () {

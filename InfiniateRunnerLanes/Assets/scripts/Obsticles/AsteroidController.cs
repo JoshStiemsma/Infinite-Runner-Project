@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class enBasicController : MonoBehaviour {
+public class AsteroidController : MonoBehaviour {
 	
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
@@ -13,8 +13,8 @@ public class enBasicController : MonoBehaviour {
 
 	public bool shieldOn;
 
-
-	
+	public GameObject collisionPrefab;
+	public GameObject blueringPrefab;
 	void Start () {
 
 	health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
@@ -46,19 +46,34 @@ public class enBasicController : MonoBehaviour {
 	{
 
 	
-		if (shieldOn == false) {
-		
+		if (col.gameObject.tag == "Player" && shieldOn == false) {	
 			GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
-		} else if (shieldOn == true) {
+			Instantiate (collisionPrefab, transform.position ,Quaternion.identity);
+		} else if (col.gameObject.tag == "Player" && shieldOn == true) {
 			GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
 		} 
+		if (col.gameObject.tag == "Bullet") {
+			Debug.Log ("Hit");
+			destroy ();
+			Destroy(gameObject);
+		}
+
+
+
+
 		//GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
 		Destroy (this.gameObject);
 	}
 	
+	void destroy(){
 	
+		Instantiate (blueringPrefab, transform.position ,Quaternion.identity);
+		
+		
+
+	}
+
 	void Update () {
-		Debug.Log (shieldOn);
 		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
 		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 

@@ -17,8 +17,10 @@ public class fuelCellController : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col)
 	{
-		GameObject.Find ("player").GetComponent<playercontroller> ().fuel = GameObject.Find ("player").GetComponent<playercontroller> ().fuel + 25f;
-		Destroy (gameObject);
+		if (col.gameObject.tag == "Player") {
+			GameObject.Find ("player").GetComponent<playercontroller> ().fuel = GameObject.Find ("player").GetComponent<playercontroller> ().fuel + 25f;
+			Destroy (gameObject);
+		}
 	}
 	// Update is called once per frame
 	void Update () {

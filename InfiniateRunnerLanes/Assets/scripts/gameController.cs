@@ -121,18 +121,19 @@ public class gameController : MonoBehaviour {
 			MedHoleWallDelay = 100000000000f;
 			shieldDelay = 100000000000000000000f;
 			playerAlive = false;
-			StopAllCoroutines();		
+			//StopAllCoroutines();		
 		
 		} 
-		if (health >= .1f) {
+		if (playerAlive = true) {
 			initObsticleDelays ();
 		}
 		if (playerAlive== false) {
 			if (health >= .1f && Input.GetButtonDown ("Submit")) {
 				Debug.Log ("Resume enemies");
-				initObsticleDelays ();
 				playerAlive = true;
-				StartCoroutines();
+				initObsticleDelays ();
+
+				//StartCoroutines();
 			}
 		}
 
@@ -194,7 +195,7 @@ public class gameController : MonoBehaviour {
 		enBholeDelay = 10f;
 		enSwipeDelay = 10f;
 		tubeDelay = 10f;
-		pickUpDelay = 40;
+		pickUpDelay = 50;
 		fuelCellDelay =25;
 		MedHoleWallDelay = 40;
 		shieldDelay = 10;
@@ -207,7 +208,7 @@ public class gameController : MonoBehaviour {
 		enBholeDelay = 2;
 		enSwipeDelay = 3f;
 		tubeDelay = 5f;
-		pickUpDelay = 30f;
+		pickUpDelay = 50f;
 		fuelCellDelay = 15f;
 		MedHoleWallDelay = 20f;
 		shieldDelay = 10;

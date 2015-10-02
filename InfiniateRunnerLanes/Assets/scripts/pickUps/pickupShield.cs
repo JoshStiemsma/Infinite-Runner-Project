@@ -16,9 +16,11 @@ public class pickupShield : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col)
 	{
-		Debug.Log ("GRABBED SHIELD");
-		GameObject.Find ("player").GetComponent<playercontroller> ().shield = true;
-		Destroy (gameObject);
+		if (col.gameObject.tag == "Player") {
+			Debug.Log ("GRABBED SHIELD");
+			GameObject.Find ("player").GetComponent<playercontroller> ().shield = true;
+			Destroy (gameObject);
+		}
 	
 	}
 	// Update is called once per frame
