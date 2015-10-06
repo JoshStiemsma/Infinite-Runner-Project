@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7f5bb3261cea17b40a890909af315f53
+timeCreated: 1443979260
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - collisionPrefab: {fileID: 116404, guid: 210446a66bb4bb241ba35b0fc86a1320, type: 2}
+  - AsteroidDivisioParticle: {fileID: 116404, guid: 210446a66bb4bb241ba35b0fc86a1320,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
