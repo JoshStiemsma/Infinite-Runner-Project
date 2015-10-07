@@ -7,6 +7,8 @@ public class enSpinningController : MonoBehaviour {
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
 	public float speed;
+	private bool gotHit;
+	private bool shieldOn;
 	/// <summary>
 	/// A helper for storing euler angles. We store this to avoid gimbal lock.
 	/// </summary>
@@ -15,6 +17,7 @@ public class enSpinningController : MonoBehaviour {
 	private float playerHealth;
 
 	void Start () {
+		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 		/////////// Random starting angles:
@@ -23,28 +26,30 @@ public class enSpinningController : MonoBehaviour {
 		//angles.z = Random.Range (0, 360);
 		
 		/////////// Spawn off the top of the screen in a random x position:
-		transform.position = new Vector3 (0, 0, 1000);
+		transform.position = new Vector3 (0, 0, 1500);
 	}
 	
 	void OnCollisionEnter(Collision col)
 	{
 		
-		GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
-		Debug.Log ("HIT SOMETHING");
-		
-		if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = true) {
-			GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
-		} else if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = false) {
-			GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+		if (gotHit == false) {
+			if (col.gameObject.tag == "Player" && shieldOn == false) {	
+				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
+				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+				
+			} 
+			
+			gotHit=true;	
 		}
-	}
+	}	
 	
 	
 	void Update () {
 		////////////////////////////BOOOOOOOST//////////////////////////////
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
-
-
+		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
+		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 
 		//////////// Spin the object:
 		//angles.x += 20 * Time.deltaTime;
@@ -63,4 +68,6 @@ public class enSpinningController : MonoBehaviour {
 		//////////// If off the bottom of the screen, destroy this object:
 		if (pos.z < -8) Destroy (gameObject);
 	}
+
+
 }

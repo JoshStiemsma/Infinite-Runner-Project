@@ -47,11 +47,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\Level01\BulletController.cs" />
+     <Compile Include="Assets\scripts\Level01\EnemyController.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\FuelBar.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\HUD.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\HealthBar.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\PickupController.cs" />
      <Compile Include="Assets\scripts\Level01\JetParticleController.cs" />
+     <Compile Include="Assets\scripts\Level01\MainCameraController.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\DestroyByTime.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\Rotate.cs" />
      <Compile Include="Assets\scripts\Level01\Movement.cs" />
@@ -59,20 +61,25 @@
      <Compile Include="Assets\scripts\Level01\Obsticles\BasicNonViolentObject.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\Blocks.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\CrossAsteroidController.cs" />
+     <Compile Include="Assets\scripts\Level01\Obsticles\PresetObsticle.cs" />
+     <Compile Include="Assets\scripts\Level01\Obsticles\WallRenew.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\enBholeController.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\enSpinningController.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\enSwipingController.cs" />
      <Compile Include="Assets\scripts\Level01\ParticleColorBoostChange.cs" />
      <Compile Include="Assets\scripts\Level01\PlayerMaterialController.cs" />
      <Compile Include="Assets\scripts\Level01\ScaleParticle.cs" />
+     <Compile Include="Assets\scripts\Level01\VisualObjects\FrameMovement.cs" />
+     <Compile Include="Assets\scripts\Level01\VisualObjects\InitFrameMovement1.cs" />
+     <Compile Include="Assets\scripts\Level01\VisualObjects\LightMovement.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\Tube_spin.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\planetMovement.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\planetRotation.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\sunMovement.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\tubeController.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\wallController.cs" />
+     <Compile Include="Assets\scripts\Level01\bombController.cs" />
      <Compile Include="Assets\scripts\Level01\cameracontroller.cs" />
-     <Compile Include="Assets\scripts\Level01\cameracontroller1.cs" />
      <Compile Include="Assets\scripts\Level01\gameController.cs" />
      <Compile Include="Assets\scripts\Level01\particleController.cs" />
      <Compile Include="Assets\scripts\Level01\pickUps\Pickup01.cs" />

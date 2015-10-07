@@ -11,7 +11,7 @@ public class Pickup01 : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rot = transform.eulerAngles;
-		transform.position = new Vector3 (Random.Range (-60f, 60f), Random.Range (-40f, 40f), 600);
+		transform.position = new Vector3 (Random.Range (-40f, 40f), Random.Range (-35f, 35f), 600);
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 	}
 

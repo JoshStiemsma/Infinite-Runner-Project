@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class cameracontroller1 : MonoBehaviour {
+public class MainCameraController : MonoBehaviour {
 	
 	
 	public GameObject player;
+	private bool playerAlive;
 	
 	private Vector3 offset;
 	
@@ -24,7 +25,7 @@ public class cameracontroller1 : MonoBehaviour {
 	private float camheightNear;
 	// Use this for initialization
 	void Start () {
-		
+		playerAlive = GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
 		offset = transform.position - player.transform.position;
 		initOffset = transform.position - player.transform.position;
 		initCamheight = camHeight;
@@ -37,7 +38,7 @@ public class cameracontroller1 : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-
+		playerAlive = GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
 
 		//BIGGER
 		if (Input.GetKeyDown ("z") && Input.GetKeyDown ("x")==false) {

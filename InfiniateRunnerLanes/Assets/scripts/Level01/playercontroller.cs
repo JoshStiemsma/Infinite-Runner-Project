@@ -127,7 +127,11 @@ public class playercontroller : MonoBehaviour {
 
 	
 		EnemyObjects = GameObject.FindGameObjectsWithTag ("enemy");
-		pos = player.transform.position;
+
+
+		pos = transform.position;
+
+
 		rb.velocity = new Vector3 (0, 0, 0);
 
 
@@ -145,19 +149,19 @@ public class playercontroller : MonoBehaviour {
 		if (Input.GetKeyUp ("x") || Input.GetKeyUp ("z")) {
 			charMode = 0;			
 		}
-		if (charMode == 1) {
+		if (charMode == 1 && playerAlive) {
 			prevTransform.y = pos.y;
-			player.transform.localScale = initPlayerScale * 7;
+			player.transform.localScale = initPlayerScale * 10;
 			//pos.y = pos.y-1.5f;
 		}
-		if (charMode == 0) {
+		if (charMode == 0 && playerAlive) {
 			prevTransform.y = pos.y;
 			player.transform.localScale = initPlayerScale;
 			//pos.y = pos.y+1.5f;
 		}
-		if (charMode == -1) {
+		if (charMode == -1 && playerAlive) {
 			prevTransform.y = pos.y;
-			player.transform.localScale = initPlayerScale / 7;
+			player.transform.localScale = initPlayerScale / 10;
 			//pos.y = pos.y +1.5f;
 		}
 
@@ -314,7 +318,7 @@ public class playercontroller : MonoBehaviour {
 			inBoost=false;
 		}
 		if (playerAlive== true) {
-			fuel = fuel - (1*Time.deltaTime)-(subBoost*Time.deltaTime);
+			//fuel = fuel - (1*Time.deltaTime)-(subBoost*Time.deltaTime);
 		}
 
 		if (fuel >= 100f) {
@@ -327,12 +331,12 @@ public class playercontroller : MonoBehaviour {
 		pos.y = (pos.y + (vertical * Time.deltaTime* speed));
 		pos.x = (pos.x + (horizontal * Time.deltaTime * speed));
 		/////////////////////Boundaries///////// 
-		if (pos.y >= 35f) {
+		if (pos.y >= 35f) {//usualy 35
 			pos.y = 35;
 		} else if (pos.y <= -25f) {
 			pos.y = -25f;
 		} 
-		if (pos.x >= 40f) {
+		if (pos.x >= 400f) {//usuale 40
 			pos.x = 40;
 		} else if (pos.x <= -40f) {
 			pos.x = -40f;

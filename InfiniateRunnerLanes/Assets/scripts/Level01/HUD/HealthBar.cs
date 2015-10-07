@@ -9,6 +9,7 @@ public class HealthBar : MonoBehaviour {
 	public Sprite sprite3;
 	public Sprite sprite4;
 
+	private bool shield;
 
 	private SpriteRenderer spriteRenderer; 
 	// Use this for initialization
@@ -16,30 +17,51 @@ public class HealthBar : MonoBehaviour {
 
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		shield = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		shield = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
 		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 
 		if(playerHealth>=76f) {////greater than 75%
 			spriteRenderer.sprite = sprite1;
-			spriteRenderer.color = new Color(255,255,255);
 		}
+
 		if (playerHealth <= 75f) {///less than 75%
 			if (playerHealth >= 51f) {///greate thn 50%
 				spriteRenderer.sprite = sprite2;
 			}
 		}
+
 		if (playerHealth <= 50f) {
 			if (playerHealth >= 26f) {
 				spriteRenderer.sprite = sprite3;
-				spriteRenderer.color = new Color(255,50,0);
 			}
 			if (playerHealth <= 25f) {
 				spriteRenderer.sprite = sprite4;
-				spriteRenderer.color = new Color(255,0,0);
 			}
 		}
+
+		if (shield==true) {
+			Debug.Log("shield on");
+			spriteRenderer.color = new Color (0, 0, 255);
+		} else if(shield==false) {
+			if(playerHealth>=76f) {////greater than 75%
+				spriteRenderer.color = new Color(255,255,255);
+			}
+
+			if (playerHealth <= 50f) {
+				if (playerHealth >= 26f) {
+					spriteRenderer.color = new Color(255,50,0);
+				}
+				if (playerHealth <= 25f) {
+					spriteRenderer.color = new Color(255,0,0);
+				}
+			}//end if playerhelth under 50//
+
+		}//end if shield on//
+
 	}
 }
