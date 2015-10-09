@@ -18,7 +18,7 @@ public class AsteroidController : MonoBehaviour {
 	public GameObject AsteroidDivisioParticle;
 	public GameObject collisionPrefab;
 	void Start () {
-
+		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 	health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		enemyCount = GameObject.Find ("Main Camera").GetComponent<gameController> ().enemyCount+1;
 		//Debug.Log ("Enemies:" + enemyCount);
@@ -38,7 +38,8 @@ public class AsteroidController : MonoBehaviour {
 		
 			/////////// Spawn off the top of the screen in a random x position:
 		
-			transform.position = new Vector3 (Random.Range (-38f, 38f), Random.Range (-40f, 40f), 1000);
+			transform.position = new Vector3 (Random.Range (-38f, 38f), Random.Range (-40f, 40f), 2000
+			                                  );
 			transform.localScale = scales;
 		}
 
@@ -102,7 +103,7 @@ public class AsteroidController : MonoBehaviour {
 
 
 		if (pos.z < -8){ Destroy (gameObject);
-			GameObject.Find ("Main Camera").GetComponent<gameController> ().enemyCount--;
+
 		}
 
 	

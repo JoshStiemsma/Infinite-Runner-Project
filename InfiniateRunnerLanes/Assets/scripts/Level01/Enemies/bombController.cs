@@ -12,9 +12,19 @@ public class bombController : MonoBehaviour {
 
 	private bool gotHit;
 
+	private bool yellow;
+	private bool white;
+
 	private Vector3 scale;
 
+	private bool up;
+	private bool right;
+	private float spacer;
+
+	public GameObject FuelPrefab;
+
 	void Start () {
+	
 		scale = transform.localScale;
 		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		//Debug.Log ("Enemies:" + enemyCount);
@@ -24,11 +34,14 @@ public class bombController : MonoBehaviour {
 		} else {
 			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;;		
 			/////////// Spawn off the top of the screen in a random x position:
-			
+
+
 			//transform.position = new Vector3 (Random.Range (-38f, 38f), Random.Range (-40f, 40f), 1000);
 		}
 		
-		
+		Invoke("colorWhite", 1f);
+		flipUp ();
+		Invoke("flipRight", .25f);
 		
 	}
 	
@@ -41,11 +54,13 @@ public class bombController : MonoBehaviour {
 			} 
 			if (col.gameObject.tag == "Bullet") {
 				Debug.Log ("Hit");
+				Instantiate ( FuelPrefab , transform.position, Quaternion.identity);
+				destroy ();
 			}
 			gotHit=true;
 		}
 		//GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
-		//destroy ();
+
 	}
 	void destroy(){
 		Debug.Log ("DESTROY");
@@ -57,40 +72,72 @@ public class bombController : MonoBehaviour {
 		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
 		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		scale = transform.localScale;
-		//////////////////////////BOOOOOOOST//////////////////////////////
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 
+
 		//////////// Move the object:
-		Vector3 pos = transform.position;
-		
+		Vector3 pos = transform.position;	
+		///SPiral effect///////
+		spacer = spacer * (Time.deltaTime*2);
+		if (right) {
+			pos.x = pos.x + speed / 20 * Time.deltaTime+ spacer;
+		} else {
+			pos.x = pos.x - speed / 20 * Time.deltaTime- spacer;
+		}
+
+
+		if (up) {
+			pos.y = pos.y + speed / 20 * Time.deltaTime+ spacer;
+		} else {
+			pos.y = pos.y - speed / 20 * Time.deltaTime - spacer; 
+		}
+
+
 		pos.z -= speed/3 * Time.deltaTime;
-		
-		
-		
-		
+
 		if(health >= .1f){
 			transform.position = pos;
+
 		} else{//if health is under 0
 			transform.position = transform.position;//do nothing	
 		}
-		
-		
-		if (pos.z <=20){ 
 
-			if(scale.x<15){
-			transform.localScale = new Vector3(30,30,30);
-				GetComponent<Renderer>().material.SetColor("_Color",Color.red);
+		
+		if (pos.z <= 20) { 
+			if (scale.x < 15) {
+				transform.localScale = new Vector3 (30, 30, 30);
+				GetComponent<Renderer> ().material.SetColor ("_Color", Color.red);
 			}
-			if(scale.x>15){
-				transform.localScale = new Vector3(14,14,14);
-				GetComponent<Renderer>().material.SetColor("_Color",Color.yellow);
+			if (scale.x > 15) {
+				transform.localScale = new Vector3 (14, 14, 14);
+				GetComponent<Renderer> ().material.SetColor ("_Color", Color.yellow);
 			}
-			Debug.Log("EXPLOSION");		
+			Debug.Log ("EXPLOSION");		
 		}
+
 		if (pos.z <= -5) { 
 			Destroy(gameObject);	
 		}
 		
 	}
+	void colorWhite() {
+		GetComponent<Renderer> ().material.SetColor ("_Color", Color.white);
+		Debug.Log ("White");
+		Invoke("colorYellow", .3f);
+	}
+	void colorYellow() {
+		GetComponent<Renderer> ().material.SetColor ("_Color", Color.yellow);
+		Debug.Log ("yellow");
+		Invoke("colorWhite", .3f);
+	}
+	void flipUp(){
+		up = !up;
+		Invoke("flipUp", .5f);
+	}
+	void flipRight(){
+		right = !right;
+		Invoke("flipRight", .5f);
+	}
+
 }
 

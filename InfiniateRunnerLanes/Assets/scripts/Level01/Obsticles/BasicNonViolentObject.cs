@@ -29,7 +29,7 @@ public class BasicNonViolentObject : MonoBehaviour {
 			
 			/////////// Spawn off the top of the screen in a random x position:
 			
-			transform.position = new Vector3 (Random.Range (-60f, 60f), Random.Range (-40f, 40f), 600);
+			transform.position = new Vector3 (Random.Range (-60f, 60f), Random.Range (-40f, 40f), 2000);
 			//transform.localScale = scales;
 		}
 		

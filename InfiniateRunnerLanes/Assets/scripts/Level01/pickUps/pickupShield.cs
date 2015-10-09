@@ -6,11 +6,19 @@ public class pickupShield : MonoBehaviour {
 	private Vector3 pos;
 	public float speed;
 	private float playerHealth;
-	
+
+
+	public bool dropped;
 	// Use this for initialization
 	void Start () {
 
-		transform.position = new Vector3 (Random.Range (-60f, 60f), Random.Range (-40f, 40f), 600);
+		if (dropped) {
+			
+		} else {
+			transform.position = new Vector3 (Random.Range (-60f, 60f), Random.Range (-40f, 40f), 2000);
+		}
+
+
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 	}
 

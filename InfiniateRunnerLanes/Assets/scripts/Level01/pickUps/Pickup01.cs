@@ -8,10 +8,18 @@ public class Pickup01 : MonoBehaviour {
 	public float speed;
 	private float playerHealth;
 	private bool picked;
+
+	public bool dropped;
 	// Use this for initialization
 	void Start () {
 		rot = transform.eulerAngles;
-		transform.position = new Vector3 (Random.Range (-40f, 40f), Random.Range (-35f, 35f), 600);
+
+		if (dropped) {
+			
+		} else {
+			transform.position = new Vector3 (Random.Range (-40f, 40f), Random.Range (-35f, 35f), 2000);
+		}
+	
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
 	}
 

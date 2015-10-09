@@ -3,12 +3,12 @@ using System.Collections;
 
 public class resetGui : MonoBehaviour {
 
-
+	private bool playerAlive;
     // Use this for initialization
     void Start()
     {
         GameObject.Find("resetText").active = false;
-  
+		playerAlive = GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
 
     }
 
@@ -26,7 +26,7 @@ public class resetGui : MonoBehaviour {
 
 
         playercontroller playercontroller = thePlayer.GetComponent<playercontroller>();
-        if (playercontroller.deathCounter >= 3)
+		if (playerAlive=false)
         {
             GameObject.Find("resetText").active = true;
 

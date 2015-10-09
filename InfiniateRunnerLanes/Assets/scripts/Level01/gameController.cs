@@ -8,7 +8,7 @@ public class gameController : MonoBehaviour {
 	/// </summary>
 	//Obsticle
 	//level 1//
-	public GameObject enBasicPrefab;
+	public GameObject AsteroidPrefab;
 	public GameObject enBholePrefab;
 	public GameObject CrossAsteroidPrefab;
 
@@ -22,9 +22,8 @@ public class gameController : MonoBehaviour {
 	public GameObject enSwipePrefab;
 	public GameObject BlocksPrefab;
 	//exteriors and walls
-	public GameObject BeamPrefab;
 	public GameObject MedHoleWallPrefab;
-	public GameObject LightPrefab;
+
 	//pickups
 	public GameObject pickUp01Prefab;
 	public GameObject fuelCellPrefab;
@@ -34,7 +33,7 @@ public class gameController : MonoBehaviour {
 	/// ///////////	DELAYSSSS/// 
 		private float delayTimer;//Maim Delay Timer//
 	/// level 1///
-	private float enBasicDelay;
+	private float asteroidDelay;
 	private float enBholeDelay;
 	private float CrossAsteroidDelay;
 	private float enemyShipDelay;
@@ -70,11 +69,12 @@ public class gameController : MonoBehaviour {
 	/// <summary>
 	/// /initiations
 	/// </summary>
-	private bool initBasic;
+	private bool initAsteroid;
 	private bool initTube;
 	private bool initBhole;
 	private bool initGasCloud;
 	private bool initCrossAsteroid;
+	private float crossAstCount;
 	private bool initEnemyShip;
 
 	private bool initSpin;
@@ -95,8 +95,24 @@ public class gameController : MonoBehaviour {
 		delayTimer = 0f;
 		initObsticleDelays ();
 		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		StartCoroutine(PauseCoroutine());  
 	}
 
+	IEnumerator PauseCoroutine() {
+		while (true)
+		{
+			if (Input.GetKeyDown(KeyCode.P))
+			{
+				if (Time.timeScale == 0)
+				{
+					Time.timeScale = 1;
+				} else {
+					Time.timeScale = 0;
+				}
+			}    
+			yield return null;    
+		}
+	}
 
 	void FixedUpdate(){
 		//firstFrame = true;
@@ -116,14 +132,14 @@ public class gameController : MonoBehaviour {
 	void Update() {	
 		//Debug.Log ("Enemies:" + enemyCount);
 		delayTimer = delayTimer + (4 * Time.deltaTime);
-
+		//Debug.Log (asteroidDelay);
 		//grab players health from plyer//
 		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 		playerHealth = health;
 		if (health <= 0) {
 			Debug.Log ("Pause enemies");
 			//level 1//
-			enBasicDelay = pause;
+			asteroidDelay = pause;
 			enBholeDelay = pause;
 			enemyShipDelay = pause;
 			tubeDelay = pause;
@@ -142,29 +158,27 @@ public class gameController : MonoBehaviour {
 			shieldDelay = pause;
 
 			playerAlive = false;
-			//StopAllCoroutines();		
-		
-		} 
-//		if (playerAlive = true) {
-//			initObsticleDelays ();
-//		}
-		if (playerAlive== false) {
-			if (health >= .1f && Input.GetButtonDown ("Submit")) {
-				Debug.Log ("Resume enemies");
+			inBoost = false;
+		}
 
-				initObsticleDelays ();
+		if (playerAlive== false) {
+			initObsticleDelays ();
+			if (health>=.1f && Input.GetButtonDown ("Submit")) {
+				Debug.Log ("Resume enemies");
+				delayTimer = 0f;
 				playerAlive = true;
-				//StartCoroutines();
 			}
 		}
 
 		///////////////////Start SPawning each object after delay only once!
 		/// 		//////////////Level 1 Start Coroutines//////
 			if (level == 1) {
-			if (delayTimer >= enBasicDelay && initBasic == false) {
-				StartCoroutine ("StartSpawningBasic");
-				initBasic = true;
+
+			if (delayTimer >= asteroidDelay && initAsteroid == false) {
+				StartCoroutine ("StartSpawningAsteroid");
+				initAsteroid = true;
 			}
+
 			if (delayTimer >= enemyShipDelay && initEnemyShip == false) {
 				StartCoroutine ("StartSpawningEnemyShip");
 				initEnemyShip = true;
@@ -197,6 +211,7 @@ public class gameController : MonoBehaviour {
 				StartCoroutine ("StartSpawningGasCloud");
 				initGasCloud = true;
 			}
+
 		}
 		//////////////Level 2 Start Coroutines//////
 		if (level == 2) {
@@ -204,14 +219,6 @@ public class gameController : MonoBehaviour {
 				StartCoroutine ("StartSpawningMedHoleWall");
 				initMedHole=true;
 			}
-//			if (delayTimer >= 10.0f && initLight == false) {
-//				StartCoroutine ("StartSpawningLight");
-//				initLight = true;
-//			}
-//			if (initBeam == false) {
-//				StartCoroutine ("StartSpawningBeam");
-//				initBeam = true;
-//			}
 			if (delayTimer >= enSpinDelay && initSpin == false) {
 				StartCoroutine ("StartSpawningSpin");
 				initSpin = true;
@@ -221,9 +228,9 @@ public class gameController : MonoBehaviour {
 				initSwipe = true;
 			}
 	
-			if (delayTimer >= BlocksDelay && initBlocks==false) {
+			if (delayTimer >= BlocksDelay && initBlocks == false) {
 				StartCoroutine ("StartSpawningBlocks");
-				initBlocks=true;
+				initBlocks = true;
 			}
 			if (delayTimer >= pickUpDelay && initPickup == false) {
 				StartCoroutine ("PickUp01");
@@ -239,27 +246,21 @@ public class gameController : MonoBehaviour {
 				initShield = true;
 			}
 		}
-
-
-
-
-
-
 	}
 	
-	/// <summary>
-	/// Spawns an enemy.
-	/// </summary>
-	/// 
+
 
 	void initObsticleDelays(){
 		//level 1//
-		enBasicDelay = 1.5f;
-		enBholeDelay = 10f;
-		enemyShipDelay = 10f;
+		Debug.Log ("Initiate Delays");
+
+		asteroidDelay = 2.5f;
+
+		enBholeDelay = 15f;
+		enemyShipDelay = 45f; //150
 		tubeDelay = 10f;
-		gasCloudDelay = 10f;
-		CrossAsteroidDelay = 1f;
+		gasCloudDelay = 250f;
+		CrossAsteroidDelay = 100f;
 		//level 2//
 		LightDelay = 2f;
 		BlocksDelay = 4f;
@@ -268,35 +269,16 @@ public class gameController : MonoBehaviour {
 		MedHoleWallDelay = 40f;
 		BeamDelay = 2f;
 
-		pickUpDelay = 50;
-		fuelCellDelay =25;
-		shieldDelay = 10;
+		pickUpDelay = 300;
+		fuelCellDelay =50;
+		shieldDelay = 175;
 	}
-	void undoBoostDelays(){
-	
-		//level 1//
-		enBasicDelay = enBasicDelay*2;
-		enBholeDelay = enBholeDelay*2;
-		enemyShipDelay = enemyShipDelay * 2;
-		tubeDelay = tubeDelay*2;
-		gasCloudDelay = gasCloudDelay*2;
-		CrossAsteroidDelay = CrossAsteroidDelay*2;
-		//level 2//
-		LightDelay = LightDelay*2;
-		BlocksDelay = BlocksDelay*2;
-		enSpinDelay = enSpinDelay*2;
-		enSwipeDelay = enSwipeDelay*2;
-		MedHoleWallDelay = MedHoleWallDelay*2;
-		BeamDelay = BeamDelay*2;
-		
-		pickUpDelay = pickUpDelay*2;
-		fuelCellDelay =fuelCellDelay*2;
-		shieldDelay = shieldDelay*2;
-	}
+
+
 
 	void UpdateDelays(){
 		//level 1//
-		enBasicDelay = enBasicDelay	-(Time.deltaTime/100f);
+		asteroidDelay = asteroidDelay	-(Time.deltaTime/100f);
 		enemyShipDelay = enemyShipDelay	-(Time.deltaTime/100f);
 		enBholeDelay = enBholeDelay	-(Time.deltaTime/100f);
 		tubeDelay = tubeDelay	-(Time.deltaTime/100f);
@@ -314,9 +296,32 @@ public class gameController : MonoBehaviour {
 		fuelCellDelay =fuelCellDelay	-(Time.deltaTime/100f);
 		shieldDelay = shieldDelay	-(Time.deltaTime/100f);	
 	}
+	void undoBoostDelays(){	
+		//level 1//
+		asteroidDelay = asteroidDelay*2;
+
+		enBholeDelay = enBholeDelay*2;
+		enemyShipDelay = enemyShipDelay * 2;
+		tubeDelay = tubeDelay*2;
+		gasCloudDelay = gasCloudDelay*2;
+		CrossAsteroidDelay = CrossAsteroidDelay*2;
+		//level 2//
+		LightDelay = LightDelay*2;
+		BlocksDelay = BlocksDelay*2;
+		enSpinDelay = enSpinDelay*2;
+		enSwipeDelay = enSwipeDelay*2;
+		MedHoleWallDelay = MedHoleWallDelay*2;
+		BeamDelay = BeamDelay*2;
+		
+		pickUpDelay = pickUpDelay*2;
+		fuelCellDelay =fuelCellDelay*4;
+		shieldDelay = shieldDelay*2;
+	}
+
+
 	void initBoostDelays(){
 		//level 1//
-		enBasicDelay = enBasicDelay/2;
+		asteroidDelay = asteroidDelay/2;
 		enBholeDelay = enBholeDelay/2;
 		enemyShipDelay = enemyShipDelay / 2;
 		tubeDelay = tubeDelay/2;
@@ -331,7 +336,7 @@ public class gameController : MonoBehaviour {
 		BeamDelay = BeamDelay/2;
 		
 		pickUpDelay = pickUpDelay/2;
-		fuelCellDelay =fuelCellDelay/2;
+		fuelCellDelay =fuelCellDelay/4;
 		shieldDelay = shieldDelay/2;
 
 	}
@@ -341,9 +346,9 @@ public class gameController : MonoBehaviour {
 
 
 	//level 1//
-	GameObject SpawnBasicEnemy(){	
-			return Instantiate (enBasicPrefab);
-		enemyCount++;
+	GameObject SpawnAsteroid(){	
+			return Instantiate (AsteroidPrefab);
+		//enemyCount++;
 	}
 	GameObject SpawnCrossAsteroid(){	
 		return Instantiate (CrossAsteroidPrefab);		
@@ -374,12 +379,7 @@ public class gameController : MonoBehaviour {
 	GameObject SpawnMedHoleWall(){
 		return Instantiate (MedHoleWallPrefab);
 	}
-	GameObject SpawnLight(){
-		return Instantiate (LightPrefab);
-	}
-	GameObject SpawnBeam(){
-		return Instantiate (BeamPrefab);
-	}
+
 
 
 
@@ -402,17 +402,29 @@ public class gameController : MonoBehaviour {
 	/// A coroutine that spawns enemies every half second.
 	/// </summary>
 	//level 1//
-	IEnumerator StartSpawningBasic(){
+	IEnumerator StartSpawningAsteroid(){
 		while(true){		
-			SpawnBasicEnemy();
+			SpawnAsteroid();
 			enemyCount++;
-			yield return new WaitForSeconds(enBasicDelay);			
+			yield return new WaitForSeconds(asteroidDelay);			
 		}
 	}
 	IEnumerator StartSpawningCrossAsteroid(){		
 		while(true){			
-			SpawnCrossAsteroid();
+			StartCoroutine ("SpawnMultCrossAsteroids");
 			yield return new WaitForSeconds(CrossAsteroidDelay);			
+		}
+	}
+	IEnumerator SpawnMultCrossAsteroids(){		
+		while(true){
+			if(crossAstCount<=20){
+			SpawnCrossAsteroid();
+				crossAstCount++;
+			}else {
+				StopCoroutine("SpawnMultCrossAsteroids");
+				crossAstCount=0;
+			}
+			yield return new WaitForSeconds(.5f);			
 		}
 	}
 	IEnumerator StartSpawningEnemyShip(){		
@@ -446,22 +458,6 @@ public class gameController : MonoBehaviour {
 
 
 	//level 2//
-	IEnumerator StartSpawningLight()
-	{
-		while (true)
-		{
-			SpawnLight();
-			yield return new WaitForSeconds(LightDelay);
-		}
-	}
-	IEnumerator StartSpawningBeam()
-	{
-		while (true)
-		{
-			SpawnBeam();
-			yield return new WaitForSeconds(BeamDelay);
-		}
-	}
 	IEnumerator StartSpawningSpin(){
 		while(true){
 			SpawnSpinningEnemy();

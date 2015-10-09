@@ -46,8 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\Level01\BulletController.cs" />
-     <Compile Include="Assets\scripts\Level01\EnemyController.cs" />
+     <Compile Include="Assets\scripts\Level01\Enemies\EnemyController.cs" />
+     <Compile Include="Assets\scripts\Level01\Enemies\bombController.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\FuelBar.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\HUD.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\HealthBar.cs" />
@@ -55,8 +55,8 @@
      <Compile Include="Assets\scripts\Level01\JetParticleController.cs" />
      <Compile Include="Assets\scripts\Level01\MainCameraController.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\DestroyByTime.cs" />
+     <Compile Include="Assets\scripts\Level01\Moduler\Movement.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\Rotate.cs" />
-     <Compile Include="Assets\scripts\Level01\Movement.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\AsteroidController.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\BasicNonViolentObject.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\Blocks.cs" />
@@ -67,7 +67,12 @@
      <Compile Include="Assets\scripts\Level01\Obsticles\enSpinningController.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\enSwipingController.cs" />
      <Compile Include="Assets\scripts\Level01\ParticleColorBoostChange.cs" />
-     <Compile Include="Assets\scripts\Level01\PlayerMaterialController.cs" />
+     <Compile Include="Assets\scripts\Level01\Player\BulletController.cs" />
+     <Compile Include="Assets\scripts\Level01\Player\PlayerMaterialController.cs" />
+     <Compile Include="Assets\scripts\Level01\Player\playerTilt.cs" />
+     <Compile Include="Assets\scripts\Level01\Player\playercontroller.cs" />
+     <Compile Include="Assets\scripts\Level01\Player\playercontrollerLANES.cs" />
+     <Compile Include="Assets\scripts\Level01\Player\shieldController.cs" />
      <Compile Include="Assets\scripts\Level01\ScaleParticle.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\FrameMovement.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\InitFrameMovement1.cs" />
@@ -78,16 +83,12 @@
      <Compile Include="Assets\scripts\Level01\VisualObjects\sunMovement.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\tubeController.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\wallController.cs" />
-     <Compile Include="Assets\scripts\Level01\bombController.cs" />
      <Compile Include="Assets\scripts\Level01\cameracontroller.cs" />
      <Compile Include="Assets\scripts\Level01\gameController.cs" />
      <Compile Include="Assets\scripts\Level01\particleController.cs" />
      <Compile Include="Assets\scripts\Level01\pickUps\Pickup01.cs" />
      <Compile Include="Assets\scripts\Level01\pickUps\fuelCellController.cs" />
      <Compile Include="Assets\scripts\Level01\pickUps\pickupShield.cs" />
-     <Compile Include="Assets\scripts\Level01\pickUps\shieldController.cs" />
-     <Compile Include="Assets\scripts\Level01\playercontroller.cs" />
-     <Compile Include="Assets\scripts\Level01\playercontrollerLANES.cs" />
      <Compile Include="Assets\scripts\Level01\resetGui.cs" />
      <None Include="Assets\Images\sprites.xml" />
      <None Include="Assets\Images\Health01.xml" />

@@ -4,7 +4,9 @@ using System.Collections;
 public class enBholeController : MonoBehaviour {
 
 	private float playerHealth;
-	
+
+	public GameObject player;
+	private Vector3 playerPos;
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
@@ -20,30 +22,19 @@ public class enBholeController : MonoBehaviour {
 	private bool wasHit;
 
 
-
-	public GameObject PullOBJ;
 	public float ForceSpeed = 60f;
 	
 	public void OnTriggerStay (Collider coll) {
 		//Debug.Log ("inBHoleField");
 		if (coll.gameObject.tag == ("Player")){
-			PullOBJ = coll.gameObject;
-			PullOBJ.GetComponent<Rigidbody>().AddForce(Vector3.MoveTowards(
-														PullOBJ.transform.position,
-														transform.position, 
-														ForceSpeed * Time.deltaTime));
 
-
-//			PullOBJ.transform.position = Vector3.MoveTowards
-//				(PullOBJ.transform.position,
-//				 transform.position,
-//				 ForceSpeed * Time.deltaTime);
 		} 
 	}
 
 
     void Start () {
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;;
+		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		player = GameObject.Find ("player");
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
         scale = Random.Range(5f, 25f);
         scales = new Vector3(10, 10, 10);
@@ -55,7 +46,7 @@ public class enBholeController : MonoBehaviour {
 
         /////////// Spawn off the top of the screen in a random x position:
 
-        transform.position = new Vector3 (Random.Range(-40f, 40f), Random.Range(-10f, 20f), 200);
+        transform.position = new Vector3 (Random.Range(-40f, 40f), Random.Range(-10f, 20f), 2000);
 		transform.localScale = scales;
 	}
 
@@ -64,6 +55,7 @@ public class enBholeController : MonoBehaviour {
 	{
 		
 		GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+
 		Debug.Log ("HIT SOMETHING");
 		if (wasHit == false) {
 			if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = true) {
@@ -76,14 +68,9 @@ public class enBholeController : MonoBehaviour {
 	}
 	
 	void Update () {
-
-
-
-
-
-
-
 		////////////////////////////BOOOOOOOST//////////////////////////////
+			player = GameObject.Find ("player");
+		playerPos = player.transform.position;
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
         transform.localScale = scales;
 
@@ -97,6 +84,14 @@ public class enBholeController : MonoBehaviour {
 			transform.rotation = Quaternion.Euler (angles);
 			pos.z -= speed * Time.deltaTime;
 			transform.position = pos;
+		}
+
+		if (pos.z <= 300f && pos.z>=0f) {
+			if(pos.x-playerPos.x<=50f && pos.y-playerPos.y<=50f){
+	
+				player.transform.position = Vector3.Lerp (playerPos, new Vector3(transform.position.x, transform.position.y, player.transform.position.z ), 1f*Time.deltaTime);
+			}
+
 		}
 		//////////// If off the bottom of the screen, destroy this object:
 		if (pos.z < -8) Destroy (gameObject);

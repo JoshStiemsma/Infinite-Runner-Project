@@ -3,7 +3,7 @@ using System.Collections;
 
 public class playercontroller : MonoBehaviour {
 
-	public float fieldOfView; 
+	public bool paused; 
 
 	
 	private GameObject player;
@@ -38,21 +38,21 @@ public class playercontroller : MonoBehaviour {
 	private float lastTap;
 	private float leeway = 0.4f; // how fast you have to tap
 	private int maxtaps = 2;
-	private bool inRoll = false;
+	public bool inRoll = false;
 	private bool inLeftRoll = false;
 	private bool inRightRoll = false;
 	private float rollAnimCounter;
 	private float rollTimeCount;
-
+	private Animation playerRoll;
 
 
     public float step = 3f;
     public float speed;
 	public float forwardSpeed;
-    public float lane = 0;
-    public float laneTimer = 3f;
+
     private float direction;
     public Transform target;
+
 
     /// Reset Testings//
 	public Vector3 initPos;
@@ -61,20 +61,11 @@ public class playercontroller : MonoBehaviour {
 
 
 	private GameObject cloneExp;
-	
-	public float lastZ = 0f;
-	public float lastX = 0f;
-	public float lastY = 0f;
-    public float deathCounter;
+
     private Vector3 pos;
 	private Vector3 prevTransform;
 
 
-
-
-	public float AngX = 0f;
-	public float AngY = 0f;
-	public float AngZ = 0f;
 
 	private bool tilted = false;
 
@@ -84,29 +75,27 @@ public class playercontroller : MonoBehaviour {
 	private float boost = 0f;
 	public float boostAmount = 5f;
 	public bool inBoost;
-
 	public float fuel;
 	private float subBoost;
 
 
 	public GameObject[] EnemyObjects;
-
-
 	public float pickUpCount;
 
 
-	private Animation playerRoll;
 
-
-
-	// Use this for initialization
+	public AudioClip BoostAudio;
+	public AudioClip EngineAudio;
+	// Use this for initializlation
     void Start () 
 	{
+
 		fuel = 100f;
 		forwardSpeed = 150f;
 		shield = false;
-
+		paused = false;
 		startPos = startPositionObj.transform.position;
+
 		///instantiate player
 
 
@@ -133,7 +122,6 @@ public class playercontroller : MonoBehaviour {
 
 
 		rb.velocity = new Vector3 (0, 0, 0);
-
 
 
 		/////Character Change/////
@@ -173,37 +161,6 @@ public class playercontroller : MonoBehaviour {
 
 
 
-
-		///if verticle input rotate ship/////////////////////////
-		if (Mathf.Round (vertical * 100f) / 100f >= .2) {
-			AngX = -15f;
-		} else if (Mathf.Round (vertical * 100f) / 100f <= -.2) {
-			AngX = 15f;
-		} else if (inRoll == false) {
-			AngX = 0f;
-		}
-
-		//////////////////if horizontal input rotate ship////////////////////////////////////////////
-		if (Mathf.Round (horizontal * 100f) / 100f >= .2 && inRoll == false) {
-			AngZ = -20f;
-			AngY = 20f;
-		} else if (Mathf.Round (horizontal * 100f) / 100f <= -.2 && inRoll == false) {
-			AngZ = 20f;
-			AngY = -20f;
-		} else if (inRoll == false) {
-			AngZ = 0.0f;
-			AngY = 0.0f;
-		}   
-
-
-
-
-
-		if (horizontal >= -.2f && horizontal <= .2f && vertical == 0 && inRoll == false && playerAlive) {
-			player.transform.rotation = new Quaternion (0, 0, 0, 0);
-
-		
-		}
 		//Debug.Log(horizontal);
 		/////////////////////////////double tap testers////////////////
 		/// Double Tape Right/////
@@ -299,6 +256,7 @@ public class playercontroller : MonoBehaviour {
 		{
 			nextFire = Time.time + fireRate;
 			Instantiate(bulletPrefab, gun.transform.position ,Quaternion.identity);
+			//bulletPrefab.GetComponent<AudioSource>().Play();
 			Instantiate(blueringPrefab, gun.transform.position ,Quaternion.identity);
 		}
 
@@ -309,6 +267,8 @@ public class playercontroller : MonoBehaviour {
 			forwardSpeed = 300;
 			boost = boostAmount;
 			inBoost=true;
+			GetComponent<AudioSource>().clip = BoostAudio; 
+			GetComponent<AudioSource>().Play();
 		}
 		if (Input.GetButtonUp("Jump")&& playerAlive==true){
 			boost = 0f;
@@ -316,9 +276,13 @@ public class playercontroller : MonoBehaviour {
 			//Camera.main.fieldOfView = 60f;
 			forwardSpeed = 150f;
 			inBoost=false;
+			GetComponent<AudioSource>().clip = EngineAudio;
+			GetComponent<AudioSource>().Play();
 		}
+
+
 		if (playerAlive== true) {
-			//fuel = fuel - (1*Time.deltaTime)-(subBoost*Time.deltaTime);
+			fuel = fuel - (1*Time.deltaTime)-(subBoost*Time.deltaTime);
 		}
 
 		if (fuel >= 100f) {
@@ -336,32 +300,19 @@ public class playercontroller : MonoBehaviour {
 		} else if (pos.y <= -25f) {
 			pos.y = -25f;
 		} 
-		if (pos.x >= 400f) {//usuale 40
+		if (pos.x >= 40f) {//usuale 40
 			pos.x = 40;
 		} else if (pos.x <= -40f) {
 			pos.x = -40f;
 		} 
 
 		if (health >= .1f && fuel >= .1f) {
-			if(horizontal==0 && vertical==0){
-				transform.eulerAngles = new Vector3 (0, 0, 0);
-			} else{
-				transform.eulerAngles = new Vector3 (AngX, AngY, AngZ);
-			}
 			player.transform.position = new Vector3 (pos.x, pos.y, 0);
 		}
 		if (fuel <= 0f) {
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x+1, transform.eulerAngles.y+1, transform.eulerAngles.z+1);
 		}
     
-
-
-		lastZ = player.transform.position.z;
-		lastX = player.transform.position.x;
-		lastY = player.transform.position.y;
-
-
-		transform.Rotate(speed*Time.deltaTime,0, 0);
 
 
 
@@ -396,7 +347,7 @@ public class playercontroller : MonoBehaviour {
 			//Reorient player
 				player.transform.position = initPos;
 				player.transform.localRotation = initRot;
-				GameObject.Find ("player").GetComponent<playercontroller> ().health = 100f;
+				health = 100f;
 				playerAlive = true;
 
 		}
@@ -415,24 +366,11 @@ public class playercontroller : MonoBehaviour {
 
 
 
-	
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 	void update(){
-    
+
 
 
     
