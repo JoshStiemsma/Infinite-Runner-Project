@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: f73bd15ee7dc8e441beb30cbeb164fab
-timeCreated: 1444289940
+guid: 0d8da9cdaa08ffa4eb4a0fe69a3184ff
+timeCreated: 1444369801
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - FuelPrefab: {fileID: 113664, guid: ea6fac2ab7ebe814fb0637ee4e97f80b, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

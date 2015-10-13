@@ -47,13 +47,17 @@ public class Blocks : MonoBehaviour {
 		if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
 				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				Debug.Log("Player Hit Block");
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
 				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 			} 
+
+
+
 			if (col.gameObject.tag == "Bullet") {
-				Debug.Log ("Hit");
+				Debug.Log ("Hit by bullet");
 			}else{
 				destroy ();
 			}

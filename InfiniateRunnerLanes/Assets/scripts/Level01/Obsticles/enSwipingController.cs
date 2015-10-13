@@ -38,6 +38,7 @@ using System.Collections;
 		if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
 				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				Debug.Log("player git Swiping block");
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
 				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
 			} 

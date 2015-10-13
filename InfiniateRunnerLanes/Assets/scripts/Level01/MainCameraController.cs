@@ -26,6 +26,7 @@ public class MainCameraController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		playerAlive = GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
+		charMode = GameObject.Find ("player").GetComponent<playercontroller> ().charMode;
 		offset = transform.position - player.transform.position;
 		initOffset = transform.position - player.transform.position;
 		initCamheight = camHeight;
@@ -39,22 +40,23 @@ public class MainCameraController : MonoBehaviour {
 	
 	void FixedUpdate () {
 		playerAlive = GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
-
-		//BIGGER
-		if (Input.GetKeyDown ("z") && Input.GetKeyDown ("x")==false) {
-			//Debug.Log ("far" + offsetFar + "by" + offset);
-			charMode = 1f;	
-		}
-		//SMALLER
-		if (Input.GetKeyDown ("x") && Input.GetKeyDown ("z")==false) {
-			charMode = -1f;	
-			//Debug.Log("near" + offsetNear + "by" + offset);
-		}  
-		
-		//NORMAL SIZE
-		if(Input.GetKeyUp ("x") || Input.GetKeyUp ("z")) {		
-			charMode = 0f;	
-		}
+		charMode = GameObject.Find ("player").GetComponent<playercontroller> ().charMode;
+//
+//		//BIGGER
+//		if (charMode == 1) {
+//			//Debug.Log ("far" + offsetFar + "by" + offset);
+//			charMode = 1f;	
+//		}
+//		//SMALLER
+//		if (charMode == -1) {
+//			charMode = -1f;	
+//			//Debug.Log("near" + offsetNear + "by" + offset);
+//		}  
+//		
+//		//NORMAL SIZE
+//		if(charMode == 0) {		
+//			charMode = 0f;	
+//		}
 
 
 		if (charMode == -1) {

@@ -21,6 +21,10 @@ public class gameController : MonoBehaviour {
 	public GameObject enSpinningPrefab;
 	public GameObject enSwipePrefab;
 	public GameObject BlocksPrefab;
+	public GameObject fanLeftPrefab;
+	public GameObject fanRightPrefab;
+	public GameObject fanUpPrefab;
+	public GameObject fanDownPrefab;
 	//exteriors and walls
 	public GameObject MedHoleWallPrefab;
 
@@ -47,6 +51,7 @@ public class gameController : MonoBehaviour {
 	private float BeamDelay;
 	private float MedHoleWallDelay;
 	private float LightDelay;
+	private float FanDelay;
 
 	//pickups//
 	private float pickUpDelay;
@@ -64,7 +69,7 @@ public class gameController : MonoBehaviour {
 	private bool playerAlive = true;
 	private bool inBoost;
 
-
+	private float Rand;
 
 	/// <summary>
 	/// /initiations
@@ -83,6 +88,7 @@ public class gameController : MonoBehaviour {
 	private bool initMedHole;
 	private bool initLight;
 	private bool initBeam;
+	private bool initFan;
 
 	private bool initPickup;
 	private bool initFuelCell;
@@ -137,7 +143,7 @@ public class gameController : MonoBehaviour {
 		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 		playerHealth = health;
 		if (health <= 0) {
-			Debug.Log ("Pause enemies");
+			//Debug.Log ("Pause enemies");
 			//level 1//
 			asteroidDelay = pause;
 			enBholeDelay = pause;
@@ -152,6 +158,7 @@ public class gameController : MonoBehaviour {
 			enSwipeDelay = pause;
 			MedHoleWallDelay = pause;
 			BeamDelay = pause;
+			FanDelay = pause;
 			//all//
 			pickUpDelay = pause;
 			fuelCellDelay = pause;
@@ -191,21 +198,9 @@ public class gameController : MonoBehaviour {
 				StartCoroutine ("StartSpawningTube");
 				initTube = true;
 			}
-			if (delayTimer >= pickUpDelay && initPickup == false) {
-				StartCoroutine ("PickUp01");
-				initPickup = true;
-			}
-			if (delayTimer >= fuelCellDelay && initFuelCell == false) {
-				StartCoroutine ("StartSpawningFuelCell");
-				initFuelCell = true;
-			}
 			if (delayTimer >= enBholeDelay && initBhole==false) {
 				StartCoroutine ("StartSpawningbhole");
 				initBhole=true;
-			}
-			if (delayTimer >= shieldDelay && initShield == false) {
-				StartCoroutine ("StartSpawningShield");
-				initShield = true;
 			}
 			if (delayTimer >= gasCloudDelay && initGasCloud == false) {
 				StartCoroutine ("StartSpawningGasCloud");
@@ -232,19 +227,24 @@ public class gameController : MonoBehaviour {
 				StartCoroutine ("StartSpawningBlocks");
 				initBlocks = true;
 			}
-			if (delayTimer >= pickUpDelay && initPickup == false) {
-				StartCoroutine ("PickUp01");
-				initPickup = true;
+			if (delayTimer >= FanDelay && initFan == false) {
+				StartCoroutine ("StartSpawningFans");
+				initFan = true;
 			}
-			if (delayTimer >= fuelCellDelay && initFuelCell == false) {
-				StartCoroutine ("StartSpawningFuelCell");
-				initFuelCell = true;
-			}
-			
-			if (delayTimer >= shieldDelay && initShield == false) {
-				StartCoroutine ("StartSpawningShield");
-				initShield = true;
-			}
+
+		}
+		if (delayTimer >= pickUpDelay && initPickup == false) {
+			StartCoroutine ("PickUp01");
+			initPickup = true;
+		}
+		if (delayTimer >= fuelCellDelay && initFuelCell == false) {
+			StartCoroutine ("StartSpawningFuelCell");
+			initFuelCell = true;
+		}
+		
+		if (delayTimer >= shieldDelay && initShield == false) {
+			StartCoroutine ("StartSpawningShield");
+			initShield = true;
 		}
 	}
 	
@@ -252,7 +252,6 @@ public class gameController : MonoBehaviour {
 
 	void initObsticleDelays(){
 		//level 1//
-		Debug.Log ("Initiate Delays");
 
 		asteroidDelay = 2.5f;
 
@@ -268,15 +267,16 @@ public class gameController : MonoBehaviour {
 		enSwipeDelay = 10f;
 		MedHoleWallDelay = 40f;
 		BeamDelay = 2f;
+		FanDelay = 10f;
 
 		pickUpDelay = 300;
-		fuelCellDelay =50;
+		fuelCellDelay =40;
 		shieldDelay = 175;
 	}
 
 
 
-	void UpdateDelays(){
+	void UpdateDelays(){//increase spawn rate as time goes on
 		//level 1//
 		asteroidDelay = asteroidDelay	-(Time.deltaTime/100f);
 		enemyShipDelay = enemyShipDelay	-(Time.deltaTime/100f);
@@ -291,6 +291,7 @@ public class gameController : MonoBehaviour {
 		enSwipeDelay = enSwipeDelay	-(Time.deltaTime/100f);
 		MedHoleWallDelay = MedHoleWallDelay	-(Time.deltaTime/100f);
 		BeamDelay = BeamDelay	-(Time.deltaTime/100f);
+		FanDelay = FanDelay	-(Time.deltaTime/100f);
 		
 		pickUpDelay = pickUpDelay	-(Time.deltaTime/100f);
 		fuelCellDelay =fuelCellDelay	-(Time.deltaTime/100f);
@@ -312,6 +313,7 @@ public class gameController : MonoBehaviour {
 		enSwipeDelay = enSwipeDelay*2;
 		MedHoleWallDelay = MedHoleWallDelay*2;
 		BeamDelay = BeamDelay*2;
+		FanDelay = FanDelay * 2;
 		
 		pickUpDelay = pickUpDelay*2;
 		fuelCellDelay =fuelCellDelay*4;
@@ -334,6 +336,7 @@ public class gameController : MonoBehaviour {
 		enSwipeDelay = enSwipeDelay/2;
 		MedHoleWallDelay = MedHoleWallDelay/2;
 		BeamDelay = BeamDelay/2;
+		FanDelay = FanDelay / 2;
 		
 		pickUpDelay = pickUpDelay/2;
 		fuelCellDelay =fuelCellDelay/4;
@@ -347,7 +350,31 @@ public class gameController : MonoBehaviour {
 
 	//level 1//
 	GameObject SpawnAsteroid(){	
+		Rand = Random.Range(0,4);
+		if (Rand <= .9f) {
 			return Instantiate (AsteroidPrefab);
+			Debug.Log("Spawn one asteroid");
+		} else if (Rand <= 1.9f && Rand >= 1f) {
+			Debug.Log("Spawn two asteroid");
+			 Instantiate (AsteroidPrefab);
+			return Instantiate (AsteroidPrefab);
+		} else if (Rand <= 2.9f && Rand >= 2f) {
+			Debug.Log("Spawn three asteroid");
+			 Instantiate (AsteroidPrefab);
+			Instantiate (AsteroidPrefab);
+			return Instantiate (AsteroidPrefab);
+		} else if (Rand <= 4f && Rand >= 3f) {
+			Debug.Log("Spawn four asteroid");
+			 Instantiate (AsteroidPrefab);
+			Instantiate (AsteroidPrefab);
+			Instantiate (AsteroidPrefab);
+			return Instantiate (AsteroidPrefab);
+		}else {
+			return Instantiate (AsteroidPrefab);
+			
+		}
+
+			
 		//enemyCount++;
 	}
 	GameObject SpawnCrossAsteroid(){	
@@ -378,6 +405,21 @@ public class gameController : MonoBehaviour {
 	}
 	GameObject SpawnMedHoleWall(){
 		return Instantiate (MedHoleWallPrefab);
+	}
+	GameObject SpawnFan(){
+		 Rand = Random.Range(0,4);
+		if (Rand <= .9f) {
+			return Instantiate (fanLeftPrefab);
+		} else if (Rand <= 1.9f && Rand >= 1f) {
+			return Instantiate (fanUpPrefab);
+		} else if (Rand <= 2.9f && Rand >= 2f) {
+			return Instantiate (fanRightPrefab);
+		} else if (Rand <= 4f && Rand >= 3f) {
+			return Instantiate (fanDownPrefab);
+		}else {
+			return Instantiate (fanLeftPrefab);
+			
+		}
 	}
 
 
@@ -481,6 +523,17 @@ public class gameController : MonoBehaviour {
 			yield return new WaitForSeconds(MedHoleWallDelay);
 		}
 	}
+	IEnumerator StartSpawningFans(){
+		while(true){
+			SpawnFan();
+			yield return new WaitForSeconds(FanDelay);
+		}
+	}
+
+
+
+
+
 
 
 	//all//

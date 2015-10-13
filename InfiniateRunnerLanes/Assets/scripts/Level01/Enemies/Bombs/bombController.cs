@@ -16,12 +16,14 @@ public class bombController : MonoBehaviour {
 	private bool white;
 
 	private Vector3 scale;
+	private Vector3 angles;
 
 	private bool up;
 	private bool right;
 	private float spacer;
 
 	public GameObject FuelPrefab;
+	public GameObject ExplosionPrefab;
 
 	void Start () {
 	
@@ -33,13 +35,11 @@ public class bombController : MonoBehaviour {
 			
 		} else {
 			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;;		
-			/////////// Spawn off the top of the screen in a random x position:
-
-
-			//transform.position = new Vector3 (Random.Range (-38f, 38f), Random.Range (-40f, 40f), 1000);
+			angles.x = Random.Range (0, 360);
+			angles.y = Random.Range (0, 360);
+			angles.z = Random.Range (0, 360);
 		}
-		
-		Invoke("colorWhite", 1f);
+
 		flipUp ();
 		Invoke("flipRight", .25f);
 		
@@ -77,6 +77,10 @@ public class bombController : MonoBehaviour {
 
 		//////////// Move the object:
 		Vector3 pos = transform.position;	
+		////////// rotate the bomb:
+		angles.x += 20 * Time.deltaTime;
+		angles.z += 40 * Time.deltaTime;
+
 		///SPiral effect///////
 		spacer = spacer * (Time.deltaTime*2);
 		if (right) {
@@ -97,39 +101,21 @@ public class bombController : MonoBehaviour {
 
 		if(health >= .1f){
 			transform.position = pos;
+			transform.rotation = Quaternion.Euler (angles);
 
 		} else{//if health is under 0
 			transform.position = transform.position;//do nothing	
 		}
 
 		
-		if (pos.z <= 20) { 
-			if (scale.x < 15) {
-				transform.localScale = new Vector3 (30, 30, 30);
-				GetComponent<Renderer> ().material.SetColor ("_Color", Color.red);
-			}
-			if (scale.x > 15) {
-				transform.localScale = new Vector3 (14, 14, 14);
-				GetComponent<Renderer> ().material.SetColor ("_Color", Color.yellow);
-			}
-			Debug.Log ("EXPLOSION");		
-		}
-
-		if (pos.z <= -5) { 
-			Destroy(gameObject);	
+		if (pos.z <= 10) { 
+///EXPLODE HERE		
+			Instantiate (ExplosionPrefab, transform.position, Quaternion.identity);
+			Destroy(gameObject);
 		}
 		
 	}
-	void colorWhite() {
-		GetComponent<Renderer> ().material.SetColor ("_Color", Color.white);
-		Debug.Log ("White");
-		Invoke("colorYellow", .3f);
-	}
-	void colorYellow() {
-		GetComponent<Renderer> ().material.SetColor ("_Color", Color.yellow);
-		Debug.Log ("yellow");
-		Invoke("colorWhite", .3f);
-	}
+
 	void flipUp(){
 		up = !up;
 		Invoke("flipUp", .5f);

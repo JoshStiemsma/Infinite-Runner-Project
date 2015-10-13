@@ -1,13 +1,20 @@
 fileFormatVersion: 2
 guid: 80a73fdf97e866241a4f5e935bfbadf4
-timeCreated: 1443315745
+timeCreated: 1444620684
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - target: {instanceID: 0}
-  - prefabexplosion: {fileID: 104516, guid: e85e5e3a846216840b9aedaa3e040882, type: 2}
+  - playerPrefab: {instanceID: 0}
+  - startPositionObj: {instanceID: 0}
   - rb: {instanceID: 0}
+  - gun: {instanceID: 0}
+  - bulletPrefab: {instanceID: 0}
+  - blueringPrefab: {instanceID: 0}
+  - target: {instanceID: 0}
+  - prefabexplosion: {instanceID: 0}
+  - BoostAudio: {fileID: 8300000, guid: 4703ddc4acf60b945a33e3c01d17db93, type: 3}
+  - EngineAudio: {fileID: 8300000, guid: a7640c82256d0634081caf79d384c3d6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -4,7 +4,7 @@ using System.Collections;
 public class playercontroller : MonoBehaviour {
 
 	public bool paused; 
-
+	public GameObject MainCamera;
 	
 	private GameObject player;
 	public GameObject playerPrefab;
@@ -21,13 +21,14 @@ public class playercontroller : MonoBehaviour {
 	public float fireRate;
 	private float nextFire;
 
-
+	public float growCounter;
+	public float shrinkCounter;
 
 	public bool launchedExplosion;
 	private bool launchedStall;
 
 
-	private float charMode = 0;
+	public float charMode = 0;
 
 	//Barrel Roll double clic
 	private bool lastRightInput;
@@ -127,17 +128,31 @@ public class playercontroller : MonoBehaviour {
 		/////Character Change/////
 		//Shrink on z Button
 		if (Input.GetKeyDown ("z") && Input.GetKeyDown ("x") == false) {
+		
 			charMode = 1;
 		} 
 		//Grow on X Button
 		if (Input.GetKeyDown ("x") && Input.GetKeyDown ("z") == false) {
 			charMode = -1;
+
 		}
 		//Ungron when x-button is released
 		if (Input.GetKeyUp ("x") || Input.GetKeyUp ("z")) {
-			charMode = 0;			
+			charMode = 0;	
+			//shrinkCounter = 0f;
+			//growCounter = 0f;
 		}
+
+
+		if (shrinkCounter >= 4f || growCounter >= 4f) {
+			charMode = 0;	
+			//shrinkCounter = 0f;
+			//growCounter = 0f;
+		}
+
+
 		if (charMode == 1 && playerAlive) {
+			growCounter = growCounter + 1*Time.deltaTime;
 			prevTransform.y = pos.y;
 			player.transform.localScale = initPlayerScale * 10;
 			//pos.y = pos.y-1.5f;
@@ -148,11 +163,17 @@ public class playercontroller : MonoBehaviour {
 			//pos.y = pos.y+1.5f;
 		}
 		if (charMode == -1 && playerAlive) {
+			shrinkCounter = shrinkCounter + 1*Time.deltaTime;
 			prevTransform.y = pos.y;
 			player.transform.localScale = initPlayerScale / 10;
 			//pos.y = pos.y +1.5f;
 		}
-
+		if (charMode != -1 && shrinkCounter >= .1f) {
+			shrinkCounter = shrinkCounter - .5f*Time.deltaTime;
+		}
+		if (charMode != 1 && growCounter >= .1f) {
+			growCounter = growCounter - .5f*Time.deltaTime;
+		}
 
 		
 		///////LEFT and RIGHT////////////////////////////////////////
@@ -173,13 +194,13 @@ public class playercontroller : MonoBehaviour {
 					lastLeftInput = true;
 					leftReleased=false;
 					tapCount++;
-					Debug.Log ("firstTap");
+					//Debug.Log ("firstTap");
 					if (tapCount == 1) {
-						Debug.Log ("Tap" + horizontal);
+						//Debug.Log ("Tap" + horizontal);
 
 					}
 					if (tapCount == 2) {
-						Debug.Log ("DoubleTap" + horizontal);
+					//	Debug.Log ("DoubleTap" + horizontal);
 						inRoll = true;
 						inLeftRoll = true;
 							GetComponent<Animation>().Play("RollLeft");
@@ -309,9 +330,7 @@ public class playercontroller : MonoBehaviour {
 		if (health >= .1f && fuel >= .1f) {
 			player.transform.position = new Vector3 (pos.x, pos.y, 0);
 		}
-		if (fuel <= 0f) {
-			transform.eulerAngles = new Vector3 (transform.eulerAngles.x+1, transform.eulerAngles.y+1, transform.eulerAngles.z+1);
-		}
+	
     
 
 
@@ -328,8 +347,9 @@ public class playercontroller : MonoBehaviour {
 			fuel = 0f;
 			playerAlive = false;
 			Debug.Log("player out of fuel");
-
+			transform.eulerAngles = new Vector3 (transform.eulerAngles.x+1, transform.eulerAngles.y+1, transform.eulerAngles.z+1);
 			pickUpCount = 0;
+			health = 0;
 		}
 		
 

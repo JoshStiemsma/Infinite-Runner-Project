@@ -10,28 +10,18 @@ public class cameracontroller : MonoBehaviour {
 
 	private float charMode = 0f;
 	public float camHeight = 3f;
+
+	private float initCamHeight;
 	// Use this for initialization
 	void Start () {
 
 	  offset = transform.position - player.transform.position;
-
+		initCamHeight = camHeight;
 	}
 
 	void FixedUpdate () {
-
-
-		if (Input.GetKeyDown ("z") && charMode != 1f) {
-			//offset = offset*5;
-			charMode += 1f;	
-			camHeight = camHeight*3f;
-		}
-
-		
-		if (Input.GetKeyDown ("x") && charMode != -1f ) {
-			//offset = offset/5;
-			charMode -= 1f;	
-			camHeight = camHeight/3f;
-		}
+		charMode = GameObject.Find ("player").GetComponent<playercontroller> ().charMode;
+		Debug.Log (charMode);
 
 	
 	}
@@ -41,10 +31,26 @@ public class cameracontroller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		transform.position = new Vector3 (player.transform.position.x, camHeight, player.transform.position.z+offset.z); 
+		UpdateCamera ();
 			
 	}
+	public void UpdateCamera(){
+		charMode = GameObject.Find ("player").GetComponent<playercontroller> ().charMode;
+		
 
+		
+		if (charMode == 1) {
+			camHeight = 9;
+		}
+		if (charMode == 0) {
+			camHeight = 3;
+		}
+		if (charMode == -1) {
+			camHeight = 1;
+		}
+
+		transform.position = new Vector3 (player.transform.position.x, camHeight, player.transform.position.z+offset.z); 
+	}
 
 
 }

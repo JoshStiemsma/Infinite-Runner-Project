@@ -35,6 +35,7 @@ public class enSpinningController : MonoBehaviour {
 		if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
 				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				Debug.Log("player git Spinning block");
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
 				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
 				
