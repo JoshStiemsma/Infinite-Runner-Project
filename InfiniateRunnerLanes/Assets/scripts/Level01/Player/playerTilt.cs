@@ -34,18 +34,18 @@ public class playerTilt : MonoBehaviour {
 
 				///if verticle input rotate ship/////////////////////////
 				if (Mathf.Round (vertical * 100f) / 100f >= .2) {
-			rotationTargetRot.x = -.1f;
+			rotationTargetRot.x = -.2f;
 				} else if (Mathf.Round (vertical * 100f) / 100f <= -.2) {
-			rotationTargetRot.x = .1f;
+			rotationTargetRot.x = .2f;
 				} else if (inRoll == false) {
 			rotationTargetRot.x = 0f;
 			}
 
 		///if horizontal input rotate ship/////////////////////////
 		if (Mathf.Round (horizontal * 100f) / 100f >= .2) {
-			rotationTargetRot.z = -.1f;
+			rotationTargetRot.z = -.2f;
 		} else if (Mathf.Round (horizontal * 100f) / 100f <= -.2) {
-			rotationTargetRot.z = .1f;
+			rotationTargetRot.z = .2f;
 		} else  {
 			rotationTargetRot.z = 0f;
 		}

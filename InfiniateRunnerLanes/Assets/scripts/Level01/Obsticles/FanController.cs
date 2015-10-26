@@ -61,13 +61,13 @@ public class FanController : MonoBehaviour {
 		//	Debug.Log ("move rigid body");
 
 		if (Left) {
-			other.attachedRigidbody.AddForce (Vector3.left * 3000);
+			other.attachedRigidbody.AddForce (Vector3.left * 2000);
 		}else if (Right) {
-			other.attachedRigidbody.AddForce (Vector3.right * 3000);
+			other.attachedRigidbody.AddForce (Vector3.right * 2000);
 		}else if (Up) {
-			other.attachedRigidbody.AddForce (Vector3.up * 3000);
+			other.attachedRigidbody.AddForce (Vector3.up * 2000);
 		}else if (Down) {
-			other.attachedRigidbody.AddForce (Vector3.down * 3000);
+			other.attachedRigidbody.AddForce (Vector3.down * 2000);
 		} 
 	}
 }

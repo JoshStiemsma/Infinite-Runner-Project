@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 
 public class EnemyController : MonoBehaviour {
 	
 	public GameObject BombPrefab;
+	public GameObject HomingBombPrefab;
 	public float speed;
 	private float playerHealth;
 	private bool shieldOn;
@@ -17,6 +19,8 @@ public class EnemyController : MonoBehaviour {
 
 	private bool initBombs;
 	private bool initFinal;
+	private bool HomingSpawned;
+	private bool firstLoop = true;
 	private float bombDelay;
 	private float bombCount;
 
@@ -89,6 +93,10 @@ public class EnemyController : MonoBehaviour {
 			flyingIn = false;
 			droppingBomb = false;
 			StopCoroutine ("SpawnMultBombs");
+			StartCoroutine ("StartSpawnHomingBomb");
+		}
+		if (bombCount>=15) {
+			StopCoroutine ("StartSpawnHomingBomb");
 		}
 		if (flyingIn) {
 			pos.z += speed/2 * Time.deltaTime;
@@ -135,12 +143,19 @@ public class EnemyController : MonoBehaviour {
 			Destroy (gameObject);
 			StopCoroutine("StartSpawningBombs");
 			StopCoroutine("SpawnMultBombs");
+			StopCoroutine("StartSpawnHomingBomb");
 		}
 		
 	}
 	GameObject SpawnBomb(){	
 	return Instantiate (BombPrefab, transform.position, transform.rotation) as GameObject;
 
+		//return Instantiate (BombPrefab);
+	}
+
+	GameObject SpawnHomingBomb(){	
+		return Instantiate (HomingBombPrefab, transform.position, transform.rotation) as GameObject;
+		
 		//return Instantiate (BombPrefab);
 	}
 
@@ -160,14 +175,14 @@ public class EnemyController : MonoBehaviour {
 		Debug.Log ("Killed Enemy Ship");
 		 dropChoice = Random.Range (-1.0f, 1.0f);
 		if(dropChoice>=.3f){
-			Instantiate ( Pickup01Prefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
-			Instantiate ( ShieldPrefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( Pickup01Prefab , new Vector3(transform.position.x+Random.Range(-30,30),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( ShieldPrefab , new Vector3(transform.position.x+Random.Range(-30,30),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
 		}else if (dropChoice<-.3f){
-			Instantiate ( FuelPrefab , new Vector3(transform.position.x+Random.Range(110,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
-			Instantiate ( ShieldPrefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( FuelPrefab , new Vector3(transform.position.x+Random.Range(-30,30),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( ShieldPrefab , new Vector3(transform.position.x+Random.Range(-30,30),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
 		}else{
-			Instantiate ( Pickup01Prefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
-			Instantiate ( FuelPrefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( Pickup01Prefab , new Vector3(transform.position.x+Random.Range(-30,30),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( FuelPrefab , new Vector3(transform.position.x+Random.Range(-30,30),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
 		}
 
 		Destroy (this.gameObject);
@@ -188,7 +203,19 @@ public class EnemyController : MonoBehaviour {
 		while(true){		
 			SpawnBomb();
 			bombCount++;
-			yield return new WaitForSeconds(.5f);			
+			yield return new WaitForSeconds(.7f);			
+		}
+	}
+	IEnumerator StartSpawnHomingBomb(){
+	
+
+		while(true){		
+			if(HomingSpawned==false && firstLoop==false){
+			SpawnHomingBomb();
+			HomingSpawned=true;
+			}
+			firstLoop = false;
+			yield return new WaitForSeconds(2f);			
 		}
 	}
 

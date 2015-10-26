@@ -9,7 +9,8 @@ public class wallController : MonoBehaviour {
 	public float speed;
 	private float health;
 
-
+	private bool shieldOn;
+	private bool gotHit;
 
 	
 	void Start () {
@@ -26,24 +27,35 @@ public class wallController : MonoBehaviour {
 
 			/////////// Spawn off the top of the screen in a random x position:
 		
-			transform.position = new Vector3 (0, 50, 600);
+			transform.position = new Vector3 (0, 50, 1500);
 	
 		}
 
 		
 
 	}
-	
+
+
+
+
+
+
 	void OnCollisionEnter(Collision col)
 	{
 		
-		Debug.Log ("HIT SOMETHING");
-		GameObject.Find("player").GetComponent<playercontroller>().health -= 100.0f;
-		if (col.collider.tag == "enemy"){
+		if (gotHit == false) {
+			if (col.gameObject.tag == "Player" && shieldOn == false) {	
+				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				Debug.Log("player git Swiping block");
+			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
+				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+			} 
+			gotHit=true;
 			
-			Destroy(col.gameObject);
 		}
+		
 	}
+
 	void OnTriggerEnter( Collider col ) {
 		if ( col.gameObject.tag == "enemy" ) {
 			Destroy(col.gameObject);
@@ -55,7 +67,7 @@ public class wallController : MonoBehaviour {
 		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 			////////////////////////////BOOOOOOOST//////////////////////////////
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
-
+		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
 		
 		
 		//////////// Move the object:

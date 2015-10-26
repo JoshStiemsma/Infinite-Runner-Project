@@ -6,8 +6,11 @@ public class AsteroidController : MonoBehaviour {
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
-	public float speed;
 	private float health;
+	private float damage;
+
+	public float speed;
+	private float playerHealth;
 	public bool shieldOn;
 
 	public Vector3 angles;
@@ -17,12 +20,25 @@ public class AsteroidController : MonoBehaviour {
 	private float enemyCount;
 	public GameObject AsteroidDivisioParticle;
 	public GameObject collisionPrefab;
+	private float dropChoice;
+
+	public GameObject Pickup01Prefab;
+	public GameObject ShieldPrefab;
+	public GameObject FuelPrefab;
+
+
+
+	private float distanceFromPlayer;
+
+
+
 	void Start () {
+		health = 100f;
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
-	health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		enemyCount = GameObject.Find ("Main Camera").GetComponent<gameController> ().enemyCount+1;
 		//Debug.Log ("Enemies:" + enemyCount);
-		if (health <= 0f) {
+		if (playerHealth <= 0f) {
 			Destroy(gameObject);
 
 		} else {
@@ -47,33 +63,64 @@ public class AsteroidController : MonoBehaviour {
 
 	}
 	
-	void OnCollisionEnter(Collision col){
+	void OnCollisionExit(Collision col){
 	if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
 				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
+				Debug.Log ("DESTROY via player");
+				destroy ();
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
 				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
+				Debug.Log ("DESTROY via player");
+				destroy ();
 			} 
-			if (col.gameObject.tag == "Bullet") {
-				Debug.Log ("Hit");
-			}
+
 			gotHit=true;
 		}
+		if (col.gameObject.tag == "Bullet") {
+
+
+			distanceFromPlayer = transform.position.z;
+			//can be 0-6000  so fr is 1/1 near is 0/1  with dist/6000
+
+			damage = 50f * (1-(distanceFromPlayer/6001));
+			health = health - damage;
+		
+			Debug.Log ("health: " + health + "   distace: " + distanceFromPlayer + "  Damage:  " + damage);
+		}
 		//GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
-		destroy ();
+		if (health <= 0f) {
+			destroy ();
+			Debug.Log ("DESTROY via health");
+		}
 	}
+
+
+
 	void destroy(){
-		Debug.Log ("DESTROY");
 		Instantiate (AsteroidDivisioParticle, new Vector3(transform.position.x, transform.position.y, transform.position.z ), Quaternion.identity);
+		//Destroy (gameObject);
+	
+		dropChoice = Random.Range (-1.0f, 1.0f);
+		if(dropChoice<=-.95f){
+			Instantiate ( Pickup01Prefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+		}else if (dropChoice<-.8f && dropChoice>=-.94f){
+			Instantiate ( ShieldPrefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+		}else if (dropChoice<-.5f && dropChoice>=-.79f){
+			Instantiate ( FuelPrefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+		} else {
+
+		}
+		
 		Destroy (this.gameObject);
-		Destroy (gameObject);
+		
 	}
 
 	void Update () {
 		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 
 			//////////////////////////BOOOOOOOST//////////////////////////////
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
@@ -94,7 +141,7 @@ public class AsteroidController : MonoBehaviour {
 	
 
 
-		if(health >= .1f){
+		if(playerHealth >= .1f){
 		transform.rotation = Quaternion.Euler (angles);
 		transform.position = pos;
 		} else{//if health is under 0

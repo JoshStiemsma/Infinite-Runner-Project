@@ -96,6 +96,7 @@ public class gameController : MonoBehaviour {
 
 
 	public int level;
+	public int sublevel; //deffult = 0 Test level
 
 	void Start () {
 		delayTimer = 0f;
@@ -181,6 +182,8 @@ public class gameController : MonoBehaviour {
 		/// 		//////////////Level 1 Start Coroutines//////
 			if (level == 1) {
 
+
+			if(sublevel == 0) {//Test/Demo level
 			if (delayTimer >= asteroidDelay && initAsteroid == false) {
 				StartCoroutine ("StartSpawningAsteroid");
 				initAsteroid = true;
@@ -205,6 +208,71 @@ public class gameController : MonoBehaviour {
 			if (delayTimer >= gasCloudDelay && initGasCloud == false) {
 				StartCoroutine ("StartSpawningGasCloud");
 				initGasCloud = true;
+			}
+			}
+
+			if(sublevel == 1) {//First subLevel coors //movement and obsticals
+				if (delayTimer >= asteroidDelay && initAsteroid == false) {
+					StartCoroutine ("StartSpawningAsteroid");
+					initAsteroid = true;
+				}
+				if (delayTimer >= gasCloudDelay && initGasCloud == false) {
+					StartCoroutine ("StartSpawningGasCloud");
+					initGasCloud = true;
+				}
+				if (delayTimer >= tubeDelay && initTube == false) {
+					StartCoroutine ("StartSpawningTube");
+					initTube = true;
+				}
+				if (delayTimer >= enBholeDelay && initBhole==false) {
+					StartCoroutine ("StartSpawningbhole");
+					initBhole=true;
+				}
+			}
+			if(sublevel == 2) {//Second subLevel coors// Pickups/shooting
+				if (delayTimer >= asteroidDelay && initAsteroid == false) {
+					StartCoroutine ("StartSpawningAsteroid");
+					initAsteroid = true;
+				}
+				if (delayTimer >= gasCloudDelay && initGasCloud == false) {
+					StartCoroutine ("StartSpawningGasCloud");
+					initGasCloud = true;
+				}
+				if (delayTimer >= tubeDelay && initTube == false) {
+					StartCoroutine ("StartSpawningTube");
+					initTube = true;
+				}
+				if (delayTimer >= enBholeDelay && initBhole==false) {
+					StartCoroutine ("StartSpawningbhole");
+					initBhole=true;
+				}
+			}
+			if(sublevel == 3) {//Third subLevel coors// enemy/drops
+				if (delayTimer >= asteroidDelay && initAsteroid == false) {
+					StartCoroutine ("StartSpawningAsteroid");
+					initAsteroid = true;
+				}
+				
+				if (delayTimer >= enemyShipDelay && initEnemyShip == false) {
+					StartCoroutine ("StartSpawningEnemyShip");
+					initEnemyShip = true;
+				}
+				if (delayTimer >= CrossAsteroidDelay && initCrossAsteroid == false) {
+					StartCoroutine ("StartSpawningCrossAsteroid");
+					initCrossAsteroid = true;
+				}
+				if (delayTimer >= tubeDelay && initTube == false) {
+					StartCoroutine ("StartSpawningTube");
+					initTube = true;
+				}
+				if (delayTimer >= enBholeDelay && initBhole==false) {
+					StartCoroutine ("StartSpawningbhole");
+					initBhole=true;
+				}
+				if (delayTimer >= gasCloudDelay && initGasCloud == false) {
+					StartCoroutine ("StartSpawningGasCloud");
+					initGasCloud = true;
+				}
 			}
 
 		}
@@ -232,20 +300,23 @@ public class gameController : MonoBehaviour {
 				initFan = true;
 			}
 
+
+			if (delayTimer >= pickUpDelay && initPickup == false) {
+				StartCoroutine ("PickUp01");
+				initPickup = true;
+			}
+			if (delayTimer >= fuelCellDelay && initFuelCell == false) {
+				StartCoroutine ("StartSpawningFuelCell");
+				initFuelCell = true;
+			}
+			
+			if (delayTimer >= shieldDelay && initShield == false) {
+				StartCoroutine ("StartSpawningShield");
+				initShield = true;
+			}
+
 		}
-		if (delayTimer >= pickUpDelay && initPickup == false) {
-			StartCoroutine ("PickUp01");
-			initPickup = true;
-		}
-		if (delayTimer >= fuelCellDelay && initFuelCell == false) {
-			StartCoroutine ("StartSpawningFuelCell");
-			initFuelCell = true;
-		}
-		
-		if (delayTimer >= shieldDelay && initShield == false) {
-			StartCoroutine ("StartSpawningShield");
-			initShield = true;
-		}
+
 	}
 	
 
@@ -265,7 +336,7 @@ public class gameController : MonoBehaviour {
 		BlocksDelay = 4f;
 		enSpinDelay = 25f;
 		enSwipeDelay = 10f;
-		MedHoleWallDelay = 40f;
+		MedHoleWallDelay = 20f;
 		BeamDelay = 2f;
 		FanDelay = 10f;
 
@@ -351,19 +422,19 @@ public class gameController : MonoBehaviour {
 	//level 1//
 	GameObject SpawnAsteroid(){	
 		Rand = Random.Range(0,4);
-		if (Rand <= .9f) {
+		if (Rand <= 3f) {
 			return Instantiate (AsteroidPrefab);
 			Debug.Log("Spawn one asteroid");
-		} else if (Rand <= 1.9f && Rand >= 1f) {
+		} else if (Rand <= 3.4f && Rand >= 3.1f) {
 			Debug.Log("Spawn two asteroid");
 			 Instantiate (AsteroidPrefab);
 			return Instantiate (AsteroidPrefab);
-		} else if (Rand <= 2.9f && Rand >= 2f) {
+		} else if (Rand <= 3.8f && Rand >= 3.5f) {
 			Debug.Log("Spawn three asteroid");
 			 Instantiate (AsteroidPrefab);
 			Instantiate (AsteroidPrefab);
 			return Instantiate (AsteroidPrefab);
-		} else if (Rand <= 4f && Rand >= 3f) {
+		} else if (Rand <= 4f && Rand >= 3.9f) {
 			Debug.Log("Spawn four asteroid");
 			 Instantiate (AsteroidPrefab);
 			Instantiate (AsteroidPrefab);

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9f2668310b1f14c46a3b7d685bb4ea91
+timeCreated: 1444881162
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - FuelPrefab: {fileID: 113664, guid: ea6fac2ab7ebe814fb0637ee4e97f80b, type: 2}
+  - ExplosionPrefab: {fileID: 196492, guid: 05e7edcb3bd4790479bb08345d49c9db, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\Level01\Enemies\Bombs\BombExplosion.cs" />
      <Compile Include="Assets\scripts\Level01\Enemies\Bombs\BombMaterialController.cs" />
+     <Compile Include="Assets\scripts\Level01\Enemies\Bombs\TrackingBombController1.cs" />
      <Compile Include="Assets\scripts\Level01\Enemies\Bombs\bombController.cs" />
      <Compile Include="Assets\scripts\Level01\Enemies\EnemyController.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\FuelBar.cs" />
@@ -58,12 +59,14 @@
      <Compile Include="Assets\scripts\Level01\HUD\ShrinkBar.cs" />
      <Compile Include="Assets\scripts\Level01\JetParticleController.cs" />
      <Compile Include="Assets\scripts\Level01\MainCameraController.cs" />
+     <Compile Include="Assets\scripts\Level01\Moduler\BulletCollision.cs" />
+     <Compile Include="Assets\scripts\Level01\Moduler\CollisionDamage.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\DestroyByTime.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\Movement.cs" />
-     <Compile Include="Assets\scripts\Level01\Moduler\OnCollisionDestroy.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\Rotate.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\AsteroidController.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\BasicNonViolentObject.cs" />
+     <Compile Include="Assets\scripts\Level01\Obsticles\BlackHoleGravity.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\Blocks.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\CrossAsteroidController.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\FanController.cs" />
@@ -72,6 +75,7 @@
      <Compile Include="Assets\scripts\Level01\Obsticles\enBholeController.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\enSpinningController.cs" />
      <Compile Include="Assets\scripts\Level01\Obsticles\enSwipingController.cs" />
+     <Compile Include="Assets\scripts\Level01\Obsticles\wallController.cs" />
      <Compile Include="Assets\scripts\Level01\ParticleColorBoostChange.cs" />
      <Compile Include="Assets\scripts\Level01\Player\BulletController.cs" />
      <Compile Include="Assets\scripts\Level01\Player\PlayerMaterialController.cs" />
@@ -88,7 +92,6 @@
      <Compile Include="Assets\scripts\Level01\VisualObjects\planetRotation.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\sunMovement.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\tubeController.cs" />
-     <Compile Include="Assets\scripts\Level01\VisualObjects\wallController.cs" />
      <Compile Include="Assets\scripts\Level01\cameracontroller.cs" />
      <Compile Include="Assets\scripts\Level01\gameController.cs" />
      <Compile Include="Assets\scripts\Level01\particleController.cs" />

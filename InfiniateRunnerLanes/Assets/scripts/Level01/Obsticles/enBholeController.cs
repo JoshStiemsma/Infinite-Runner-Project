@@ -68,31 +68,35 @@ public class enBholeController : MonoBehaviour {
 	}
 	
 	void Update () {
-		////////////////////////////BOOOOOOOST//////////////////////////////
+
 			player = GameObject.Find ("player");
 		playerPos = player.transform.position;
 		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
         transform.localScale = scales;
 
-        //////////// Spin the object:
-        angles.x += 20 * Time.deltaTime;
-        angles.z += 40 * Time.deltaTime;
+        //////////// Spin the blackhole:
+        //angles.x += 20 * Time.deltaTime;
+        //angles.z += 40 * Time.deltaTime;
 
-        //////////// Move the object:
+        //////////// Move the Blackhole
         Vector3 pos = transform.position;
 		if (playerHealth >= .1f) {
-			transform.rotation = Quaternion.Euler (angles);
+			//transform.rotation = Quaternion.Euler (angles);
 			pos.z -= speed * Time.deltaTime;
 			transform.position = pos;
 		}
 
-		if (pos.z <= 300f && pos.z>=0f) {
-			if(pos.x-playerPos.x<=50f && pos.y-playerPos.y<=50f){
-	
-				player.transform.position = Vector3.Lerp (playerPos, new Vector3(transform.position.x, transform.position.y, player.transform.position.z ), 1f*Time.deltaTime);
-			}
 
-		}
+		////OLD Gravity statement//////
+//		if (pos.z <= 300f && pos.z>=0f) {
+//			if(pos.x-playerPos.x<=50f && pos.y-playerPos.y<=50f){
+//	
+//				player.transform.position = Vector3.Lerp (playerPos, new Vector3(transform.position.x, transform.position.y, player.transform.position.z ), 1f*Time.deltaTime);
+//			}
+//
+//		}
+
+
 		//////////// If off the bottom of the screen, destroy this object:
 		if (pos.z < -8) Destroy (gameObject);
 	}

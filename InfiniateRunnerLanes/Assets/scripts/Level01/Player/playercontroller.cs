@@ -80,7 +80,9 @@ public class playercontroller : MonoBehaviour {
 	private float subBoost;
 
 
-	public GameObject[] EnemyObjects;
+	public GameObject[] Enemies;
+	public GameObject[] Obsticals;
+	public GameObject[] Pickups;
 	public float pickUpCount;
 
 
@@ -104,7 +106,11 @@ public class playercontroller : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		playerAlive = true;
 		launchedExplosion = false;
-		EnemyObjects = GameObject.FindGameObjectsWithTag ("enemy");
+		Enemies = GameObject.FindGameObjectsWithTag ("enemy");
+		Obsticals = GameObject.FindGameObjectsWithTag ("obstical");
+		Pickups = GameObject.FindGameObjectsWithTag ("Pickup");
+
+
 		initPos = player.transform.position;
 		initRot = player.transform.localRotation;
 		initPlayerScale = player.transform.localScale;
@@ -116,7 +122,9 @@ public class playercontroller : MonoBehaviour {
 	{
 
 	
-		EnemyObjects = GameObject.FindGameObjectsWithTag ("enemy");
+		Enemies = GameObject.FindGameObjectsWithTag ("enemy");
+		Obsticals = GameObject.FindGameObjectsWithTag ("obstical");
+		Pickups = GameObject.FindGameObjectsWithTag ("Pickup");
 
 
 		pos = transform.position;
@@ -360,9 +368,17 @@ public class playercontroller : MonoBehaviour {
 			Debug.Log("player pressed enter");
 			fuel = 100f;
 			//Destroy enemies
-			for(var i = 0 ; i < EnemyObjects.Length ; i ++)
+			for(var i = 0 ; i < Obsticals.Length ; i ++)
 			{
-				Destroy(EnemyObjects[i]);
+				Destroy(Obsticals[i]);
+			}
+			for(var i = 0 ; i < Enemies.Length ; i ++)
+			{
+				Destroy(Enemies[i]);
+			}
+			for(var i = 0 ; i < Pickups.Length ; i ++)
+			{
+				Destroy(Pickups[i]);
 			}
 			//Reorient player
 				player.transform.position = initPos;
