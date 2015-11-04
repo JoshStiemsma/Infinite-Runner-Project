@@ -51,8 +51,7 @@ public class WorldPanelController : MonoBehaviour {
 
 		levelReached = PlayerData.playerData.levelReached;
 		UnBlockLevels ();
-		c11  =  Color.clear;
-		c12  =  Color.clear;
+
 	}
 	public void UnBlockLevels(){
 		if (levelReached == 0) {
