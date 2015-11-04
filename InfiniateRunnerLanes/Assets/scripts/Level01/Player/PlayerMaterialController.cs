@@ -3,14 +3,15 @@ using System.Collections;
 
 public class PlayerMaterialController : MonoBehaviour {
 	private bool inBoost;
-
+	private GameObject player;
 	void Start(){
-		inBoost = GameObject.Find ("player").GetComponent<playercontroller> ().inBoost;
+		player = GameObject.Find ("player");
+		inBoost = player.GetComponent<playercontroller> ().inBoost;
 	}
 
 
 	void Update () {
-		inBoost = GameObject.Find ("player").GetComponent<playercontroller> ().inBoost;
+		inBoost = player.GetComponent<playercontroller> ().inBoost;
 
 		Renderer renderer = GetComponent<Renderer> ();
 		Material[] mats = renderer.materials;

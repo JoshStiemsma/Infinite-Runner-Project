@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class PickupController : MonoBehaviour {
+	private GameObject player;
 
 	public GameObject PickUp01;
 	public GameObject PickUp02;
@@ -13,9 +14,10 @@ public class PickupController : MonoBehaviour {
 	private SpriteRenderer spriteRenderer03; 
 	private SpriteRenderer spriteRenderer04; 
 
-	private float playerPickupCount;
+	public float playerPickupCount;
 	public Sprite sprite1;
 	public Sprite sprite2;
+
 
 
 
@@ -27,8 +29,8 @@ public class PickupController : MonoBehaviour {
 		spriteRenderer03 = PickUp03.GetComponent<SpriteRenderer>();
 		spriteRenderer04 = PickUp04.GetComponent<SpriteRenderer>();
 
-
-		playerPickupCount =  GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount;
+		player = GameObject.Find ("player");
+		playerPickupCount = player.GetComponent<playercontroller> ().pickUpCount;
 
 
 
@@ -36,7 +38,7 @@ public class PickupController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		playerPickupCount =  GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount;
+		playerPickupCount = player.GetComponent<playercontroller> ().pickUpCount;
 
 
 		if (playerPickupCount == 0) {

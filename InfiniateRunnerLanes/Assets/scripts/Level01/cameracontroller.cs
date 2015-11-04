@@ -14,13 +14,13 @@ public class cameracontroller : MonoBehaviour {
 	private float initCamHeight;
 	// Use this for initialization
 	void Start () {
-
+		player = GameObject.Find ("player");
 	  offset = transform.position - player.transform.position;
 		initCamHeight = camHeight;
 	}
 
 	void FixedUpdate () {
-		charMode = GameObject.Find ("player").GetComponent<playercontroller> ().charMode;
+		charMode = player.GetComponent<playercontroller> ().charMode;
 		Debug.Log (charMode);
 
 	
@@ -35,7 +35,7 @@ public class cameracontroller : MonoBehaviour {
 			
 	}
 	public void UpdateCamera(){
-		charMode = GameObject.Find ("player").GetComponent<playercontroller> ().charMode;
+		charMode = player.GetComponent<playercontroller> ().charMode;
 		
 
 		

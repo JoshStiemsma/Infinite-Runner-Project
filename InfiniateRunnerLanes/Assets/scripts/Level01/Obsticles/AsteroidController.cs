@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class AsteroidController : MonoBehaviour {
-	
+	private GameObject player;
+	private Vector3 playerScale;
+
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
@@ -34,15 +36,16 @@ public class AsteroidController : MonoBehaviour {
 
 	void Start () {
 		health = 100f;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		enemyCount = GameObject.Find ("Main Camera").GetComponent<gameController> ().enemyCount+1;
+		player = GameObject.Find ("player");
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		enemyCount = player.GetComponent<playercontroller> ().enemyCount+1;
 		//Debug.Log ("Enemies:" + enemyCount);
 		if (playerHealth <= 0f) {
 			Destroy(gameObject);
 
 		} else {
-			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;;
+			speed = player.GetComponent<playercontroller> ().forwardSpeed;;
 			/////////// Random starting angles:
 			angles.x = Random.Range (0, 360);
 			angles.y = Random.Range (0, 360);
@@ -54,9 +57,8 @@ public class AsteroidController : MonoBehaviour {
 		
 			/////////// Spawn off the top of the screen in a random x position:
 		
-			transform.position = new Vector3 (Random.Range (-38f, 38f), Random.Range (-40f, 40f), 2000
-			                                  );
-			transform.localScale = scales;
+			transform.position = new Vector3 (Random.Range (-38f, 38f), Random.Range (-40f, 40f), 2000);
+			transform.localScale = new Vector3 (1, 1, 1);
 		}
 
 		
@@ -66,12 +68,12 @@ public class AsteroidController : MonoBehaviour {
 	void OnCollisionExit(Collision col){
 	if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
-				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				player.GetComponent<playercontroller> ().health -= 25.0f;
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 				Debug.Log ("DESTROY via player");
 				destroy ();
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+				player.GetComponent<playercontroller> ().shield = false;
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 				Debug.Log ("DESTROY via player");
 				destroy ();
@@ -119,11 +121,12 @@ public class AsteroidController : MonoBehaviour {
 	}
 
 	void Update () {
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
+		playerHealth = player.GetComponent<playercontroller> ().health;
 
 			//////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
+		playerScale = transform.localScale;
 
 		////////// Spin the object:
 		angles.x += 20 * Time.deltaTime;
@@ -131,7 +134,18 @@ public class AsteroidController : MonoBehaviour {
 
 
 
-		
+		if (playerScale.x <= scales.x) {
+			playerScale.x = playerScale.x +7f;
+		}
+		if (playerScale.y <= scales.y) {
+			playerScale.y = playerScale.y +5f;
+		}
+		if (playerScale.z <= scales.z) {
+			playerScale.z = playerScale.z +5f;
+		}
+
+		transform.localScale = new Vector3( playerScale.x, playerScale.y, playerScale.z);
+
 		
 		//////////// Move the object:
 		Vector3 pos = transform.position;

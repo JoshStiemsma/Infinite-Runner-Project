@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Blocks : MonoBehaviour {
+	private GameObject player;
 	
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
@@ -17,14 +18,14 @@ public class Blocks : MonoBehaviour {
 	private bool gotHit;
 	
 	void Start () {
-
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		player = GameObject.Find ("player");
+		health = player.GetComponent<playercontroller> ().health;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		if (health <= 0f) {
 			Destroy(gameObject);
 
 		} else {
-			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+			speed = player.GetComponent<playercontroller> ().forwardSpeed;
 			/////////// Random starting angles:
 		
 			scales.x = Random.Range (10f, 100f);
@@ -46,11 +47,11 @@ public class Blocks : MonoBehaviour {
 		
 		if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
-				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				player.GetComponent<playercontroller> ().health -= 25.0f;
 				Debug.Log("Player Hit Block");
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+				player.GetComponent<playercontroller> ().shield = false;
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 			} 
 
@@ -79,10 +80,10 @@ public class Blocks : MonoBehaviour {
 	
 	
 	void Update () {
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
+		health = player.GetComponent<playercontroller> ().health;
 			////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 
 		
 		

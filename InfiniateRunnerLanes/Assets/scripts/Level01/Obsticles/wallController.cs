@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class wallController : MonoBehaviour {
-	
+	private GameObject player;
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
@@ -14,14 +14,14 @@ public class wallController : MonoBehaviour {
 
 	
 	void Start () {
-
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		player = GameObject.Find ("player");
+		health = player.GetComponent<playercontroller> ().health;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		if (health <= 0f) {
 			Destroy(gameObject);
 
 		} else {
-			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+			speed = player.GetComponent<playercontroller> ().forwardSpeed;
 			/////////// Random starting angles:
 		
 
@@ -45,10 +45,10 @@ public class wallController : MonoBehaviour {
 		
 		if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
-				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				player.GetComponent<playercontroller> ().health -= 25.0f;
 				Debug.Log("player git Swiping block");
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+				player.GetComponent<playercontroller> ().shield = false;
 			} 
 			gotHit=true;
 			
@@ -64,10 +64,10 @@ public class wallController : MonoBehaviour {
 	
 	void Update () {
 	
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		health = player.GetComponent<playercontroller> ().health;
 			////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
 		
 		
 		//////////// Move the object:

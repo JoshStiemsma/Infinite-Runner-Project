@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class HUD : MonoBehaviour {
+	private GameObject player;
 
 	private float playerHealth;
 	public Text restart;
@@ -11,14 +12,14 @@ public class HUD : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		player = GameObject.Find ("player");
+		playerHealth = player.GetComponent<playercontroller> ().health;
 		restart.text = "";
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-
+		playerHealth = player.GetComponent<playercontroller> ().health;
 		if (playerHealth <= 0) {
 			restart.text = "Press Enter to Restart!";
 			playerAlive = false;

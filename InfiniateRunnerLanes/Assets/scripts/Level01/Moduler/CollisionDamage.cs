@@ -2,26 +2,28 @@
 using System.Collections;
 
 public class CollisionDamage : MonoBehaviour {
+	private GameObject player;
 	private float playerHealth;
 	private bool shieldOn;
 	public float Damage;
 
 	void Start() {
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		player = GameObject.Find ("player"); 
+		shieldOn = player.GetComponent<playercontroller> ().shield;
+		playerHealth = player.GetComponent<playercontroller> ().health;
 	}
 
 
 	void OnCollisionEnter(Collision col)
 	{
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
 
 		if (col.gameObject.tag == "Player" && shieldOn == false) {	
-			GameObject.Find ("player").GetComponent<playercontroller> ().health -= Damage;
+			player.GetComponent<playercontroller> ().health -= Damage;
 			Debug.Log("player hit collision Object - 25 health");
 		} else if (col.gameObject.tag == "Player" && shieldOn == true) {
-			GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+			player.GetComponent<playercontroller> ().shield = false;
 		} 
 		//GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
 		

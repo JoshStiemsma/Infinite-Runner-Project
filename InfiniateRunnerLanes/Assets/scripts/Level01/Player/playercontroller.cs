@@ -3,34 +3,57 @@ using System.Collections;
 
 public class playercontroller : MonoBehaviour {
 
+	public float enemyCount;
 	public bool paused; 
 	public GameObject MainCamera;
-	
+	public bool gameWon;
+
+	public float level;
+	/// <summary>
+	/// The player.
+	/// </summary>
 	private GameObject player;
 	public GameObject playerPrefab;
 	public GameObject startPositionObj;
-	public Vector3 startPos;
+	public Transform target;
 	public Rigidbody rb;
+	public Vector3 initPos;
+	private Vector3 initPlayerScale;
+	private Vector3 pos;
+	private Vector3 prevTransform;
+	public Vector3 startObjPos;
+	public Quaternion initRot;
 	public float health = 25f;
 	public bool playerAlive;
-	public bool shield = false;
 
+
+	/// <summary>
+	/// Gun
+	/// </summary>
 	public GameObject gun;
 	public GameObject bulletPrefab;
 	public GameObject blueringPrefab;
 	public float fireRate;
 	private float nextFire;
 
+
+	/// <summary>
+	/// The shield.
+	/// </summary>
+	public bool shield = false;
+
+
+	/// <summary>
+	/// Sepcial Ability
+	/// </summary>
 	public float growCounter;
 	public float shrinkCounter;
-
-	public bool launchedExplosion;
-	private bool launchedStall;
-
-
 	public float charMode = 0;
 
-	//Barrel Roll double clic
+	/// <summary>
+	/// Barrel Role .
+	/// </summary>
+	//Barrel Roll double click
 	private bool lastRightInput;
 	private bool lastLeftInput;
 	private bool rightReleased = true;
@@ -44,35 +67,10 @@ public class playercontroller : MonoBehaviour {
 	private bool inRightRoll = false;
 	private float rollAnimCounter;
 	private float rollTimeCount;
-	private Animation playerRoll;
 
-
-    public float step = 3f;
-    public float speed;
-	public float forwardSpeed;
-
-    private float direction;
-    public Transform target;
-
-
-    /// Reset Testings//
-	public Vector3 initPos;
-	public Quaternion initRot;
-	private Vector3 initPlayerScale;
-
-
-	private GameObject cloneExp;
-
-    private Vector3 pos;
-	private Vector3 prevTransform;
-
-
-
-	private bool tilted = false;
-
-	public GameObject prefabexplosion;
-
-
+	/// <summary>
+	/// The boost.
+	/// </summary>
 	private float boost = 0f;
 	public float boostAmount = 5f;
 	public bool inBoost;
@@ -80,16 +78,43 @@ public class playercontroller : MonoBehaviour {
 	private float subBoost;
 
 
+    public float step = 3f;
+    public float speed;
+	public float forwardSpeed;
+    private float direction;
+	private bool tilted = false;
+
+	/// <summary>
+	/// Explosion Particle.
+	/// </summary>
+	private GameObject cloneExp;
+	public GameObject prefabexplosion;
+	public bool launchedExplosion;
+
+	/// <summary>
+	/// The enemies.
+	/// </summary>
 	public GameObject[] Enemies;
 	public GameObject[] Obsticals;
+
+	/// <summary>
+	/// The pickups.
+	/// </summary>
 	public GameObject[] Pickups;
 	public float pickUpCount;
 
 
-
+	/// <summary>
+	/// audio.
+	/// </summary>
 	public AudioClip BoostAudio;
 	public AudioClip EngineAudio;
-	// Use this for initializlation
+
+
+
+
+
+
     void Start () 
 	{
 
@@ -97,7 +122,7 @@ public class playercontroller : MonoBehaviour {
 		forwardSpeed = 150f;
 		shield = false;
 		paused = false;
-		startPos = startPositionObj.transform.position;
+		startObjPos = startPositionObj.transform.position;
 
 		///instantiate player
 
@@ -135,27 +160,21 @@ public class playercontroller : MonoBehaviour {
 
 		/////Character Change/////
 		//Shrink on z Button
-		if (Input.GetKeyDown ("z") && Input.GetKeyDown ("x") == false) {
-		
+		if (Input.GetKeyDown ("z") && Input.GetKeyDown ("x") == false) {		
 			charMode = 1;
 		} 
 		//Grow on X Button
 		if (Input.GetKeyDown ("x") && Input.GetKeyDown ("z") == false) {
 			charMode = -1;
-
 		}
 		//Ungron when x-button is released
 		if (Input.GetKeyUp ("x") || Input.GetKeyUp ("z")) {
 			charMode = 0;	
-			//shrinkCounter = 0f;
-			//growCounter = 0f;
 		}
 
 
 		if (shrinkCounter >= 4f || growCounter >= 4f) {
 			charMode = 0;	
-			//shrinkCounter = 0f;
-			//growCounter = 0f;
 		}
 
 
@@ -163,18 +182,16 @@ public class playercontroller : MonoBehaviour {
 			growCounter = growCounter + 1*Time.deltaTime;
 			prevTransform.y = pos.y;
 			player.transform.localScale = initPlayerScale * 10;
-			//pos.y = pos.y-1.5f;
 		}
+
 		if (charMode == 0 && playerAlive) {
 			prevTransform.y = pos.y;
 			player.transform.localScale = initPlayerScale;
-			//pos.y = pos.y+1.5f;
 		}
 		if (charMode == -1 && playerAlive) {
 			shrinkCounter = shrinkCounter + 1*Time.deltaTime;
 			prevTransform.y = pos.y;
 			player.transform.localScale = initPlayerScale / 10;
-			//pos.y = pos.y +1.5f;
 		}
 		if (charMode != -1 && shrinkCounter >= .1f) {
 			shrinkCounter = shrinkCounter - .5f*Time.deltaTime;
@@ -193,7 +210,7 @@ public class playercontroller : MonoBehaviour {
 		//Debug.Log(horizontal);
 		/////////////////////////////double tap testers////////////////
 		/// Double Tape Right/////
-		if (Input.GetKeyDown ("left")) {
+		if (Input.GetKeyDown ("left")||Input.GetKeyDown (KeyCode.A) ) {
 			// we're on a One input
 			// if we WERE on a Zero input, this is an 'edge' - a 'tap'
 			if (leftReleased) {
@@ -223,10 +240,10 @@ public class playercontroller : MonoBehaviour {
 				if (Time.time - lastTap > leeway) tapCount = 0; // clear taps if it's been too long
 			}
 		
-		if (Input.GetKeyUp ("left") ) {
+		if (Input.GetKeyUp ("left")||Input.GetKeyUp (KeyCode.A) ) {
 			leftReleased=true;
 		}
-		if (Input.GetKeyDown ("right")) {
+		if (Input.GetKeyDown ("right") ||Input.GetKeyDown (KeyCode.D)) {
 			// we're on a One input
 			// if we WERE on a Zero input, this is an 'edge' - a 'tap'
 			if (rightReleased) {
@@ -256,7 +273,7 @@ public class playercontroller : MonoBehaviour {
 			if (Time.time - lastTap > leeway) tapCount = 0; // clear taps if it's been too long
 		}
 		
-		if (Input.GetKeyUp ("right") ) {
+		if (Input.GetKeyUp ("right")||Input.GetKeyDown (KeyCode.D) ) {
 			rightReleased=true;
 		}
 

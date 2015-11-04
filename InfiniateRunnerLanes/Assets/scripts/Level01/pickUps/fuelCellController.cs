@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class fuelCellController : MonoBehaviour {
+	private GameObject player;
 
 	private Vector3 rot;
 	private Vector3 pos;
@@ -12,6 +13,7 @@ public class fuelCellController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("player");
 		rot = transform.eulerAngles;
 
 		if (dropped) {
@@ -19,22 +21,22 @@ public class fuelCellController : MonoBehaviour {
 		} else {
 			transform.position = new Vector3 (Random.Range (-60f, 60f), Random.Range (-40f, 40f), 2000);
 		}
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 	}
 
 	void OnCollisionEnter(Collision col)
 	{
 		if (col.gameObject.tag == "Player") {
-			GameObject.Find ("player").GetComponent<playercontroller> ().fuel = GameObject.Find ("player").GetComponent<playercontroller> ().fuel + 33f;
+			player.GetComponent<playercontroller> ().fuel = player.GetComponent<playercontroller> ().fuel + 33f;
 			Destroy (gameObject);
 		}
 	}
 	// Update is called once per frame
 	void Update () {
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		////////////////////////////BOOOOOOOST//////////////////////////////
 
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		playerHealth = player.GetComponent<playercontroller> ().health;
 		
 		//////////// Move the object:
 		Vector3 pos = transform.position;

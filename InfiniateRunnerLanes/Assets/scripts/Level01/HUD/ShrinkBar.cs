@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class ShrinkBar : MonoBehaviour {
+	private GameObject player;
 	private float playerHealth;
 
 	public Sprite sprite1;
@@ -14,16 +15,16 @@ public class ShrinkBar : MonoBehaviour {
 	private SpriteRenderer spriteRenderer; 
 	// Use this for initialization
 	void Start () {
-
+		player = GameObject.Find ("player");
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		shrinkCounter = GameObject.Find ("player").GetComponent<playercontroller> ().shrinkCounter;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		shrinkCounter = player.GetComponent<playercontroller> ().shrinkCounter;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		shrinkCounter = GameObject.Find ("player").GetComponent<playercontroller> ().shrinkCounter;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		shrinkCounter = player.GetComponent<playercontroller> ().shrinkCounter;
 
 		//Debug.Log (shrinkCounter);
 		if(shrinkCounter<=0.1f) {////greater than 75%

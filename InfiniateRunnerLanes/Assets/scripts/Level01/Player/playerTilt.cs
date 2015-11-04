@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class playerTilt : MonoBehaviour {
+	private GameObject player;
 	public Transform rotationTarget;
 	private Quaternion rotationTargetRot;
 
@@ -13,16 +14,17 @@ public class playerTilt : MonoBehaviour {
 	private bool isLerping;
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("player");
 		rotationTargetRot = rotationTarget.rotation;
 		Debug.Log (rotationTargetRot);
-		playerAlive= GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
-		inRoll= GameObject.Find ("player").GetComponent<playercontroller> ().inRoll;
+		playerAlive= player.GetComponent<playercontroller> ().playerAlive;
+		inRoll= player.GetComponent<playercontroller> ().inRoll;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		playerAlive= GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
-		inRoll= GameObject.Find ("player").GetComponent<playercontroller> ().inRoll;
+		playerAlive= player.GetComponent<playercontroller> ().playerAlive;
+		inRoll= player.GetComponent<playercontroller> ().inRoll;
 		//Debug.Log ("Ship : " + transform.rotation + " Targets Rotation : " + rotationTarget.transform.rotation);
 
 		float step = speed * Time.deltaTime;
@@ -84,92 +86,6 @@ public class playerTilt : MonoBehaviour {
 			transform.localRotation = Quaternion.Lerp (transform.rotation, rotationTarget.rotation, step);
 		}
 
-
-
-
-
-
-//
-//				if(horizontal==0 && vertical==0){
-//					//transform.eulerAngles = new Vector3 (0, 0, 0);
-//					transform.localRotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0,0,0,0), speed*Time.deltaTime);
-//				} else{
-//					transform.localRotation = Quaternion.RotateTowards(transform.rotation, rotationTarget.rotation, speed*Time.deltaTime);
-//				}
-//		
-//		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//		///if verticle input rotate ship/////////////////////////
-//		if (Mathf.Round (vertical * 100f) / 100f >= .2) {
-//			//rotationTarget.localRotation= new Quaternion( 30, rotationTargetRot.y, rotationTargetRot.z, rotationTargetRot.w);
-//			transform.localRotation = Quaternion.RotateTowards(transform.rotation, rotationTarget.rotation, speed/10*Time.deltaTime);
-//			//transform.rotation = Quaternion.Euler ((transform.rotation.eulerAngles.x + 10f * Time.deltaTime * Input.GetAxis ("Horizontal")),transform.rotation.eulerAngles.y,  transform.rotation.eulerAngles.z);
-//		} else if (Mathf.Round (vertical * 100f) / 100f <= -.2) {
-//			rotationTarget.localRotation= new Quaternion( -30, rotationTargetRot.y, rotationTargetRot.z, rotationTargetRot.w);
-//			//player.transform.localRotation = Quaternion.RotateTowards(transform.rotation, rotationTarget.rotation, speed/10*Time.deltaTime);
-//			
-//		} else if (inRoll == false) {
-//			rotationTarget.localRotation= new Quaternion( 0, rotationTargetRot.y, rotationTargetRot.z, rotationTargetRot.w);
-//			transform.localRotation = Quaternion.RotateTowards(transform.rotation, rotationTarget.rotation, speed/10*Time.deltaTime);
-//			
-//		}
-//		
-//		//////////////////if horizontal input rotate ship////////////////////////////////////////////
-//		if (Mathf.Round (horizontal * 100f) / 100f >= .2 && inRoll == false) {
-//			//z
-//			//y
-//		} else if (Mathf.Round (horizontal * 100f) / 100f <= -.2 && inRoll == false) {
-//	
-//		} else if (inRoll == false) {
-//			//AngZ = 0.0f;
-//			//AngY = 0.0f;
-//			rotationTarget.rotation= new Quaternion( rotationTargetRot.x, rotationTargetRot.y, rotationTargetRot.z, rotationTargetRot.w);
-//		}   
-//		
-//		
-//		
-//		
-//		
-//		if (horizontal >= -.2f && horizontal <= .2f && vertical == 0 && inRoll == false && playerAlive) {
-//			transform.rotation = new Quaternion (0, 0, 0, 0);
-//			//player.transform.rotation = Quaternion.RotateTowards(transform.rotation, rotationTarget.rotation, speed/10*Time.deltaTime);
-//			
-//		}
-//		
-//		if(horizontal==0 && vertical==0){
-//			//transform.eulerAngles = new Vector3 (0, 0, 0);
-//			transform.localRotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0,0,0,0), speed/10*Time.deltaTime);
-//		} else{
-//			//transform.eulerAngles = new Vector3 (AngX, AngY, AngZ);
-//			transform.localRotation = Quaternion.RotateTowards(transform.rotation, rotationTarget.rotation, speed/10*Time.deltaTime);
-//			//transform.eulerAngles = new Vector3.RotateTowards(transform.rotation, rotationTarget.rotation, speed/10*Time.deltaTime);
-//				//(transform.eulerAngles.x+1, transform.eulerAngles.y+1, transform.eulerAngles.z+1);
-//		}
-//		transform.Rotate(speed*Time.deltaTime,0, 0);
-//
 
 
 	}

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Pickup01 : MonoBehaviour {
-
+	private GameObject player;
 	public Vector3 rot;
 	private Vector3 pos;
 	public float speed;
@@ -12,6 +12,7 @@ public class Pickup01 : MonoBehaviour {
 	public bool dropped;
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("player");
 		rot = transform.eulerAngles;
 
 		if (dropped) {
@@ -20,7 +21,7 @@ public class Pickup01 : MonoBehaviour {
 			transform.position = new Vector3 (Random.Range (-40f, 40f), Random.Range (-35f, 35f), 2000);
 		}
 	
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 	}
 
 	void OnCollisionEnter(Collision col)
@@ -28,15 +29,15 @@ public class Pickup01 : MonoBehaviour {
 		if (col.gameObject.tag == "Player" && picked==false) {
 			picked=true;
 			Debug.Log ("GRABBED Pickup");
-			GameObject.Find ("player").GetComponent<playercontroller> ().pickUpCount++;
+			player.GetComponent<playercontroller> ().pickUpCount++;
 			Destroy (gameObject);
 		}
 	}
 	// Update is called once per frame
 	void Update () {
 		////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
+		playerHealth = player.GetComponent<playercontroller> ().health;
 		
 		//////////// Move the object:
 		Vector3 pos = transform.position;

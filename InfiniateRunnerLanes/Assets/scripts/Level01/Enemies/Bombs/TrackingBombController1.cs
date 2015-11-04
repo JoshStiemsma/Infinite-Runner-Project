@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TrackingBombController1 : MonoBehaviour {
-	
+	private GameObject player;
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
@@ -27,15 +27,15 @@ public class TrackingBombController1 : MonoBehaviour {
 	public GameObject ExplosionPrefab;
 
 	void Start () {
-	
+		player = GameObject.Find ("player");
 		scale = transform.localScale;
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		health = player.GetComponent<playercontroller> ().health;
 		//Debug.Log ("Enemies:" + enemyCount);
 		if (health <= 0f) {
 			Destroy(gameObject);
 			
 		} else {
-			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;;		
+			speed = player.GetComponent<playercontroller> ().forwardSpeed;;		
 			angles.x = Random.Range (0, 360);
 			angles.y = Random.Range (0, 360);
 			angles.z = Random.Range (0, 360);
@@ -49,9 +49,9 @@ public class TrackingBombController1 : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
-				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				player.GetComponent<playercontroller> ().health -= 25.0f;
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+				player.GetComponent<playercontroller> ().shield = false;
 			} 
 			if (col.gameObject.tag == "Bullet") {
 				Debug.Log ("Hit");
@@ -70,11 +70,11 @@ public class TrackingBombController1 : MonoBehaviour {
 	}
 	
 	void Update () {
-		playerPos = GameObject.Find ("player").transform.position;
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		playerPos = player.transform.position;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
+		health = player.GetComponent<playercontroller> ().health;
 		scale = transform.localScale;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 
 
 		//////////// Move the object:

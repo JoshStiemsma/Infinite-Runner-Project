@@ -3,7 +3,7 @@ using System.Collections;
 
 	
 	public class enSwipingController : MonoBehaviour {
-		
+	private GameObject player;
 		
 		public float speed;
 		public float swipeSpeed;
@@ -17,9 +17,9 @@ using System.Collections;
 	private float playerHealth;
 
 		void Start () {
-
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		player = GameObject.Find ("player");
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		swipeSpeed = speed / 2;
 			/////////// Random starting angles:
 			//angles.x = Random.Range (0, 360);
@@ -37,10 +37,10 @@ using System.Collections;
 		
 		if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
-				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				player.GetComponent<playercontroller> ().health -= 25.0f;
 				Debug.Log("player git Swiping block");
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+				player.GetComponent<playercontroller> ().shield = false;
 			} 
 			gotHit=true;
 			
@@ -52,8 +52,8 @@ using System.Collections;
 		void Update () {
 			
 			////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
 			//////////// Move the object:
 			Vector3 pos = transform.position;
 

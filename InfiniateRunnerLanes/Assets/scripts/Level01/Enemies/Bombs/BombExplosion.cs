@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class BombExplosion : MonoBehaviour {
+	private GameObject player;
 	private float delayTimer;
 	private float stage;
 	private Vector3 scales;
@@ -10,7 +11,7 @@ public class BombExplosion : MonoBehaviour {
 	private bool shieldOn;
 	// Use this for initialization
 	void Start () {
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
 		scales = new Vector3 (1, 1, 1);
 		delayTimer = 0f;
 	}
@@ -68,9 +69,9 @@ public class BombExplosion : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
-				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 75.0f;
+				player.GetComponent<playercontroller> ().health -= 75.0f;
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+				player.GetComponent<playercontroller> ().shield = false;
 			} 
 			gotHit = true;
 		}

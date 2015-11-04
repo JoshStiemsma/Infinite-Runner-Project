@@ -2,19 +2,21 @@
 using System.Collections;
 
 public class tubeController : MonoBehaviour {
+	private GameObject player;
     public float speed;
     Vector3 angles = Vector3.zero;
 	private float playerHealth;
     // Use this for initialization
     void Start () {
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		player = GameObject.Find ("player");
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
         transform.position = new Vector3( 0f, 6.42f, 4000f);
     }
 	
 	// Update is called once per frame
 	void Update () {
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 
         angles.x = transform.rotation.x;
         angles.y = transform.rotation.y;

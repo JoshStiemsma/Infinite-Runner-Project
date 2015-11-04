@@ -25,8 +25,9 @@ public class MainCameraController : MonoBehaviour {
 	private float camheightNear;
 	// Use this for initialization
 	void Start () {
-		playerAlive = GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
-		charMode = GameObject.Find ("player").GetComponent<playercontroller> ().charMode;
+		player = GameObject.Find ("player");
+		playerAlive = player.GetComponent<playercontroller> ().playerAlive;
+		charMode = player.GetComponent<playercontroller> ().charMode;
 		offset = transform.position - player.transform.position;
 		initOffset = transform.position - player.transform.position;
 		initCamheight = camHeight;
@@ -39,8 +40,8 @@ public class MainCameraController : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		playerAlive = GameObject.Find ("player").GetComponent<playercontroller> ().playerAlive;
-		charMode = GameObject.Find ("player").GetComponent<playercontroller> ().charMode;
+		playerAlive = player.GetComponent<playercontroller> ().playerAlive;
+		charMode = player.GetComponent<playercontroller> ().charMode;
 //
 //		//BIGGER
 //		if (charMode == 1) {

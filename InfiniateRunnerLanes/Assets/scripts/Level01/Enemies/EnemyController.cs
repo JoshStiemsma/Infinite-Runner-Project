@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 public class EnemyController : MonoBehaviour {
-	
+	public GameObject player;
 	public GameObject BombPrefab;
 	public GameObject HomingBombPrefab;
 	public float speed;
@@ -38,10 +38,11 @@ public class EnemyController : MonoBehaviour {
 	//public GameObject AsteroidDivisioParticle;
 	
 	void Start () {
+		player = GameObject.Find ("player");
 		enemyHealth = 100f;
 
-		playerPos = GameObject.Find ("player").GetComponent<playercontroller> ().transform.position;
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		playerPos = player.GetComponent<playercontroller> ().transform.position;
+		playerHealth = player.GetComponent<playercontroller> ().health;
 		flyingIn = true;
 		bombDelay = 4f;
 		angles.x = 100f;
@@ -54,11 +55,11 @@ public class EnemyController : MonoBehaviour {
 
 
 	void Update () {
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		playerPos = GameObject.Find ("player").GetComponent<playercontroller> ().transform.position;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		playerPos = player.GetComponent<playercontroller> ().transform.position;
 		////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		
 		enemySpeed = (speed / 7) * Time.deltaTime;
 		

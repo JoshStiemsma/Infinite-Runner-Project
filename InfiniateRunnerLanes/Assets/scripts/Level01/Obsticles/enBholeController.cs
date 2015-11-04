@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class enBholeController : MonoBehaviour {
+	private GameObject player;
 
 	private float playerHealth;
-
-	public GameObject player;
+	
 	private Vector3 playerPos;
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
@@ -33,9 +33,10 @@ public class enBholeController : MonoBehaviour {
 
 
     void Start () {
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
 		player = GameObject.Find ("player");
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+	
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
         scale = Random.Range(5f, 25f);
         scales = new Vector3(10, 10, 10);
 
@@ -54,14 +55,14 @@ public class enBholeController : MonoBehaviour {
 	void OnCollisionEnter(Collision col)
 	{
 		
-		GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+		player.GetComponent<playercontroller> ().shield = false;
 
 		Debug.Log ("HIT SOMETHING");
 		if (wasHit == false) {
-			if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = true) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
-			} else if (GameObject.Find ("player").GetComponent<playercontroller> ().shield = false) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 90.0f;
+			if (player.GetComponent<playercontroller> ().shield = true) {
+				player.GetComponent<playercontroller> ().shield = false;
+			} else if (player.GetComponent<playercontroller> ().shield = false) {
+				player.GetComponent<playercontroller> ().health -= 90.0f;
 			}
 			wasHit=true;
 		}
@@ -71,7 +72,7 @@ public class enBholeController : MonoBehaviour {
 
 			player = GameObject.Find ("player");
 		playerPos = player.transform.position;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
         transform.localScale = scales;
 
         //////////// Spin the blackhole:

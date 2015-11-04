@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class HealthBar : MonoBehaviour {
+	private GameObject player;
 	private float playerHealth;
 
 	public Sprite sprite1;
@@ -14,16 +15,16 @@ public class HealthBar : MonoBehaviour {
 	private SpriteRenderer spriteRenderer; 
 	// Use this for initialization
 	void Start () {
-
+		player = GameObject.Find ("player");
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		shield = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		shield = player.GetComponent<playercontroller> ().shield;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		shield = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		shield = player.GetComponent<playercontroller> ().shield;
+		playerHealth = player.GetComponent<playercontroller> ().health;
 
 		if(playerHealth>=76f) {////greater than 75%
 			spriteRenderer.sprite = sprite1;

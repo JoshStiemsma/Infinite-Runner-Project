@@ -2,10 +2,12 @@
 using System.Collections;
 
 public class shieldController : MonoBehaviour {
+	private GameObject player;
 	private bool isShieldOn;
 	// Use this for initialization
 	void Start () {
-		isShieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
+		player = GameObject.Find ("player");
+		isShieldOn = player.GetComponent<playercontroller> ().shield;
 	}
 	
 	// Update is called once per frame
@@ -14,7 +16,7 @@ public class shieldController : MonoBehaviour {
 
 		//Debug.Log ("shieldController?" + GameObject.Find ("player").GetComponent<playercontroller> ().shield);
 
-		isShieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
+		isShieldOn =  player.GetComponent<playercontroller> ().shield;
 
 		if (isShieldOn== true) {
 			GetComponent<Renderer>().enabled = true;

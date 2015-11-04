@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class CrossAsteroidController : MonoBehaviour {
+	private GameObject player;
 	
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
@@ -20,13 +21,13 @@ public class CrossAsteroidController : MonoBehaviour {
 	public GameObject AsteroidDivisioParticle;
 
 	void Start () {
-
-	health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		player = GameObject.Find ("player");
+		health = player.GetComponent<playercontroller> ().health;
 		if (health <= 0f) {
 			Destroy(gameObject);
 
 		} else {
-			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;;
+			speed = player.GetComponent<playercontroller> ().forwardSpeed;;
 			/////////// Random starting angles:
 			angles.x = Random.Range (0, 360);
 			angles.y = Random.Range (0, 360);
@@ -51,10 +52,10 @@ public class CrossAsteroidController : MonoBehaviour {
 
 	if (gotHit == false) {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
-				GameObject.Find ("player").GetComponent<playercontroller> ().health -= 25.0f;
+				player.GetComponent<playercontroller> ().health -= 25.0f;
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
-				GameObject.Find ("player").GetComponent<playercontroller> ().shield = false;
+				player.GetComponent<playercontroller> ().shield = false;
 				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 			} 
 			if (col.gameObject.tag == "Bullet") {
@@ -78,11 +79,11 @@ public class CrossAsteroidController : MonoBehaviour {
 	}
 
 	void Update () {
-		shieldOn = GameObject.Find ("player").GetComponent<playercontroller> ().shield;
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		shieldOn = player.GetComponent<playercontroller> ().shield;
+		health = player.GetComponent<playercontroller> ().health;
 
 			////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 
 		//////////// Spin the object:
 //		angles.x += 20 * Time.deltaTime;

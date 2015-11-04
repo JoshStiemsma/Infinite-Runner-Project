@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class pickupShield : MonoBehaviour {
-	
+	private GameObject player;
 	private Vector3 pos;
 	public float speed;
 	private float playerHealth;
@@ -11,7 +11,7 @@ public class pickupShield : MonoBehaviour {
 	public bool dropped;
 	// Use this for initialization
 	void Start () {
-
+		player = GameObject.Find ("player");
 		if (dropped) {
 			
 		} else {
@@ -19,14 +19,14 @@ public class pickupShield : MonoBehaviour {
 		}
 
 
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 	}
 
 	void OnCollisionEnter(Collision col)
 	{
 		if (col.gameObject.tag == "Player") {
 			Debug.Log ("GRABBED SHIELD");
-			GameObject.Find ("player").GetComponent<playercontroller> ().shield = true;
+			player.GetComponent<playercontroller> ().shield = true;
 			Destroy (gameObject);
 		}
 	
@@ -34,8 +34,8 @@ public class pickupShield : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
+		playerHealth = player.GetComponent<playercontroller> ().health;
 		
 		//////////// Move the object:
 		Vector3 pos = transform.position;

@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class gameController : MonoBehaviour {
+	private GameObject player;
+
 	public float enemyCount;
 	/// <summary>
 	/// The Onsticle prefab to spawn.
@@ -99,9 +101,10 @@ public class gameController : MonoBehaviour {
 	public int sublevel; //deffult = 0 Test level
 
 	void Start () {
+		player = GameObject.Find ("player");
 		delayTimer = 0f;
 		initObsticleDelays ();
-		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		health = player.GetComponent<playercontroller> ().health;
 		StartCoroutine(PauseCoroutine());  
 	}
 
@@ -137,11 +140,12 @@ public class gameController : MonoBehaviour {
 
 
 	void Update() {	
+		enemyCount   = player.GetComponent<playercontroller> ().enemyCount;
 		//Debug.Log ("Enemies:" + enemyCount);
 		delayTimer = delayTimer + (4 * Time.deltaTime);
 		//Debug.Log (asteroidDelay);
 		//grab players health from plyer//
-		health = GameObject.Find ("player").GetComponent<playercontroller> ().health;
+		health = player.GetComponent<playercontroller> ().health;
 		playerHealth = health;
 		if (health <= 0) {
 			//Debug.Log ("Pause enemies");

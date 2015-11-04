@@ -6,7 +6,7 @@ public class BulletCollision : MonoBehaviour {
 
 	void Start() {
 
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		playerHealth = GameObject.Find ("player").GetComponent<playercontroller> ().health;
 	}
 
 

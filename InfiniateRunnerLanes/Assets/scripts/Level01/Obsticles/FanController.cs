@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class FanController : MonoBehaviour {
+	private GameObject player;
 	public float speed;
 	private float health;
 	public bool shieldOn;
@@ -20,12 +21,12 @@ public class FanController : MonoBehaviour {
 	if (force ==null) {
 			force = 3000.0f;
 		}
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		health = player.GetComponent<playercontroller> ().health;
 		if (health <= 0f) {
 			Destroy(gameObject);
 			
 		} else {
-			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;;
+			speed = player.GetComponent<playercontroller> ().forwardSpeed;;
 
 			/////////// Spawn off the top of the screen in a random x position:
 			
@@ -36,8 +37,8 @@ public class FanController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		health = player.GetComponent<playercontroller> ().health;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		//////////// Move the object:
 		Vector3 pos = transform.position;
 		

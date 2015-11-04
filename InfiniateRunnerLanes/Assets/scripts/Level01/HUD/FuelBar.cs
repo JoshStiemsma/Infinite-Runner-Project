@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 public class FuelBar : MonoBehaviour {
+	private GameObject player;
 	private float playerFuel;
 
 	public Sprite sprite1;
@@ -17,14 +18,14 @@ public class FuelBar : MonoBehaviour {
 	private SpriteRenderer spriteRenderer; 
 	// Use this for initialization
 	void Start () {
-
+		player = GameObject.Find ("player");
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		playerFuel = GameObject.Find ("player").GetComponent<playercontroller> ().fuel;
+		playerFuel = player.GetComponent<playercontroller> ().fuel;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		playerFuel = GameObject.Find ("player").GetComponent<playercontroller> ().fuel;
+		playerFuel = player.GetComponent<playercontroller> ().fuel;
 
 		if(playerFuel>=85f) {////greater than 85%
 			spriteRenderer.sprite = sprite1;

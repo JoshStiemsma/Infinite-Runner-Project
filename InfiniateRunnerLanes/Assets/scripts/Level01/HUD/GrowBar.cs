@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class GrowBar : MonoBehaviour {
+	private GameObject player;
 	private float playerHealth;
 
 	public Sprite sprite1;
@@ -14,16 +15,16 @@ public class GrowBar : MonoBehaviour {
 	private SpriteRenderer spriteRenderer; 
 	// Use this for initialization
 	void Start () {
-
+		player = GameObject.Find ("player");
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		growCounter = GameObject.Find ("player").GetComponent<playercontroller> ().growCounter;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		growCounter = player.GetComponent<playercontroller> ().growCounter;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		playerHealth = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		growCounter = GameObject.Find ("player").GetComponent<playercontroller> ().growCounter;
+		playerHealth = player.GetComponent<playercontroller> ().health;
+		growCounter = player.GetComponent<playercontroller> ().growCounter;
 
 		//Debug.Log (growCounter);
 		if(growCounter<=0.1f) {////greater than 75%

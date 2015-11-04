@@ -2,15 +2,17 @@
 using System.Collections;
 
 public class ParticleColorBoostChange : MonoBehaviour {
+	private GameObject player;
 	new public ParticleSystem m_currentParticleEffect;
 	new public ParticleSystem.Particle []ParticleLis;
 	private bool inBoost;
 
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("player");
 		ParticleSystem m_currentParticleEffect = (ParticleSystem)GetComponent("ParticleSystem");
 		ParticleSystem.Particle []ParticleList = new  ParticleSystem.Particle[m_currentParticleEffect.particleCount];
-		inBoost = GameObject.Find ("player").GetComponent<playercontroller> ().inBoost;
+		inBoost = player.GetComponent<playercontroller> ().inBoost;
 	}
 	
 	// Update is called once per frame
@@ -20,7 +22,7 @@ public class ParticleColorBoostChange : MonoBehaviour {
 		ParticleSystem.Particle []ParticleList = new  ParticleSystem.Particle[m_currentParticleEffect.particleCount];
 
 		m_currentParticleEffect.GetParticles(ParticleList);
-		inBoost = GameObject.Find ("player").GetComponent<playercontroller> ().inBoost;
+		inBoost = player.GetComponent<playercontroller> ().inBoost;
 	
 		if (inBoost == false) {
 			for (int i = 0; i < ParticleList.Length; ++i) {

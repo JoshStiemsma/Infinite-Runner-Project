@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class FrameMovement : MonoBehaviour {
-	
+	private GameObject player;
 	/// <summary>
 	/// The velocity (meters per second) the enemy should move down the screen.
 	/// </summary>
@@ -13,14 +13,14 @@ public class FrameMovement : MonoBehaviour {
 	
 	
 	void Start () {
-		
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		player = GameObject.Find ("player");
+		health = player.GetComponent<playercontroller> ().health;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		if (health <= 0f) {
 			Destroy(gameObject);
 			
 		} else {
-			speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+			speed = player.GetComponent<playercontroller> ().forwardSpeed;
 			/////////// Random starting angles:
 			
 //			scales.x = Random.Range (1f, 100f);
@@ -41,9 +41,9 @@ public class FrameMovement : MonoBehaviour {
 	
 	void Update () {
 		
-		health = GameObject.Find ("Main Camera").GetComponent<gameController> ().playerHealth;
+		health = player.GetComponent<playercontroller> ().health;
 		////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = GameObject.Find ("player").GetComponent<playercontroller> ().forwardSpeed;
+		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 
 		//////////// Move the object:
 		Vector3 pos = transform.position;
