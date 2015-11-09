@@ -85,7 +85,7 @@ public class L01_W03GameController : MonoBehaviour {
 	private float Rand;
 	void Awake()
 	{
-		Instantiate(Floor, new Vector3(0,0,499), transform.rotation);
+		//Instantiate(Floor, new Vector3(0,0,499), transform.rotation);
 
 	}
 
@@ -187,19 +187,7 @@ public class L01_W03GameController : MonoBehaviour {
 		}
 		///////////////////Start SPawning each object after delay only once!
 
-				if (delayTimer >= asteroidDelay && initAsteroid == false) {
-					StartCoroutine ("StartSpawningAsteroid");
-					asteroidDelay = asteroidDelay/2;
-					initAsteroid = true;
-				}
-				if (delayTimer >= gasCloudDelay && initGasCloud == false) {
-					StartCoroutine ("StartSpawningGasCloud");
-					initGasCloud = true;
-				}
-				if (delayTimer >= tubeDelay && initTube == false) {
-					StartCoroutine ("StartSpawningTube");
-					initTube = true;
-				}
+
 
 		if (delayTimer >= pickUpDelay && initPickup == false) {
 			StartCoroutine ("PickUp01");

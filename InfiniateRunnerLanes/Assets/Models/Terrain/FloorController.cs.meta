@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: be96ff89fd84f7f4bac6e48fa9412657
-timeCreated: 1447009765
+timeCreated: 1447047941
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - FirstFloor: {fileID: 166504, guid: b368877132f361540a4d69d3ac9e254c, type: 2}
+  - SecondFloor: {fileID: 133328, guid: 005904ca8d43dc84ea4342e1c2d9e7f1, type: 2}
+  - ThirdFloor: {fileID: 135718, guid: 1628ec1dde228cd428e61f2af5013501, type: 2}
+  - FourthFloor: {fileID: 198436, guid: 76643b978d9daf7448a0ff9d8b485636, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

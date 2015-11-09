@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Models\Terrain\FloorController.cs" />
+     <Compile Include="Assets\Models\Terrain\FloorSwitchController.cs" />
      <Compile Include="Assets\Models\Terrain\MovethenDelete.cs" />
+     <Compile Include="Assets\Models\Terrain\RandFloor02.cs" />
      <Compile Include="Assets\Models\Terrain\RandFloorController.cs" />
      <Compile Include="Assets\scripts\Level01\AspectRtioCameraController.cs" />
      <Compile Include="Assets\scripts\Level01\Enemies\Bombs\BombExplosion.cs" />

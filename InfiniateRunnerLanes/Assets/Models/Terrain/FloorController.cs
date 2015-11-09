@@ -2,111 +2,65 @@
 using System.Collections;
 
 public class FloorController : MonoBehaviour {
-    new public Vector3 pos;
+	public float resetPoint= -150f;
+	public float resetDistance = 800f;
+	private float speed = -50f;
+     public GameObject FirstFloor;
+     public GameObject SecondFloor;
+     public GameObject ThirdFloor;
+	public GameObject FourthFloor;
 
-     public GameObject BendFloor;
-     public GameObject LongFloor;
-     public GameObject tunnelFloor;
-     public GameObject bumpFloor;
-     public GameObject DropFloor;
-     public GameObject fissureFloor;
-
-    new public float Rand;
-    new public GameObject nextFloor;
-    private float startTime;
-    private float aliveTime;
-    private bool instid;
-
-    private int dir = 1;
-    public bool longFloor;
-
+	private Vector3 firstPos;
+	private Vector3 secondPos;
+	private Vector3 thirdPos;
+	private Vector3 fourthPos;
     // Use this for initialization
     void Start () {
-        transform.localRotation = new Quaternion(0, 180, 0, 0);
-        // transform.position = new Vector3(0, 0, 299);
-
-
-        Rand = Random.Range(0, 4);
-        Debug.Log("Rand: " + Rand);
-        if (Rand <= 1f)
-        {
-            dir = -1;
-        }
-        else
-        {
-            dir = 1;
-        }
-        if (longFloor == true)
-        {
-            transform.localScale = new Vector3(10*dir, 10, 20);
-        }
-        else
-        {
-            transform.localScale = new Vector3(10*dir, 10, 10);
-        }
-        startTime = Time.fixedTime;
+ 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        pos = transform.position;
 
-        transform.position = new Vector3(pos.x, pos.y, pos.z - 50 * Time.deltaTime);
 
-            if (pos.z <= 200f && instid == false)
-            {
-                CreateNewFloor();
-                instid = true;
-            }
+		firstPos = FirstFloor.transform.position;
+		secondPos = SecondFloor.transform.position;
+		thirdPos = ThirdFloor.transform.position;
+		fourthPos = FourthFloor.transform.position;
 
-       
+		FirstFloor.transform.position = new Vector3 (firstPos.x, firstPos.y, firstPos.z + speed *Time.fixedDeltaTime);
+		SecondFloor.transform.position = new Vector3 (secondPos.x, secondPos.y, secondPos.z + speed*Time.fixedDeltaTime );
+		ThirdFloor.transform.position = new Vector3 (thirdPos.x, thirdPos.y, thirdPos.z + speed*Time.fixedDeltaTime);
+		FourthFloor.transform.position = new Vector3 (fourthPos.x, fourthPos.y, fourthPos.z + speed *Time.fixedDeltaTime);
 
-        if (pos.z <= -150)
+
+		if (firstPos.z <= resetPoint)
         {
-            Destroy(gameObject);
-
+			FirstFloor.transform.position = new Vector3(firstPos.x,firstPos.y,firstPos.z+resetDistance);
+			FirstFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
         }
+		if (secondPos.z <= resetPoint)
+		{
+			SecondFloor.transform.position = new Vector3(secondPos.x,secondPos.y,secondPos.z+resetDistance);
+			SecondFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+
+		}
+		if (thirdPos.z <= resetPoint)
+		{
+			ThirdFloor.transform.position = new Vector3(thirdPos.x,thirdPos.y,thirdPos.z+resetDistance);
+			ThirdFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+		}
+		if (fourthPos.z <= resetPoint)
+		{
+			FourthFloor.transform.position = new Vector3(fourthPos.x,fourthPos.y,fourthPos.z+resetDistance);
+			FourthFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+		}
+
+
+
 
     }
-    private void CreateNewFloor() { 
-    Rand = Random.Range(0, 5);
-            if (Rand <= 1)
-            {
-                nextFloor = BendFloor;
-            }
-            else if (Rand <= 2 && Rand >= 1.1f)
-            {
-                nextFloor = LongFloor;
-            }
-            else if (Rand <= 3 && Rand >= 2.1f)
-            {
-                nextFloor = tunnelFloor;
-            }
-            else if (Rand <= 4 && Rand >= 3.1f)
-            {
-                nextFloor =  fissureFloor;
-            }
-            else if (Rand <= 5 && Rand >= 4.1f)
-            {
-                nextFloor = DropFloor;
-            }
-            else 
-            {
-                nextFloor = bumpFloor;
-            }
-
-
-        if (longFloor == true)
-        {
-            Instantiate(nextFloor, pos + transform.forward * -199f, transform.rotation);
-        }
-        else
-        {
-            Instantiate(nextFloor, pos + transform.forward * -99f, transform.rotation);
-        }
-       // Instantiate(nextFloor);
-
-}
+  
 
 
 

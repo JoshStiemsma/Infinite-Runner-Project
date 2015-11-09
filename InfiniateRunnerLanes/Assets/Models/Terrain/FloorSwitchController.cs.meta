@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9aa7663674a7e884e92eb83ea54337a4
+timeCreated: 1447048510
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - BendFloor: {fileID: 4300000, guid: 252e9e1e65a90de48bbe1eb516888c48, type: 3}
+  - LongFloor: {instanceID: 0}
+  - tunnelFloor: {fileID: 4300000, guid: a10785bf47b67de459f8ec642fbf92a0, type: 3}
+  - bumpFloor: {fileID: 4300000, guid: 456e5b8798022b64885f01172e440d6e, type: 3}
+  - DropFloor: {fileID: 4300000, guid: f362ed20c5db40a42a98d4f0b3f4434c, type: 3}
+  - fissureFloor: {fileID: 4300000, guid: 7e58ba9ecff129745bf701b6f8d4ff25, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
