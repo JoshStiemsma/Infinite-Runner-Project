@@ -2,9 +2,8 @@
 using System.Collections;
 
 public class FloorController : MonoBehaviour {
-	public float resetPoint= -150f;
-	public float resetDistance = 800f;
-	private float speed = -50f;
+	public GameObject player;
+
      public GameObject FirstFloor;
      public GameObject SecondFloor;
      public GameObject ThirdFloor;
@@ -14,6 +13,14 @@ public class FloorController : MonoBehaviour {
 	private Vector3 secondPos;
 	private Vector3 thirdPos;
 	private Vector3 fourthPos;
+
+
+
+
+	private bool firstSwitch;
+	private bool secondSwitch;
+	private bool thirdSwitch;
+	private bool fourthSwitch = true;
     // Use this for initialization
     void Start () {
  
@@ -23,37 +30,44 @@ public class FloorController : MonoBehaviour {
 	void Update () {
 
 
-		firstPos = FirstFloor.transform.position;
-		secondPos = SecondFloor.transform.position;
-		thirdPos = ThirdFloor.transform.position;
-		fourthPos = FourthFloor.transform.position;
+//		firstPos = FirstFloor.transform.position;
+//		secondPos = SecondFloor.transform.position;
+//		thirdPos = ThirdFloor.transform.position;
+//		fourthPos = FourthFloor.transform.position;
+//
+//		FirstFloor.transform.position = new Vector3 (firstPos.x, firstPos.y, firstPos.z + speed *Time.fixedDeltaTime);
+//		SecondFloor.transform.position = new Vector3 (secondPos.x, secondPos.y, secondPos.z + speed*Time.fixedDeltaTime );
+//		ThirdFloor.transform.position = new Vector3 (thirdPos.x, thirdPos.y, thirdPos.z + speed*Time.fixedDeltaTime);
+//		FourthFloor.transform.position = new Vector3 (fourthPos.x, fourthPos.y, fourthPos.z + speed *Time.fixedDeltaTime);
 
-		FirstFloor.transform.position = new Vector3 (firstPos.x, firstPos.y, firstPos.z + speed *Time.fixedDeltaTime);
-		SecondFloor.transform.position = new Vector3 (secondPos.x, secondPos.y, secondPos.z + speed*Time.fixedDeltaTime );
-		ThirdFloor.transform.position = new Vector3 (thirdPos.x, thirdPos.y, thirdPos.z + speed*Time.fixedDeltaTime);
-		FourthFloor.transform.position = new Vector3 (fourthPos.x, fourthPos.y, fourthPos.z + speed *Time.fixedDeltaTime);
 
-
-		if (firstPos.z <= resetPoint)
+		if (player.transform.position.z >=100f && firstSwitch==false)
         {
-			FirstFloor.transform.position = new Vector3(firstPos.x,firstPos.y,firstPos.z+resetDistance);
+			Debug.Log("Switch First Floor");
 			FirstFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+			firstSwitch=true;
+			fourthSwitch=false;
         }
-		if (secondPos.z <= resetPoint)
+		if (player.transform.position.z >=300f && secondSwitch==false)
 		{
-			SecondFloor.transform.position = new Vector3(secondPos.x,secondPos.y,secondPos.z+resetDistance);
+			Debug.Log("Switch 2 Floor");
 			SecondFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
-
+			secondSwitch=true;
 		}
-		if (thirdPos.z <= resetPoint)
+		if (player.transform.position.z >=500f && thirdSwitch==false)
 		{
-			ThirdFloor.transform.position = new Vector3(thirdPos.x,thirdPos.y,thirdPos.z+resetDistance);
+			Debug.Log("Switch 3 Floor");
 			ThirdFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+			thirdSwitch=true;
 		}
-		if (fourthPos.z <= resetPoint)
+		if (player.transform.position.z <=50f && fourthSwitch==false)
 		{
-			FourthFloor.transform.position = new Vector3(fourthPos.x,fourthPos.y,fourthPos.z+resetDistance);
+			Debug.Log("Switch 4 Floor");
 			FourthFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+			fourthSwitch=true;
+			firstSwitch=false;
+			secondSwitch=false;
+			thirdSwitch=false;
 		}
 
 

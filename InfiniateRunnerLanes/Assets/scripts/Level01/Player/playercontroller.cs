@@ -203,7 +203,6 @@ public class playercontroller : MonoBehaviour {
 		float vertical = Input.GetAxis ("Vertical");
 
 
-
 		//Debug.Log(horizontal);
 		/////////////////////////////double tap testers////////////////
 		/// Double Tape Right/////
@@ -337,6 +336,7 @@ public class playercontroller : MonoBehaviour {
 		///////////////////Update Position//////////////////
 		pos.y = (pos.y + (vertical * Time.deltaTime* speed));
 		pos.x = (pos.x + (horizontal * Time.deltaTime * speed));
+		pos.z = (pos.z + 50 * Time.deltaTime);
 		/////////////////////Boundaries///////// 
 		if (pos.y >= 35f) {//usualy 35
 			pos.y = 35;
@@ -349,11 +349,24 @@ public class playercontroller : MonoBehaviour {
 			pos.x = -40f;
 		} 
 
-		if (health >= .1f && fuel >= .1f) {
-			player.transform.position = new Vector3 (pos.x, pos.y, 0);
+
+		if (pos.z >= 100) {
+			FirstFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
 		}
-	
-    
+
+
+
+
+		if (pos.z >= 695) {
+			pos.z= 0f;
+			
+		}
+
+
+		if (health >= .1f && fuel >= .1f) {
+			player.transform.position = new Vector3 (pos.x, pos.y, pos.z);
+		}
+
 
 
 

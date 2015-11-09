@@ -11,6 +11,7 @@ public class FloorSwitchController : MonoBehaviour {
 	private int Rand;
 	private Mesh nextMesh;
 
+	public GameObject CopyFloor;
 	public void SwitchMesh(){
 		Rand = Random.Range(0, 3);
 		if (Rand == 0)
@@ -30,9 +31,12 @@ public class FloorSwitchController : MonoBehaviour {
 			nextMesh = bumpFloor;
 		}
 
+
+		Debug.Log("Switch floor of:  " + this.gameObject);
 		transform.GetComponent<MeshFilter> ().mesh = nextMesh;
-
-
+		if (CopyFloor != null) {
+			CopyFloor.transform.GetComponent<MeshFilter> ().mesh = nextMesh;
+		}
 
 	}
 }
