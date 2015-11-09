@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PickupController : MonoBehaviour {
-	private GameObject player;
+	public GameObject player;
 
 	public GameObject PickUp01;
 	public GameObject PickUp02;
@@ -29,7 +29,7 @@ public class PickupController : MonoBehaviour {
 		spriteRenderer03 = PickUp03.GetComponent<SpriteRenderer>();
 		spriteRenderer04 = PickUp04.GetComponent<SpriteRenderer>();
 
-		player = GameObject.Find ("player");
+		//player = GameObject.Find ("player");
 		playerPickupCount = player.GetComponent<playercontroller> ().pickUpCount;
 
 

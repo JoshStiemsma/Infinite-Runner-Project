@@ -46,6 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Models\Terrain\FloorController.cs" />
+     <Compile Include="Assets\Models\Terrain\MovethenDelete.cs" />
+     <Compile Include="Assets\Models\Terrain\RandFloorController.cs" />
      <Compile Include="Assets\scripts\Level01\AspectRtioCameraController.cs" />
      <Compile Include="Assets\scripts\Level01\Enemies\Bombs\BombExplosion.cs" />
      <Compile Include="Assets\scripts\Level01\Enemies\Bombs\BombMaterialController.cs" />
@@ -59,7 +62,9 @@
      <Compile Include="Assets\scripts\Level01\HUD\PickupController.cs" />
      <Compile Include="Assets\scripts\Level01\HUD\ShrinkBar.cs" />
      <Compile Include="Assets\scripts\Level01\JetParticleController.cs" />
-     <Compile Include="Assets\scripts\Level01\Levels\FirstLevelFirstWorldgameController.cs" />
+     <Compile Include="Assets\scripts\Level01\Levels\L01_W01GameController.cs" />
+     <Compile Include="Assets\scripts\Level01\Levels\L01_W03GameController.cs" />
+     <Compile Include="Assets\scripts\Level01\Levels\L02_W01GameController.cs" />
      <Compile Include="Assets\scripts\Level01\Levels\gameController.cs" />
      <Compile Include="Assets\scripts\Level01\MainCameraController.cs" />
      <Compile Include="Assets\scripts\Level01\MenuUI\MainMenuAsteroidController.cs" />
@@ -68,6 +73,7 @@
      <Compile Include="Assets\scripts\Level01\MenuUI\PausePanelController.cs" />
      <Compile Include="Assets\scripts\Level01\MenuUI\WinPanelController.cs" />
      <Compile Include="Assets\scripts\Level01\MenuUI\WorldPanelController.cs" />
+     <Compile Include="Assets\scripts\Level01\Moduler\ApplyMaterialOnLoad.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\BasicRotate.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\BulletCollision.cs" />
      <Compile Include="Assets\scripts\Level01\Moduler\CollisionDamage.cs" />
@@ -95,6 +101,7 @@
      <Compile Include="Assets\scripts\Level01\SaveLoad\PlayerData.cs" />
      <Compile Include="Assets\scripts\Level01\SaveLoad\SaveData.cs" />
      <Compile Include="Assets\scripts\Level01\ScaleParticle.cs" />
+     <Compile Include="Assets\scripts\Level01\TerrainController.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\FrameMovement.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\InitFrameMovement1.cs" />
      <Compile Include="Assets\scripts\Level01\VisualObjects\LightMovement.cs" />

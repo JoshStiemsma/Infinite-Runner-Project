@@ -18,9 +18,10 @@ public class PlayerData : MonoBehaviour {
 		} else if(playerData!=this){
 			Destroy(gameObject);
 		}
+		//Load ();
 	}
 	void Enable(){
-		//Save ();
+	
 	}
 
 

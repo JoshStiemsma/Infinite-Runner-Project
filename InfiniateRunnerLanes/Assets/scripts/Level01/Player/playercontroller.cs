@@ -23,7 +23,7 @@ public class playercontroller : MonoBehaviour {
 	private Vector3 prevTransform;
 	public Vector3 startObjPos;
 	public Quaternion initRot;
-	public float health = 25f;
+	public float health = 100f;
 	public bool playerAlive;
 
 
@@ -53,7 +53,6 @@ public class playercontroller : MonoBehaviour {
 	/// <summary>
 	/// Barrel Role .
 	/// </summary>
-	//Barrel Roll double click
 	private bool lastRightInput;
 	private bool lastLeftInput;
 	private bool rightReleased = true;
@@ -117,7 +116,7 @@ public class playercontroller : MonoBehaviour {
 
     void Start () 
 	{
-
+		Debug.Log ("Start playerController");
 		fuel = 100f;
 		forwardSpeed = 150f;
 		shield = false;
@@ -145,8 +144,6 @@ public class playercontroller : MonoBehaviour {
 
     void FixedUpdate ()
 	{
-
-	
 		Enemies = GameObject.FindGameObjectsWithTag ("enemy");
 		Obsticals = GameObject.FindGameObjectsWithTag ("obstical");
 		Pickups = GameObject.FindGameObjectsWithTag ("Pickup");

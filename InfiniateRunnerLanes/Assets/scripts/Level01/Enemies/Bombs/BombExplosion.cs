@@ -11,6 +11,7 @@ public class BombExplosion : MonoBehaviour {
 	private bool shieldOn;
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("player");
 		shieldOn = player.GetComponent<playercontroller> ().shield;
 		scales = new Vector3 (1, 1, 1);
 		delayTimer = 0f;

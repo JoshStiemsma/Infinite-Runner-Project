@@ -37,32 +37,32 @@ public class WinPanelController : MonoBehaviour {
 	}
 
 	public void NextLevel(){
-		if (player.GetComponent<playercontroller> ().level == 1.1f) {
-			Application.LoadLevel("Level02World01");
+		if (player.GetComponent<playercontroller> ().level == 1f) {
+			Application.LoadLevel("L02_W01");
 		}
-		if (player.GetComponent<playercontroller> ().level == 1.2f) {
-			Application.LoadLevel("Level03World01");
+		if (player.GetComponent<playercontroller> ().level == 2f) {
+			Application.LoadLevel("L03_W01");
 		}
-		if (player.GetComponent<playercontroller> ().level == 1.3f) {
-			Application.LoadLevel("Level01World02");
-		}
-
-
-		if (player.GetComponent<playercontroller> ().level == 2.1f) {
-			Application.LoadLevel("Level02World02");
-		}
-		if (player.GetComponent<playercontroller> ().level == 2.2f) {
-			Application.LoadLevel("Level03World02");
-		}
-		if (player.GetComponent<playercontroller> ().level == 2.3f) {
-			Application.LoadLevel("Level01World03");
+		if (player.GetComponent<playercontroller> ().level == 3f) {
+			Application.LoadLevel("L01_W02");
 		}
 
-		if (player.GetComponent<playercontroller> ().level == 3.1f) {
-			Application.LoadLevel("Level02World03");
+
+		if (player.GetComponent<playercontroller> ().level == 4f) {
+			Application.LoadLevel("L02_W02");
 		}
-		if (player.GetComponent<playercontroller> ().level == 2.2f) {
-			Application.LoadLevel("Level03World03");
+		if (player.GetComponent<playercontroller> ().level == 5f) {
+			Application.LoadLevel("L03_W02");
+		}
+		if (player.GetComponent<playercontroller> ().level == 6f) {
+			Application.LoadLevel("L01_W03");
+		}
+
+		if (player.GetComponent<playercontroller> ().level == 7f) {
+			Application.LoadLevel("L02_W03");
+		}
+		if (player.GetComponent<playercontroller> ().level == 8f) {
+			Application.LoadLevel("L03_W03");
 		}
 
 

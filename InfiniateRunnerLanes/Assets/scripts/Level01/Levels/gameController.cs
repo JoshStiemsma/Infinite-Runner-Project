@@ -197,18 +197,23 @@ public class gameController : MonoBehaviour {
 				StartCoroutine ("StartSpawningEnemyShip");
 				initEnemyShip = true;
 			}
-			if (delayTimer >= CrossAsteroidDelay && initCrossAsteroid == false) {
-				StartCoroutine ("StartSpawningCrossAsteroid");
-				initCrossAsteroid = true;
-			}
-			if (delayTimer >= tubeDelay && initTube == false) {
-				StartCoroutine ("StartSpawningTube");
-				initTube = true;
-			}
 			if (delayTimer >= enBholeDelay && initBhole==false) {
 				StartCoroutine ("StartSpawningbhole");
 				initBhole=true;
 			}
+			if (delayTimer >= CrossAsteroidDelay && initCrossAsteroid == false) {
+				StartCoroutine ("StartSpawningCrossAsteroid");
+				initCrossAsteroid = true;
+			}
+				if (delayTimer >= enBholeDelay && initBhole==false) {
+					StartCoroutine ("StartSpawningbhole");
+					initBhole=true;
+				}
+			if (delayTimer >= tubeDelay && initTube == false) {
+				StartCoroutine ("StartSpawningTube");
+				initTube = true;
+			}
+
 			if (delayTimer >= gasCloudDelay && initGasCloud == false) {
 				StartCoroutine ("StartSpawningGasCloud");
 				initGasCloud = true;
@@ -356,9 +361,10 @@ public class gameController : MonoBehaviour {
 		asteroidDelay = asteroidDelay	-(Time.deltaTime/100f);
 		enemyShipDelay = enemyShipDelay	-(Time.deltaTime/100f);
 		enBholeDelay = enBholeDelay	-(Time.deltaTime/100f);
+		CrossAsteroidDelay = CrossAsteroidDelay	-(Time.deltaTime/100f);
 		tubeDelay = tubeDelay	-(Time.deltaTime/100f);
 		gasCloudDelay = gasCloudDelay	-(Time.deltaTime/100f);
-		CrossAsteroidDelay = CrossAsteroidDelay	-(Time.deltaTime/100f);
+
 		//level 2//
 		LightDelay = LightDelay	-(Time.deltaTime/100f);
 		BlocksDelay = BlocksDelay	-(Time.deltaTime/100f);

@@ -40,15 +40,16 @@ public class MainMenuController : MonoBehaviour {
 
 	public float count;
 
+
 	public void Start(){
 		PlayerData.playerData.Load ();
 		levelReached = PlayerData.playerData.levelReached;
 		Debug.Log ("Started");
-		//levelReached = PlayerData.playerData.levelReached;
+		Time.timeScale = 1;
+
 		firstInit = firstWorldButton.transform.position;
 		secondInit = secondWorldButton.transform.position;
 		thirdInit = thirdWorldButton.transform.position;
-
 		optionsPanel.GetComponent<CanvasGroup> ().alpha = 0;
 		optionsPanel.GetComponent<CanvasGroup> ().interactable = false;
 		optionsPanel.GetComponent<CanvasGroup> ().blocksRaycasts = false;
@@ -80,12 +81,14 @@ public class MainMenuController : MonoBehaviour {
 
 		if (first == true) {
 			firstDest = new Vector3 (firstInit.x - 320, firstInit.y, firstInit.z);
+			Debug.Log ("First");
 			firstLevelPanel.GetComponent<CanvasGroup> ().alpha = 1;
 			firstLevelPanel.GetComponent<CanvasGroup> ().interactable = true;
 			firstLevelPanel.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
 		} else {
 			firstDest = firstInit;
+			firstWorldButton.GetComponent<Button> ().interactable = true;
 			firstLevelPanel.GetComponent<CanvasGroup> ().alpha = 0;
 			firstLevelPanel.GetComponent<CanvasGroup> ().interactable = false;
 			firstLevelPanel.GetComponent<CanvasGroup> ().blocksRaycasts = false;
@@ -115,6 +118,7 @@ public class MainMenuController : MonoBehaviour {
 		}
 
 		if (firstWorldButton.transform.position.x != firstDest.x) {
+			Debug.Log("Move Button");
 			firstWorldButton.transform.position =  Vector3.MoveTowards (firstWorldButton.transform.position ,firstDest, 500*Time.deltaTime);
 		}
 		if (secondWorldButton.transform.position.x != secondDest.x) {
@@ -163,33 +167,33 @@ public class MainMenuController : MonoBehaviour {
 
 
 	public void FirstLevelFirstWorld(){
-		Application.LoadLevel("Level01World01");	
+		Application.LoadLevel("L01_W01");	
 	}
 	public void SecondLevelFirstWorld(){
-		Application.LoadLevel("Level02World01");		
+		Application.LoadLevel("L02_W01");		
 	}
 	public void ThirdLevelFirstWorld(){
-		Application.LoadLevel("Level03World01");		
+		Application.LoadLevel("L03_W01");		
 	}
 
 	public void FirstLevelSecondWorld(){
-		Application.LoadLevel("Level01World02");	
+		Application.LoadLevel("L01_W02");	
 	}
 	public void SecondLevelSecondWorld(){
-		Application.LoadLevel("Level02World02");		
+		Application.LoadLevel("L02_W02");		
 	}
 	public void ThirdLevelSecondWorld(){
-		Application.LoadLevel("Level03World02");		
+		Application.LoadLevel("L03_W02");		
 	}
 
 	public void FirstLevelThirdWorld(){
-		Application.LoadLevel("Level01World03");	
+		Application.LoadLevel("L01_W03");	
 	}
 	public void SecondLevelThirdWorld(){
-		Application.LoadLevel("Level02World03");		
+		Application.LoadLevel("L02_W03");		
 	}
 	public void ThirdLevelThirdWorld(){
-		Application.LoadLevel("Level03World03");		
+		Application.LoadLevel("L03_W03");		
 	}
 
 

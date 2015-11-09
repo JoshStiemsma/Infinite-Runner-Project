@@ -26,7 +26,7 @@ public class bombController : MonoBehaviour {
 	public GameObject ExplosionPrefab;
 
 	void Start () {
-	
+		player = GameObject.Find ("player");
 		scale = transform.localScale;
 		health = player.GetComponent<playercontroller> ().health;
 		//Debug.Log ("Enemies:" + enemyCount);
