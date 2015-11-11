@@ -1,16 +1,19 @@
 fileFormatVersion: 2
 guid: 9aa7663674a7e884e92eb83ea54337a4
-timeCreated: 1447048510
+timeCreated: 1447212789
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - BendFloor: {fileID: 4300000, guid: 252e9e1e65a90de48bbe1eb516888c48, type: 3}
-  - LongFloor: {instanceID: 0}
-  - tunnelFloor: {fileID: 4300000, guid: a10785bf47b67de459f8ec642fbf92a0, type: 3}
-  - bumpFloor: {fileID: 4300000, guid: 456e5b8798022b64885f01172e440d6e, type: 3}
-  - DropFloor: {fileID: 4300000, guid: f362ed20c5db40a42a98d4f0b3f4434c, type: 3}
-  - fissureFloor: {fileID: 4300000, guid: 7e58ba9ecff129745bf701b6f8d4ff25, type: 3}
+  - HalfTunnel: {fileID: 4300000, guid: b4795d8a4ee207c4c8cb808f94d0f447, type: 3}
+  - ArchSpikeFloor: {fileID: 4300000, guid: fb47c185c707e404092735d3dacdd8e6, type: 3}
+  - tunnelFloor: {fileID: 4300000, guid: fc48b98ef3594f948b2b2f00b4052b87, type: 3}
+  - bumpFloor: {fileID: 4300000, guid: a36e16659225a144a80a70c306ca3d3e, type: 3}
+  - DropFloor: {fileID: 4300000, guid: d6ccaca3cff3cdf4498fced53ed91494, type: 3}
+  - fissureFloor: {fileID: 4300000, guid: e7d4106708ea29a46a36e5484a929e6f, type: 3}
+  - SpikeFloor: {fileID: 4300000, guid: 42a833229438ed442ac5f6089ce317b1, type: 3}
+  - NormalValley: {fileID: 4300000, guid: 3bd244f9bd418394f8407919177e4b72, type: 3}
+  - CopyFloor: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

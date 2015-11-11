@@ -17,10 +17,10 @@ public class FloorController : MonoBehaviour {
 
 
 
-	private bool firstSwitch;
-	private bool secondSwitch;
-	private bool thirdSwitch;
-	private bool fourthSwitch = true;
+	public bool firstSwitch;
+	public bool secondSwitch;
+	public bool thirdSwitch;
+	public bool fourthSwitch = true;
     // Use this for initialization
     void Start () {
  
@@ -41,33 +41,35 @@ public class FloorController : MonoBehaviour {
 //		FourthFloor.transform.position = new Vector3 (fourthPos.x, fourthPos.y, fourthPos.z + speed *Time.fixedDeltaTime);
 
 
-		if (player.transform.position.z >=100f && firstSwitch==false)
+		if (player.transform.position.z >=200f && firstSwitch==false)
         {
 			Debug.Log("Switch First Floor");
 			FirstFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
 			firstSwitch=true;
 			fourthSwitch=false;
         }
-		if (player.transform.position.z >=300f && secondSwitch==false)
+		else if (player.transform.position.z >=400f && secondSwitch==false)
 		{
 			Debug.Log("Switch 2 Floor");
 			SecondFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
 			secondSwitch=true;
 		}
-		if (player.transform.position.z >=500f && thirdSwitch==false)
+		else if (player.transform.position.z >=600f && thirdSwitch==false)
 		{
 			Debug.Log("Switch 3 Floor");
-			ThirdFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
 			thirdSwitch=true;
+			ThirdFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+
 		}
-		if (player.transform.position.z <=50f && fourthSwitch==false)
+		else if (player.transform.position.z <=50f && fourthSwitch==false)
 		{
 			Debug.Log("Switch 4 Floor");
-			FourthFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
 			fourthSwitch=true;
 			firstSwitch=false;
 			secondSwitch=false;
 			thirdSwitch=false;
+			FourthFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+		
 		}
 
 

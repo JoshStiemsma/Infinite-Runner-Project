@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 456e5b8798022b64885f01172e440d6e
-timeCreated: 1447009771
+guid: 42a833229438ed442ac5f6089ce317b1
+timeCreated: 1447118056
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Bumpy_Long002_flattened
+    4300000: SpikeValley
   materials:
     importMaterials: 1
     materialName: 0

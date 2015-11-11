@@ -92,7 +92,7 @@ public class L01_W03GameController : MonoBehaviour {
 
 	void Start () {
 		player = GameObject.Find ("player");
-		player.GetComponent<playercontroller> ().level = 1f;
+		player.GetComponent<playercontroller> ().level = 3f;
 		delayTimer = 0f;
 		initObsticleDelays ();
 		health = player.GetComponent<playercontroller> ().health;
@@ -188,20 +188,20 @@ public class L01_W03GameController : MonoBehaviour {
 		///////////////////Start SPawning each object after delay only once!
 
 
-
-		if (delayTimer >= pickUpDelay && initPickup == false) {
-			StartCoroutine ("PickUp01");
-			initPickup = true;
-		}
-		if (delayTimer >= fuelCellDelay && initFuelCell == false) {
-			StartCoroutine ("StartSpawningFuelCell");
-			initFuelCell = true;
-		}
-		
-		if (delayTimer >= shieldDelay && initShield == false) {
-			StartCoroutine ("StartSpawningShield");
-			initShield = true;
-		}
+//
+//		if (delayTimer >= pickUpDelay && initPickup == false) {
+//			StartCoroutine ("PickUp01");
+//			initPickup = true;
+//		}
+//		if (delayTimer >= fuelCellDelay && initFuelCell == false) {
+//			StartCoroutine ("StartSpawningFuelCell");
+//			initFuelCell = true;
+//		}
+//		
+//		if (delayTimer >= shieldDelay && initShield == false) {
+//			StartCoroutine ("StartSpawningShield");
+//			initShield = true;
+//		}
 
 
 	}

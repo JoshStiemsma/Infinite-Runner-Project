@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9fadc9e96fce8f848b721b1ae1305088
-timeCreated: 1447009772
+guid: d6ccaca3cff3cdf4498fced53ed91494
+timeCreated: 1447118057
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: bump_valley001
+    4300000: hole_Valley
   materials:
     importMaterials: 1
     materialName: 0

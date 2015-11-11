@@ -1,0 +1,34 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class PickupSpawner : MonoBehaviour {
+	public GameObject fuelPrefab;
+	public GameObject shieldPrefab;
+	public GameObject resourcePrefab;
+	private GameObject chosenPickup;
+
+
+
+	public void SpawnPickup(){
+
+		int Rand = Random.Range(0,100);
+
+		if (Rand <= 67) {
+			chosenPickup=null;
+
+		} else if (Rand >= 68 && Rand <= 81) {
+			chosenPickup = shieldPrefab;
+		}else if (Rand >=82 && Rand <= 95) {
+			chosenPickup = fuelPrefab;
+		}else if (Rand >= 96) {
+			chosenPickup = resourcePrefab;
+		} 
+
+
+		Vector3 pos = transform.position;
+		if (chosenPickup != null) {
+			Instantiate (chosenPickup, new Vector3 (pos.x + Random.Range (0, 10), pos.y-5, pos.z + Random.Range (0, 30)), Quaternion.identity);
+		}
+
+	}
+}

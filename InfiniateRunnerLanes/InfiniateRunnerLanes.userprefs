@@ -1,14 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Models\Terrain\FloorSwitchController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\Level01\Player\playercontroller.cs">
     <Files>
-      <File FileName="Assets\Models\Terrain\RandFloor02.cs" Line="96" Column="44" />
-      <File FileName="Assets\Models\Terrain\FloorController.cs" Line="65" Column="23" />
-      <File FileName="Assets\Models\Terrain\RandFloorController.cs" Line="50" Column="3" />
-      <File FileName="Assets\scripts\Level01\TerrainController.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\Level01\Levels\L01_W03GameController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Models\Terrain\FloorSwitchController.cs" Line="33" Column="3" />
-      <File FileName="Assets\scripts\Level01\Player\playercontroller.cs" Line="354" Column="76" />
+      <File FileName="Assets\scripts\Level01\Player\playercontroller.cs" Line="369" Column="14" />
+      <File FileName="Assets\scripts\Level01\Levels\L01_W03GameController.cs" Line="109" Column="23" />
+      <File FileName="Assets\Models\Terrain\FloorSwitchController.cs" Line="22" Column="28" />
+      <File FileName="Assets\PickupSpawner.cs" Line="30" Column="110" />
+      <File FileName="Assets\Models\Terrain\FloorController.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\Level01\HUD\PickupController.cs" Line="43" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

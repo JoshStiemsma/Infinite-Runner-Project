@@ -9,17 +9,23 @@ public class pickupShield : MonoBehaviour {
 
 
 	public bool dropped;
+	private int world;
+	private int dir = 1;
+	private float dirCounter;
 	// Use this for initialization
 	void Start () {
+
 		player = GameObject.Find ("player");
-		if (dropped) {
+		world = player.transform.GetComponent<playercontroller> ().world;
+
+		if (world != 3) {
+			if (dropped) {
 			
-		} else {
-			transform.position = new Vector3 (Random.Range (-60f, 60f), Random.Range (-40f, 40f), 2000);
-		}
-
-
-		speed = player.GetComponent<playercontroller> ().forwardSpeed;
+			} else {
+				transform.position = new Vector3 (Random.Range (-60f, 60f), Random.Range (-40f, 40f), 2000);
+			}
+			speed = player.GetComponent<playercontroller> ().forwardSpeed;
+		} 
 	}
 
 	void OnCollisionEnter(Collision col)
@@ -39,8 +45,20 @@ public class pickupShield : MonoBehaviour {
 		
 		//////////// Move the object:
 		Vector3 pos = transform.position;
-		pos.z -= speed * Time.deltaTime;
 
+		if (world != 3) {
+			pos.z -= speed * Time.deltaTime;
+		} else {
+			pos.y = pos.y + 10*dir *Time.deltaTime;
+
+			if(dirCounter<=2){
+				dirCounter = dirCounter + 1*Time.deltaTime;
+			}else{
+				dirCounter=0;
+				dir = dir*-1;
+			}
+
+		}
 		if(playerHealth >= .1f){
 			transform.position = pos;
 		} else{//if health is under 0

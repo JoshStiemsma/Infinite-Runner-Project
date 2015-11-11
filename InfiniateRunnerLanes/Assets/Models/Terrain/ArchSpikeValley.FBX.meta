@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f362ed20c5db40a42a98d4f0b3f4434c
-timeCreated: 1447009772
+guid: fb47c185c707e404092735d3dacdd8e6
+timeCreated: 1447118057
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Valley001_flat
+    4300000: SpikeArchValley
   materials:
     importMaterials: 1
     materialName: 0

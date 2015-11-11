@@ -10,10 +10,14 @@ public class Pickup01 : MonoBehaviour {
 	private bool picked;
 
 	public bool dropped;
+	private int world;
+	private int dir = 1;
+	private float dirCounter;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("player");
 		rot = transform.eulerAngles;
+		world = player.transform.GetComponent<playercontroller> ().world;
 
 		if (dropped) {
 			
@@ -41,11 +45,24 @@ public class Pickup01 : MonoBehaviour {
 		
 		//////////// Move the object:
 		Vector3 pos = transform.position;
-		pos.z -= speed * Time.deltaTime;
-		rot.x += 20 * Time.deltaTime;
-		rot.y += 20 * Time.deltaTime;
-
-
+		
+		rot.x += 50 * Time.deltaTime;
+		rot.y += 50 * Time.deltaTime;
+		
+		
+		if (world != 3) {
+			pos.z -= speed * Time.deltaTime;
+		} else {
+			pos.y = pos.y + 10*dir *Time.deltaTime;
+			
+			if(dirCounter<=2){
+				dirCounter = dirCounter + 1*Time.deltaTime;
+			}else{
+				dirCounter=0;
+				dir = dir*-1;
+			}
+			
+		}
 
 
 		if(playerHealth >= .1f){

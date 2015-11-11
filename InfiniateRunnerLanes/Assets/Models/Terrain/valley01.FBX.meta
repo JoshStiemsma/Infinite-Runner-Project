@@ -1,15 +1,22 @@
 fileFormatVersion: 2
-guid: 252e9e1e65a90de48bbe1eb516888c48
-timeCreated: 1447009767
+guid: 3bd244f9bd418394f8407919177e4b72
+timeCreated: 1447118056
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Valley01_collision
+    100004: Valley01_Flattened
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Bend_valley001_flattened
+    400002: Valley01_collision
+    400004: Valley01_Flattened
+    2300000: Valley01_collision
+    2300002: Valley01_Flattened
+    3300000: Valley01_collision
+    3300002: Valley01_Flattened
+    4300000: Valley01_Flattened
+    4300002: Valley01_collision
   materials:
     importMaterials: 1
     materialName: 0

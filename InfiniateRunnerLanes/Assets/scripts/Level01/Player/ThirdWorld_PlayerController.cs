@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class playercontroller : MonoBehaviour {
-
-
+public class ThirdWorld_PlayerController : MonoBehaviour {
 
 	public float enemyCount;
 	public bool paused; 
@@ -11,8 +9,6 @@ public class playercontroller : MonoBehaviour {
 	public bool gameWon;
 
 	public float level;
-	public int world;
-
 	/// <summary>
 	/// The player.
 	/// </summary>
@@ -79,7 +75,7 @@ public class playercontroller : MonoBehaviour {
 	public bool inBoost;
 	public float fuel;
 	private float subBoost;
-	private float boostMult = 1f;
+
 
     public float step = 3f;
     public float speed;
@@ -311,7 +307,6 @@ public class playercontroller : MonoBehaviour {
 		if (Input.GetButtonDown ("Jump") && playerAlive == true) {
 			subBoost = 3f;
 			forwardSpeed = 300;
-			boostMult =2f;
 			boost = boostAmount;
 			inBoost=true;
 			GetComponent<AudioSource>().clip = BoostAudio; 
@@ -320,7 +315,6 @@ public class playercontroller : MonoBehaviour {
 		if (Input.GetButtonUp("Jump")&& playerAlive==true){
 			boost = 0f;
 			subBoost = 0f;
-			boostMult =1f;
 			//Camera.main.fieldOfView = 60f;
 			forwardSpeed = 150f;
 			inBoost=false;
@@ -342,44 +336,32 @@ public class playercontroller : MonoBehaviour {
 		///////////////////Update Position//////////////////
 		pos.y = (pos.y + (vertical * Time.deltaTime* speed));
 		pos.x = (pos.x + (horizontal * Time.deltaTime * speed));
-	
+		pos.z = (pos.z + 50 * Time.deltaTime);
 		/////////////////////Boundaries///////// 
-		/// 
-		/// 
-		if (world != 3) {
-			if (pos.y >= 35f) {//usualy 35
-				pos.y = 35;
-			} else if (pos.y <= -25f) {
-				pos.y = -25f;
-			} 
-			if (pos.x >= 40f) {//usuale 40
-				pos.x = 40;
-			} else if (pos.x <= -40f) {
-				pos.x = -40f;
-			} 
-		} else {
-			if (pos.y >= 35f) {//usualy 35
-				pos.y = 35;
-			}
+		if (pos.y >= 35f) {//usualy 35
+			pos.y = 35;
+		} else if (pos.y <= -25f) {
+			pos.y = -25f;
+		} 
+		if (pos.x >= 40f) {//usuale 40
+			pos.x = 40;
+		} else if (pos.x <= -40f) {
+			pos.x = -40f;
+		} 
 
 
-			if(pos.x>=47){
-				pos.x=47;
-			}else if(pos.x<=-47){
-				pos.x=-47;
-			}
+//		if (pos.z >= 100) {
+//			FirstFloor.transform.GetComponent<FloorSwitchController>().SwitchMesh();
+//		}
 
+
+
+
+		if (pos.z >= 799) {
+			pos.z= 0f;
+			
 		}
 
-
-		if (world == 3) {
-			pos.z = (pos.z + 100*boostMult * Time.deltaTime);
-			if (pos.z >= 799) {
-				pos.z = 0f;
-			}
-		} else {
-			pos.z=0f;
-		}
 
 		if (health >= .1f && fuel >= .1f) {
 			player.transform.position = new Vector3 (pos.x, pos.y, pos.z);

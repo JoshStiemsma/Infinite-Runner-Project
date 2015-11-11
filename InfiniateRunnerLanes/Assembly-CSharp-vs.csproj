@@ -51,6 +51,8 @@
      <Compile Include="Assets\Models\Terrain\MovethenDelete.cs" />
      <Compile Include="Assets\Models\Terrain\RandFloor02.cs" />
      <Compile Include="Assets\Models\Terrain\RandFloorController.cs" />
+     <Compile Include="Assets\OnCollideKill.cs" />
+     <Compile Include="Assets\PickupSpawner.cs" />
      <Compile Include="Assets\scripts\Level01\AspectRtioCameraController.cs" />
      <Compile Include="Assets\scripts\Level01\Enemies\Bombs\BombExplosion.cs" />
      <Compile Include="Assets\scripts\Level01\Enemies\Bombs\BombMaterialController.cs" />
@@ -97,6 +99,7 @@
      <Compile Include="Assets\scripts\Level01\ParticleColorBoostChange.cs" />
      <Compile Include="Assets\scripts\Level01\Player\BulletController.cs" />
      <Compile Include="Assets\scripts\Level01\Player\PlayerMaterialController.cs" />
+     <Compile Include="Assets\scripts\Level01\Player\ThirdWorld_PlayerController.cs" />
      <Compile Include="Assets\scripts\Level01\Player\playerTilt.cs" />
      <Compile Include="Assets\scripts\Level01\Player\playercontroller.cs" />
      <Compile Include="Assets\scripts\Level01\Player\shieldController.cs" />
