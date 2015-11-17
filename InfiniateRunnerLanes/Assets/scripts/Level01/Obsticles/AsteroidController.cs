@@ -51,9 +51,9 @@ public class AsteroidController : MonoBehaviour {
 			angles.y = Random.Range (0, 360);
 			angles.z = Random.Range (0, 360);
 		
-			scales.x = Random.Range (75f, 750f);
-			scales.y = Random.Range (75f, 750f);
-			scales.z = Random.Range (75f, 750f);
+			scales.x = Random.Range (150, 750f);
+			scales.y = Random.Range (150, 750f);
+			scales.z = Random.Range (150, 750f);
 		
 			/////////// Spawn off the top of the screen in a random x position:
 		
@@ -102,16 +102,16 @@ public class AsteroidController : MonoBehaviour {
 
 
 	void destroy(){
-		Instantiate (AsteroidDivisioParticle, new Vector3(transform.position.x, transform.position.y, transform.position.z ), Quaternion.identity);
+		Instantiate (AsteroidDivisioParticle, new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z ), Quaternion.identity);
 		//Destroy (gameObject);
 	
 		dropChoice = Random.Range (-1.0f, 1.0f);
 		if(dropChoice<=-.95f){
-			Instantiate ( Pickup01Prefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( Pickup01Prefab , new Vector3(player.transform.position.x+Random.Range(-10,10),player.transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
 		}else if (dropChoice<-.8f && dropChoice>=-.94f){
-			Instantiate ( ShieldPrefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( ShieldPrefab , new Vector3(player.transform.position.x+Random.Range(-10,10),player.transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
 		}else if (dropChoice<-.5f && dropChoice>=-.79f){
-			Instantiate ( FuelPrefab , new Vector3(transform.position.x+Random.Range(-10,10),transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
+			Instantiate ( FuelPrefab , new Vector3(player.transform.position.x+Random.Range(-10,10),player.transform.position.y+Random.Range(3,5),transform.position.z), Quaternion.identity);
 		} else {
 
 		}

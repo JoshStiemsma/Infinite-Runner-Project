@@ -164,15 +164,16 @@ public class L01_W01GameController : MonoBehaviour {
 
 			///Continue playing
 		} else {
-			gameWon=true;
-			Time.timeScale = 0;
-			player.GetComponent<playercontroller> ().gameWon = true;
 			endTime = Time.deltaTime;
 			if(PlayerData.playerData.levelReached<=0){
 				PlayerData.playerData.levelReached = 1;
 			}
-
+			
 			PlayerData.playerData.Save();
+			gameWon=true;
+			Time.timeScale = 0;
+			player.GetComponent<playercontroller> ().gameWon = true;
+
 			//Change Save Data To level first complete
 
 		}
@@ -212,14 +213,16 @@ public class L01_W01GameController : MonoBehaviour {
 
 
 	void initObsticleDelays(){
-		asteroidDelay = 10f;
-		tubeDelay = 10f;
-		gasCloudDelay = 250f;
-		CrossAsteroidDelay = 100f;
+		Debug.Log ("Init");
+		asteroidDelay = FirstWorldTimers.FirstLevel.asteroidDelay;
+		tubeDelay = FirstWorldTimers.FirstLevel.tubeDelay;
+		gasCloudDelay = FirstWorldTimers.FirstLevel.gasCloudDelay;
+		CrossAsteroidDelay = FirstWorldTimers.FirstLevel.CrossAsteroidDelay;
+		
+		pickUpDelay = FirstWorldTimers.FirstLevel.pickUpDelay;
+		fuelCellDelay =FirstWorldTimers.FirstLevel.fuelCellDelay;
+		shieldDelay = FirstWorldTimers.FirstLevel.shieldDelay;
 
-		pickUpDelay = 6;
-		fuelCellDelay =400;
-		shieldDelay = 175;
 	}
 
 
@@ -373,14 +376,14 @@ public class L01_W01GameController : MonoBehaviour {
 	IEnumerator PickUp01(){
 		while(true){
 			SpawnPickUp01();
-			yield return new WaitForSeconds(pickUpDelay-1*Time.deltaTime);
+			yield return new WaitForSeconds(pickUpDelay);
 		}
 	}
 	
 	IEnumerator StartSpawningFuelCell(){
 		while(true){
 			SpawnFuelCells();
-			yield return new WaitForSeconds(fuelCellDelay/4);
+			yield return new WaitForSeconds(fuelCellDelay);
 		}
 	}
 	IEnumerator StartSpawningShield(){

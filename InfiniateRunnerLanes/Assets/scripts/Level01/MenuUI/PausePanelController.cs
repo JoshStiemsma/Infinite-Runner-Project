@@ -26,4 +26,19 @@ public class PausePanelController : MonoBehaviour {
 
 		}
 	}
+
+
+	public void UnPause(){
+		Time.timeScale = 1;
+		player.GetComponent<AudioSource>().volume = player.GetComponent<AudioSource>().volume/.75f;
+		player.GetComponent<AudioSource>().pitch = player.GetComponent<AudioSource>().pitch*2;
+		player.GetComponent<playercontroller>().paused=false;
+	}
+	public void MainMenu(){
+		Application.LoadLevel("MainMenu");
+
+	}
+
+
+
 }

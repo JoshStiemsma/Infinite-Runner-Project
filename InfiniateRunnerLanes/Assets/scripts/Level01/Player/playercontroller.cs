@@ -122,7 +122,7 @@ public class playercontroller : MonoBehaviour {
 	{
 		Debug.Log ("Start playerController");
 		fuel = 100f;
-		forwardSpeed = 150f;
+		forwardSpeed = PlayerClass.Speed;
 		shield = false;
 		paused = false;
 		startObjPos = startPositionObj.transform.position;
@@ -302,7 +302,6 @@ public class playercontroller : MonoBehaviour {
 		{
 			nextFire = Time.time + fireRate;
 			Instantiate(bulletPrefab, gun.transform.position ,Quaternion.identity);
-			//bulletPrefab.GetComponent<AudioSource>().Play();
 			Instantiate(blueringPrefab, gun.transform.position ,Quaternion.identity);
 		}
 
@@ -310,7 +309,7 @@ public class playercontroller : MonoBehaviour {
 
 		if (Input.GetButtonDown ("Jump") && playerAlive == true) {
 			subBoost = 3f;
-			forwardSpeed = 300;
+			forwardSpeed = PlayerClass.Speed;
 			boostMult =2f;
 			boost = boostAmount;
 			inBoost=true;
@@ -321,8 +320,8 @@ public class playercontroller : MonoBehaviour {
 			boost = 0f;
 			subBoost = 0f;
 			boostMult =1f;
-			//Camera.main.fieldOfView = 60f;
-			forwardSpeed = 150f;
+		
+			forwardSpeed = PlayerClass.Speed/2;
 			inBoost=false;
 			GetComponent<AudioSource>().clip = EngineAudio;
 			GetComponent<AudioSource>().Play();
@@ -342,95 +341,28 @@ public class playercontroller : MonoBehaviour {
 		///////////////////Update Position//////////////////
 		pos.y = (pos.y + (vertical * Time.deltaTime* speed));
 		pos.x = (pos.x + (horizontal * Time.deltaTime * speed));
-	
-		/////////////////////Boundaries///////// 
-		/// 
-		/// 
-		if (world != 3) {
-			if (pos.y >= 35f) {//usualy 35
-				pos.y = 35;
-			} else if (pos.y <= -25f) {
-				pos.y = -25f;
-			} 
-			if (pos.x >= 40f) {//usuale 40
-				pos.x = 40;
-			} else if (pos.x <= -40f) {
-				pos.x = -40f;
-			} 
-		} else {
-			if (pos.y >= 35f) {//usualy 35
-				pos.y = 35;
-			}
 
 
-			if(pos.x>=47){
-				pos.x=47;
-			}else if(pos.x<=-47){
-				pos.x=-47;
-			}
-
-		}
+		Checkboundaries ();
 
 
-		if (world == 3) {
-			pos.z = (pos.z + 100*boostMult * Time.deltaTime);
-			if (pos.z >= 799) {
-				pos.z = 0f;
-			}
-		} else {
-			pos.z=0f;
-		}
 
 		if (health >= .1f && fuel >= .1f) {
 			player.transform.position = new Vector3 (pos.x, pos.y, pos.z);
 		}
 
-
-
-
 		if (playerAlive == false && launchedExplosion == false) {
-			var cloneExp = Instantiate (prefabexplosion, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 1f), gameObject.transform.rotation);
-			Destroy(cloneExp, 1f);
-			Debug.Log ("played explosion");
-			launchedExplosion = true;
+			ExplosionParticle();
 		} 
 		//////////////////Out Of Fuel//////////////////////
 		if(fuel <= 0f)
 		{
-			fuel = 0f;
-			playerAlive = false;
-			Debug.Log("player out of fuel");
-			transform.eulerAngles = new Vector3 (transform.eulerAngles.x+1, transform.eulerAngles.y+1, transform.eulerAngles.z+1);
-			pickUpCount = 0;
-			health = 0;
+			OutOfFuel();
 		}
-		
 
-
-		////////////////////if player dead and user pressed enter//////////////
+		///CheckFor Reset
 		if (playerAlive==false && Input.GetButtonDown("Submit")){
-
-			Debug.Log("player pressed enter");
-			fuel = 100f;
-			//Destroy enemies
-			for(var i = 0 ; i < Obsticals.Length ; i ++)
-			{
-				Destroy(Obsticals[i]);
-			}
-			for(var i = 0 ; i < Enemies.Length ; i ++)
-			{
-				Destroy(Enemies[i]);
-			}
-			for(var i = 0 ; i < Pickups.Length ; i ++)
-			{
-				Destroy(Pickups[i]);
-			}
-			//Reorient player
-				player.transform.position = initPos;
-				player.transform.localRotation = initRot;
-				health = 100f;
-				playerAlive = true;
-
+			ResetLevel();
 		}
 		
 		//////OUT OF HEALTH
@@ -443,10 +375,95 @@ public class playercontroller : MonoBehaviour {
 
 		
 	}
+void ExplosionParticle(){
+		var cloneExp = Instantiate (prefabexplosion, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 1f), gameObject.transform.rotation);
+		Destroy(cloneExp, 1f);
+		Debug.Log ("played explosion");
+		launchedExplosion = true;
+		
+	}
+	
+	/// <summary>
+	/// Outs the of fuel.
+	/// </summary>
+	void OutOfFuel(){
+		fuel = 0f;
+		playerAlive = false;
+		Debug.Log("player out of fuel");
+		transform.eulerAngles = new Vector3 (transform.eulerAngles.x+1, transform.eulerAngles.y+1, transform.eulerAngles.z+1);
+		pickUpCount = 0;
+		health = 0;
+	}
+	
+	
+	
+	/// <summary>
+	/// Resets the level.
+	/// </summary>
+	void ResetLevel(){
+		fuel = 100f;
+		//Destroy enemies
+		for(var i = 0 ; i < Obsticals.Length ; i ++)
+		{
+			Destroy(Obsticals[i]);
+		}
+		for(var i = 0 ; i < Enemies.Length ; i ++)
+		{
+			Destroy(Enemies[i]);
+		}
+		for(var i = 0 ; i < Pickups.Length ; i ++)
+		{
+			Destroy(Pickups[i]);
+		}
+		//Reorient player
+		player.transform.position = initPos;
+		player.transform.localRotation = initRot;
+		health = 100f;
+		playerAlive = true;
+		
+	}
+	
+	/// <summary>
+	/// Checkboundaries this instance.
+	/// </summary>
+	void Checkboundaries(){
+
+		if (world != 3) {
+			if (pos.y >= 35f) {//usualy 35
+				pos.y = 35;
+			} else if (pos.y <= -25f) {
+				pos.y = -25f;
+			} 
+
+			if (pos.x >= 40f) {//usuale 40
+				pos.x = 40;
+			} else if (pos.x <= -40f) {
+				pos.x = -40f;
+			} 
+
+			pos.z=0f;
 
 
+		} else {
+			if (pos.y >= 35f) {//usualy 35
+				pos.y = 35;
+			}
+			
+			
+			if(pos.x>=47){
+				pos.x=47;
+			}else if(pos.x<=-47){
+				pos.x=-47;
+			}
 
+			pos.z = (pos.z + 100*boostMult * Time.deltaTime);
+			if (pos.z >= 799) {
+				pos.z = 0f;
+			}
+			
+		}
 
+	}
 
 
 

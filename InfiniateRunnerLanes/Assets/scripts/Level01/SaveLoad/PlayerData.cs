@@ -10,6 +10,9 @@ public class PlayerData : MonoBehaviour {
 
 	public int levelReached;
 
+	public bool SetLevelAt;
+	public int chosenLevel;
+
 
 	void Awake () {
 		if (playerData == null) {
@@ -26,6 +29,7 @@ public class PlayerData : MonoBehaviour {
 
 
 	public void Save(){
+		Debug.Log ("Saved Game");
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playerInfo.dat");
 		PlayerDataClass data = new PlayerDataClass();
@@ -38,12 +42,18 @@ public class PlayerData : MonoBehaviour {
 	public void Load()
 	{
 		if (File.Exists (Application.persistentDataPath + "/playerInfo.dat")) {
+	
 			BinaryFormatter bf = new BinaryFormatter ();
 			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
 			PlayerDataClass data = (PlayerDataClass)bf.Deserialize (file);
 			file.Close();
-
+			if(SetLevelAt==false){
 			levelReached = data.levelReached;
+			}else{
+				levelReached = chosenLevel;
+
+			}
+			Debug.Log ("Loaded Game to " + levelReached);
 		}
 
 	}

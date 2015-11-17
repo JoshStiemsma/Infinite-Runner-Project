@@ -18,6 +18,7 @@ public class FanController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("player");
 	if (force ==null) {
 			force = 3000.0f;
 		}

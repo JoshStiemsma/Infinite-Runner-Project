@@ -20,10 +20,14 @@ public class WorldPanelController : MonoBehaviour {
 
 
 
-	public int levelReached;
+	private int levelReached;
 	// Use this for initialization
-	void Start () {
 
+	void Awake(){
+
+	}
+	void Start () {
+	
 
 		Open = new  Color(119,211,255,90);
 		//Beat = new Color(255,255,0,90);
@@ -49,11 +53,14 @@ public class WorldPanelController : MonoBehaviour {
 		L3W3.GetComponent<Button>().interactable = false;
 
 
-		levelReached = PlayerData.playerData.levelReached;
+			PlayerData.playerData.Load ();
+		
 		UnBlockLevels ();
 
 	}
 	public void UnBlockLevels(){
+		levelReached = PlayerData.playerData.levelReached;
+		Debug.Log ("Level reaached : " + levelReached);
 		if (levelReached == 0) {
 			L1W1.GetComponent<Image> ().color = Open;
 			L1W1.GetComponent<Button> ().interactable = true;
@@ -61,6 +68,7 @@ public class WorldPanelController : MonoBehaviour {
 			L1W1.GetComponent<Image> ().color = Beat;
 			L1W1.GetComponent<Button> ().interactable = true;
 		}
+
 		if (levelReached == 1) {
 			L2W1.GetComponent<Image>().color = Open;
 			L2W1.GetComponent<Button>().interactable = true;
@@ -129,7 +137,8 @@ public class WorldPanelController : MonoBehaviour {
 			L3W3.GetComponent<Button> ().interactable = true;
 		}
 
-
+		Debug.Log ("Updated levels");
+		Invoke ("UnBlockLevels()", 5);
 
 	}
 

@@ -52,6 +52,7 @@ using System.Collections;
 		void Update () {
 			
 			////////////////////////////BOOOOOOOST//////////////////////////////
+		playerHealth = player.GetComponent<playercontroller> ().health; 
 		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		shieldOn = player.GetComponent<playercontroller> ().shield;
 			//////////// Move the object:

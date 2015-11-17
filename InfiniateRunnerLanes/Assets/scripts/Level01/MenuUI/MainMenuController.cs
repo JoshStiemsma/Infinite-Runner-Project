@@ -167,33 +167,33 @@ public class MainMenuController : MonoBehaviour {
 
 
 	public void FirstLevelFirstWorld(){
-		Application.LoadLevel("L01_W01");	
+		Application.LoadLevel("W01_L01");	
 	}
 	public void SecondLevelFirstWorld(){
-		Application.LoadLevel("L02_W01");		
+		Application.LoadLevel("W01_L02");		
 	}
 	public void ThirdLevelFirstWorld(){
-		Application.LoadLevel("L03_W01");		
+		Application.LoadLevel("W01_L03");		
 	}
 
 	public void FirstLevelSecondWorld(){
-		Application.LoadLevel("L01_W02");	
+		Application.LoadLevel("W02_L01");	
 	}
 	public void SecondLevelSecondWorld(){
-		Application.LoadLevel("L02_W02");		
+		Application.LoadLevel("W02_L02");		
 	}
 	public void ThirdLevelSecondWorld(){
-		Application.LoadLevel("L03_W02");		
+		Application.LoadLevel("W02_L03");		
 	}
 
 	public void FirstLevelThirdWorld(){
-		Application.LoadLevel("L01_W03");	
+		Application.LoadLevel("W03_L01");	
 	}
 	public void SecondLevelThirdWorld(){
-		Application.LoadLevel("L02_W03");		
+		Application.LoadLevel("W03_L02");		
 	}
 	public void ThirdLevelThirdWorld(){
-		Application.LoadLevel("L03_W03");		
+		Application.LoadLevel("W03_L03");		
 	}
 
 
@@ -212,7 +212,7 @@ public class MainMenuController : MonoBehaviour {
 
 	public void SecondWorld(){
 		Debug.Log ("seoond");
-if (levelReached >= 3) {
+if (levelReached >= 4) {
 			if (second == false) {
 				first = false;
 				second = true;
@@ -224,7 +224,7 @@ if (levelReached >= 3) {
 	}
 	public void ThirdWorld(){
 		Debug.Log ("third");
-		if (levelReached >= 6) {
+		if (levelReached >= 7) {
 			if (third == false) {
 				first = false;
 				second = false;

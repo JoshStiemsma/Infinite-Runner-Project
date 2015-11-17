@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class L01_W03GameController : MonoBehaviour {
+public class L02_W01GameController : MonoBehaviour {
 
 	public bool gameWon;
 	public float endTime;
@@ -16,7 +16,23 @@ public class L01_W03GameController : MonoBehaviour {
 	private float fuel;
 
 
-	public GameObject Floor;
+
+/// <summary>
+/// The en bhole prefab.
+/// </summary>
+	public GameObject enBholePrefab;
+	private float enBholeDelay;
+	private bool initBhole;
+
+
+
+	/// <summary>
+	/// The enemy ship prefab.
+	/// </summary>
+	public GameObject enemyShipPrefab;
+	private float enemyShipDelay;
+	private bool initEnemyShip;
+
 
 
 
@@ -83,21 +99,16 @@ public class L01_W03GameController : MonoBehaviour {
 
 
 	private float Rand;
-	void Awake()
-	{
-		//Instantiate(Floor, new Vector3(0,0,499), transform.rotation);
-
-	}
 
 
 	void Start () {
+		Time.timeScale = 1;
 		player = GameObject.Find ("player");
-		player.GetComponent<playercontroller> ().level = 3f;
+		player.GetComponent<playercontroller> ().level = 1f;
 		delayTimer = 0f;
 		initObsticleDelays ();
 		health = player.GetComponent<playercontroller> ().health;
 		pickupCount = player.GetComponent<playercontroller> ().pickUpCount;
-
 		StartCoroutine(PauseCoroutine());  
 	}
 
@@ -142,6 +153,7 @@ public class L01_W03GameController : MonoBehaviour {
 	void Update() {	
 	
 		delayTimer = delayTimer + (4 * Time.deltaTime);
+		enemyCount   = player.GetComponent<playercontroller> ().enemyCount;
 
 		health = player.GetComponent<playercontroller> ().health;
 		pickupCount = player.GetComponent<playercontroller> ().pickUpCount;
@@ -149,6 +161,7 @@ public class L01_W03GameController : MonoBehaviour {
 
 		if (health <= 0) {
 			//level 1//
+			enemyShipDelay = pause;
 			asteroidDelay = pause;
 			tubeDelay = pause;
 			gasCloudDelay = pause;
@@ -156,6 +169,7 @@ public class L01_W03GameController : MonoBehaviour {
 			pickUpDelay = pause;
 			fuelCellDelay = pause;
 			shieldDelay = pause;
+			enBholeDelay = pause;
 
 			playerAlive = false;
 			inBoost = false;
@@ -169,39 +183,63 @@ public class L01_W03GameController : MonoBehaviour {
 				playerAlive = true;
 			}
 		}
-		if (pickupCount <= 0) {
+		if (pickupCount <= 4) {
 
 			///Continue playing
 		} else {
+			endTime = Time.deltaTime;
+			if(PlayerData.playerData.levelReached<=1){
+				PlayerData.playerData.levelReached = 2;
+			}
+			
+			PlayerData.playerData.Save();
 			gameWon=true;
 			Time.timeScale = 0;
 			player.GetComponent<playercontroller> ().gameWon = true;
-			endTime = Time.deltaTime;
-			if(PlayerData.playerData.levelReached<=0){
-				PlayerData.playerData.levelReached = 1;
-			}
 
-			PlayerData.playerData.Save();
 			//Change Save Data To level first complete
 
 		}
 		///////////////////Start SPawning each object after delay only once!
 
+		if (delayTimer >= enBholeDelay && initBhole==false) {
+			StartCoroutine ("StartSpawningbhole");
+			initBhole=true;
+		}
 
-//
-//		if (delayTimer >= pickUpDelay && initPickup == false) {
-//			StartCoroutine ("PickUp01");
-//			initPickup = true;
-//		}
-//		if (delayTimer >= fuelCellDelay && initFuelCell == false) {
-//			StartCoroutine ("StartSpawningFuelCell");
-//			initFuelCell = true;
-//		}
-//		
-//		if (delayTimer >= shieldDelay && initShield == false) {
-//			StartCoroutine ("StartSpawningShield");
-//			initShield = true;
-//		}
+		if (delayTimer >= enemyShipDelay && initEnemyShip == false) {
+			StartCoroutine ("StartSpawningEnemyShip");
+			initEnemyShip = true;
+		}
+
+
+				if (delayTimer >= asteroidDelay && initAsteroid == false) {
+					StartCoroutine ("StartSpawningAsteroid");
+					asteroidDelay = asteroidDelay/2;
+					initAsteroid = true;
+				}
+				if (delayTimer >= gasCloudDelay && initGasCloud == false) {
+					StartCoroutine ("StartSpawningGasCloud");
+					initGasCloud = true;
+				}
+				if (delayTimer >= tubeDelay && initTube == false) {
+					StartCoroutine ("StartSpawningTube");
+					initTube = true;
+				}
+
+		if (delayTimer >= pickUpDelay && initPickup == false) {
+			StartCoroutine ("PickUp01");
+			initPickup = true;
+		}
+		if (delayTimer >= fuelCellDelay && initFuelCell == false) {
+			StartCoroutine ("StartSpawningFuelCell");
+			initFuelCell = true;
+		}
+		
+		if (delayTimer >= shieldDelay && initShield == false) {
+			StartCoroutine ("StartSpawningShield");
+			initShield = true;
+		}
 
 
 	}
@@ -209,20 +247,26 @@ public class L01_W03GameController : MonoBehaviour {
 
 
 	void initObsticleDelays(){
-		asteroidDelay = 10f;
-		tubeDelay = 10f;
-		gasCloudDelay = 250f;
-		CrossAsteroidDelay = 100f;
+		enBholeDelay = FirstWorldTimers.SecondLevel.EnbholeDelay;
+		enemyShipDelay = FirstWorldTimers.SecondLevel.EnemyShipDelay; //150
+		asteroidDelay = FirstWorldTimers.SecondLevel.asteroidDelay;
+		tubeDelay = FirstWorldTimers.SecondLevel.tubeDelay;
+		gasCloudDelay = FirstWorldTimers.SecondLevel.gasCloudDelay;
+		CrossAsteroidDelay = FirstWorldTimers.SecondLevel.CrossAsteroidDelay;
+		
+		pickUpDelay = FirstWorldTimers.SecondLevel.pickUpDelay;
+		fuelCellDelay =FirstWorldTimers.SecondLevel.fuelCellDelay;
+		shieldDelay = FirstWorldTimers.SecondLevel.shieldDelay;
 
-		pickUpDelay = 6;
-		fuelCellDelay =400;
-		shieldDelay = 175;
 	}
 
 
 
 	void UpdateDelays(){//increase spawn rate as time goes on
-	
+
+		enBholeDelay = enBholeDelay	-(Time.deltaTime/100f);
+
+		enemyShipDelay = enemyShipDelay	-(Time.deltaTime/100f);
 		asteroidDelay = asteroidDelay	-(Time.deltaTime/100f);
 		tubeDelay = tubeDelay	-(Time.deltaTime/100f);
 		gasCloudDelay = gasCloudDelay	-(Time.deltaTime/100f);
@@ -234,6 +278,9 @@ public class L01_W03GameController : MonoBehaviour {
 	}
 	void undoBoostDelays(){	
 
+		enBholeDelay = enBholeDelay*2;
+		enemyShipDelay = enemyShipDelay * 2;
+	
 		asteroidDelay = asteroidDelay*2;
 		tubeDelay = tubeDelay*2;
 		gasCloudDelay = gasCloudDelay*2;
@@ -247,6 +294,8 @@ public class L01_W03GameController : MonoBehaviour {
 
 
 	void initBoostDelays(){
+		enBholeDelay = enBholeDelay/2;
+		enemyShipDelay = enemyShipDelay / 2;
 
 		asteroidDelay = asteroidDelay/2;
 		tubeDelay = tubeDelay/2;
@@ -283,6 +332,14 @@ public class L01_W03GameController : MonoBehaviour {
 			
 		//enemyCount++;
 	}
+
+	GameObject SpawnBholeEnemy(){
+		return Instantiate (enBholePrefab);	
+	}
+
+	GameObject SpawnEnemyShip(){	
+		return Instantiate (enemyShipPrefab);		
+	}
 	GameObject SpawnCrossAsteroid(){	
 		return Instantiate (CrossAsteroidPrefab);		
 	}
@@ -318,6 +375,18 @@ public class L01_W03GameController : MonoBehaviour {
 	/// A coroutine that spawns enemies every half second.
 	/// </summary>
 	//level 1//
+	IEnumerator StartSpawningbhole(){
+		while(true){
+			SpawnBholeEnemy();
+			yield return new WaitForSeconds(enBholeDelay);
+		}
+	}
+	IEnumerator StartSpawningEnemyShip(){		
+		while(true){			
+			SpawnEnemyShip();
+			yield return new WaitForSeconds(enemyShipDelay);			
+		}
+	}
 	IEnumerator StartSpawningAsteroid(){
 		while(true){		
 			SpawnAsteroid();
@@ -370,14 +439,14 @@ public class L01_W03GameController : MonoBehaviour {
 	IEnumerator PickUp01(){
 		while(true){
 			SpawnPickUp01();
-			yield return new WaitForSeconds(pickUpDelay-1*Time.deltaTime);
+			yield return new WaitForSeconds(pickUpDelay);
 		}
 	}
 	
 	IEnumerator StartSpawningFuelCell(){
 		while(true){
 			SpawnFuelCells();
-			yield return new WaitForSeconds(fuelCellDelay/4);
+			yield return new WaitForSeconds(fuelCellDelay);
 		}
 	}
 	IEnumerator StartSpawningShield(){
