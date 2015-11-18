@@ -81,10 +81,14 @@ public class L01_W01GameController : MonoBehaviour {
 
 	private float Rand;
 
-
-	void Start () {
+	void Awake(){
 		player = GameObject.Find ("player");
 		player.GetComponent<playercontroller> ().level = 1f;
+
+
+	}
+	void Start () {
+
 		delayTimer = 0f;
 		initObsticleDelays ();
 		health = player.GetComponent<playercontroller> ().health;

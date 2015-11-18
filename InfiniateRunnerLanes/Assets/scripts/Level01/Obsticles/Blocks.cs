@@ -28,9 +28,29 @@ public class Blocks : MonoBehaviour {
 			speed = player.GetComponent<playercontroller> ().forwardSpeed;
 			/////////// Random starting angles:
 		
+
+			if(player.GetComponent<playercontroller> ().level==1){
 			scales.x = Random.Range (10f, 30f);
 			scales.y = Random.Range (75f, 100f);
 			scales.z = Random.Range (10f, 100f);
+			} else if (player.GetComponent<playercontroller> ().level==2){
+				scales.y = Random.Range (10f, 30f);
+				scales.x = Random.Range (75f, 100f);
+				scales.z = Random.Range (10f, 100f);
+			} else if (player.GetComponent<playercontroller> ().level==3){
+				float rand;
+				rand = Random.Range (1, 100);
+				if(rand<=49){
+				scales.y = Random.Range (10f, 30f);
+				scales.x = Random.Range (75f, 100f);
+				scales.z = Random.Range (10f, 100f);
+				}else if(rand >= 50){
+					scales.x = Random.Range (10f, 30f);
+					scales.y = Random.Range (75f, 100f);
+					scales.z = Random.Range (10f, 100f);
+
+				}
+			}
 		
 			/////////// Spawn off the top of the screen in a random x position:
 		

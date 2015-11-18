@@ -120,9 +120,16 @@ public class playercontroller : MonoBehaviour {
 
     void Start () 
 	{
-		Debug.Log (PlayerClass.Speed );
+
 		fuel = 100f;
-		forwardSpeed = PlayerClass.Speed;
+
+
+
+
+
+
+
+
 		shield = false;
 		paused = false;
 		startObjPos = startPositionObj.transform.position;
@@ -142,8 +149,22 @@ public class playercontroller : MonoBehaviour {
 		initPos = player.transform.position;
 		initRot = player.transform.localRotation;
 		initPlayerScale = player.transform.localScale;
+	
+		UpdateplayerSpeed();
+		Debug.Log (level);
     }
 
+	void UpdateplayerSpeed(){
+	
+		if (level == 1) {
+			forwardSpeed = PlayerClass.L01_Speed;
+		}else if (level == 2) {
+			forwardSpeed = PlayerClass.L02_Speed;
+		}else if (level == 3) {
+			forwardSpeed = PlayerClass.L03_Speed;
+		}
+
+	}
 
 
     void FixedUpdate ()
@@ -309,7 +330,8 @@ public class playercontroller : MonoBehaviour {
 
 		if (Input.GetButtonDown ("Jump") && playerAlive == true) {
 			subBoost = 3f;
-			forwardSpeed = PlayerClass.Speed*2;
+
+			forwardSpeed = forwardSpeed*2;
 			boostMult =2f;
 			boost = boostAmount;
 			inBoost=true;
@@ -321,7 +343,7 @@ public class playercontroller : MonoBehaviour {
 			subBoost = 0f;
 			boostMult =1f;
 		
-			forwardSpeed = PlayerClass.Speed/2;
+			forwardSpeed = forwardSpeed/2;
 			inBoost=false;
 			GetComponent<AudioSource>().clip = EngineAudio;
 			GetComponent<AudioSource>().Play();
@@ -456,7 +478,7 @@ void ExplosionParticle(){
 				pos.x=-47;
 			}
 
-			pos.z = (pos.z + 100*boostMult * Time.deltaTime);
+			pos.z = (pos.z + forwardSpeed*boostMult * Time.deltaTime);
 			if (pos.z >= 799) {
 				pos.z = 0f;
 			}
