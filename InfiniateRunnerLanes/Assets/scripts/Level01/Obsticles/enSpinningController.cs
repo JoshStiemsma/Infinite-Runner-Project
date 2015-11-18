@@ -15,6 +15,7 @@ public class enSpinningController : MonoBehaviour {
 	/// </summary>
 	Vector3 angles = Vector3.zero;
 
+	private float spinspeed;
 	private float playerHealth;
 
 	void Start () {
@@ -22,10 +23,14 @@ public class enSpinningController : MonoBehaviour {
 		shieldOn = player.GetComponent<playercontroller> ().shield;
 		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		playerHealth = player.GetComponent<playercontroller> ().health;
-		/////////// Random starting angles:
-		//angles.x = Random.Range (0, 360);
-		//angles.y = Random.Range (0, 360);
-		//angles.z = Random.Range (0, 360);
+		
+		if (player.GetComponent<playercontroller> ().level == 1) {
+			spinspeed = 50;
+		} else if (player.GetComponent<playercontroller> ().level == 2) {
+			spinspeed = 75;
+		} else if (player.GetComponent<playercontroller> ().level == 3) {
+			spinspeed = 100;
+		} 
 		
 		/////////// Spawn off the top of the screen in a random x position:
 		transform.position = new Vector3 (0, 0, 1500);
@@ -56,7 +61,7 @@ public class enSpinningController : MonoBehaviour {
 
 		//////////// Spin the object:
 		//angles.x += 20 * Time.deltaTime;
-		angles.z += 40 * Time.deltaTime;
+		angles.z += spinspeed * Time.deltaTime;
 
 		
 		//////////// Move the object:

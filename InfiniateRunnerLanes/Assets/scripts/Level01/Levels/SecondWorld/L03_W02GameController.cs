@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class L02_W02GameController : MonoBehaviour {
+public class L03_W02GameController : MonoBehaviour {
 
 	public bool gameWon;
 	public float endTime;
@@ -78,7 +78,7 @@ public class L02_W02GameController : MonoBehaviour {
 		Debug.Log ("Start Second Level");
 		player = GameObject.Find ("player");
 		///Edit per Level***********///
-		player.GetComponent<playercontroller> ().level = 2f;
+		player.GetComponent<playercontroller> ().level = 3f;
 		delayTimer = 0f;
 		initObsticleDelays ();
 		health = player.GetComponent<playercontroller> ().health;
@@ -88,6 +88,10 @@ public class L02_W02GameController : MonoBehaviour {
 		Time.timeScale = 1;
 	}
 
+	/// <summary>
+	/// Pauses the coroutine.
+	/// </summary>
+	/// <returns>The coroutine.</returns>
 	IEnumerator PauseCoroutine() {
 		while (true)
 		{
@@ -111,6 +115,8 @@ public class L02_W02GameController : MonoBehaviour {
 		}
 	}
 
+
+
 	void FixedUpdate(){
 		//firstFrame = true;
 		if (Input.GetButtonDown ("Jump")&& health >=.1f && inBoost==false) {
@@ -125,7 +131,9 @@ public class L02_W02GameController : MonoBehaviour {
 	}
 
 
-
+	/// <summary>
+	/// Update this instance.
+	/// </summary>
 	void Update() {	
 	
 		delayTimer = delayTimer + (4 * Time.deltaTime);
@@ -224,17 +232,16 @@ public class L02_W02GameController : MonoBehaviour {
 	/// Inits the obsticle delays.
 	/// </summary>
 	void initObsticleDelays(){
-
-		LightDelay = SecondWorldTimers.SecondLevel.LightDelay;
-		BlocksDelay=SecondWorldTimers.SecondLevel.BlocksDelay;
-		enSpinDelay=SecondWorldTimers.SecondLevel.enSpinDelay;
-		enSwipeDelay = SecondWorldTimers.SecondLevel.enSwipeDelay;
-		MedHoleWallDelay = SecondWorldTimers.SecondLevel.MedHoleWallDelay;
-		BeamDelay = SecondWorldTimers.SecondLevel.BeamDelay;
-		FanDelay = SecondWorldTimers.SecondLevel.FanDelay;
-		pickUpDelay = SecondWorldTimers.SecondLevel.pickUpDelay;
-		fuelCellDelay = SecondWorldTimers.SecondLevel.fuelCellDelay;
-		shieldDelay = SecondWorldTimers.SecondLevel.shieldDelay;
+		LightDelay = SecondWorldTimers.ThirdLevel.LightDelay;
+		BlocksDelay=SecondWorldTimers.ThirdLevel.BlocksDelay;
+		enSpinDelay=SecondWorldTimers.ThirdLevel.enSpinDelay;
+		enSwipeDelay = SecondWorldTimers.ThirdLevel.enSwipeDelay;
+		MedHoleWallDelay = SecondWorldTimers.ThirdLevel.MedHoleWallDelay;
+		BeamDelay = SecondWorldTimers.ThirdLevel.BeamDelay;
+		FanDelay = SecondWorldTimers.ThirdLevel.FanDelay;
+		pickUpDelay = SecondWorldTimers.ThirdLevel.pickUpDelay;
+		fuelCellDelay = SecondWorldTimers.ThirdLevel.fuelCellDelay;
+		shieldDelay = SecondWorldTimers.ThirdLevel.shieldDelay;
 	}
 
 
@@ -273,9 +280,9 @@ public class L02_W02GameController : MonoBehaviour {
 		shieldDelay = shieldDelay*2;
 	}
 
-/// <summary>
-/// Inits the boost delays.
-/// </summary>
+	/// <summary>
+	/// Inits the boost delays.
+	/// </summary>
 	void initBoostDelays(){
 
 		LightDelay = LightDelay/2;
@@ -292,37 +299,60 @@ public class L02_W02GameController : MonoBehaviour {
 
 	}
 
-
-	//level 1//
-
-
-
-
-
-
+	/// <summary>
+	/// Spawns the pick up01.
+	/// </summary>
+	/// <returns>The pick up01.</returns>
 	GameObject SpawnPickUp01() {
 		return Instantiate (pickUp01Prefab);
 	}
+	/// <summary>
+	/// Spawns the fuel cells.
+	/// </summary>
+	/// <returns>The fuel cells.</returns>
 	GameObject SpawnFuelCells() {
 		return Instantiate (fuelCellPrefab);
 	}
+	/// <summary>
+	/// Spawns the shield.
+	/// </summary>
+	/// <returns>The shield.</returns>
 	GameObject SpawnShield() {
 		return Instantiate (shieldPrefab);
 	}
 
-
+	/// <summary>
+	/// Spawns the spinning enemy.
+	/// </summary>
+	/// <returns>The spinning enemy.</returns>
 	GameObject SpawnSpinningEnemy(){
 		return Instantiate (enSpinningPrefab);
 	}
+	/// <summary>
+	/// Spawns the swipe enemy.
+	/// </summary>
+	/// <returns>The swipe enemy.</returns>
 	GameObject SpawnSwipeEnemy(){
 		return Instantiate (enSwipePrefab);	
 	}
+	/// <summary>
+	/// Spawns the spinning blocks.
+	/// </summary>
+	/// <returns>The spinning blocks.</returns>
 	GameObject SpawnSpinningBlocks(){
 		return Instantiate (BlocksPrefab);
 	}
+	/// <summary>
+	/// Spawns the med hole wall.
+	/// </summary>
+	/// <returns>The med hole wall.</returns>
 	GameObject SpawnMedHoleWall(){
 		return Instantiate (MedHoleWallPrefab);
 	}
+	/// <summary>
+	/// Spawns the fan.
+	/// </summary>
+	/// <returns>The fan.</returns>
 	GameObject SpawnFan(){
 		Rand = Random.Range(0,4);
 		if (Rand <= .9f) {
@@ -339,30 +369,51 @@ public class L02_W02GameController : MonoBehaviour {
 		}
 	}
 	
-	
+	/// <summary>
+	/// Starts the spawning spin.
+	/// </summary>
+	/// <returns>The spawning spin.</returns>
 	IEnumerator StartSpawningSpin(){
 		while(true){
 			SpawnSpinningEnemy();
 			yield return new WaitForSeconds(enSpinDelay);
 		}
 	}
+
+	/// <summary>
+	/// Starts the spawning swipe.
+	/// </summary>
+	/// <returns>The spawning swipe.</returns>
 	IEnumerator StartSpawningSwipe(){
 		while(true){
 			SpawnSwipeEnemy();
 			yield return new WaitForSeconds(enSwipeDelay);
 		}
-	}	IEnumerator StartSpawningBlocks(){
+	}	
+	/// <summary>
+	/// Starts the spawning blocks.
+	/// </summary>
+	/// <returns>The spawning blocks.</returns>
+	IEnumerator StartSpawningBlocks(){
 		while(true){
 			SpawnSpinningBlocks();
 			yield return new WaitForSeconds(BlocksDelay);
 		}
 	}
+	/// <summary>
+	/// Starts the spawning med hole wall.
+	/// </summary>
+	/// <returns>The spawning med hole wall.</returns>
 	IEnumerator StartSpawningMedHoleWall(){
 		while(true){
 			SpawnMedHoleWall();
 			yield return new WaitForSeconds(MedHoleWallDelay);
 		}
 	}
+	/// <summary>
+	/// Starts the spawning fans.
+	/// </summary>
+	/// <returns>The spawning fans.</returns>
 	IEnumerator StartSpawningFans(){
 		while(true){
 			SpawnFan();
@@ -374,19 +425,30 @@ public class L02_W02GameController : MonoBehaviour {
 
 
 	//all//
+	/// <summary>
+	/// Picks the up01.
+	/// </summary>
+	/// <returns>The up01.</returns>
 	IEnumerator PickUp01(){
 		while(true){
 			SpawnPickUp01();
 			yield return new WaitForSeconds(pickUpDelay);
 		}
 	}
-	
+	/// <summary>
+	/// Starts the spawning fuel cell.
+	/// </summary>
+	/// <returns>The spawning fuel cell.</returns>
 	IEnumerator StartSpawningFuelCell(){
 		while(true){
 			SpawnFuelCells();
 			yield return new WaitForSeconds(fuelCellDelay);
 		}
 	}
+	/// <summary>
+	/// Starts the spawning shield.
+	/// </summary>
+	/// <returns>The spawning shield.</returns>
 	IEnumerator StartSpawningShield(){
 		while(true){
 			SpawnShield();

@@ -78,7 +78,7 @@ public class L01_W02GameController : MonoBehaviour {
 		Debug.Log ("Start Second Level");
 		player = GameObject.Find ("player");
 		///Edit per Level***********///
-		player.GetComponent<playercontroller> ().level = 2f;
+		player.GetComponent<playercontroller> ().level = 1f;
 		delayTimer = 0f;
 		initObsticleDelays ();
 		health = player.GetComponent<playercontroller> ().health;
@@ -215,7 +215,9 @@ public class L01_W02GameController : MonoBehaviour {
 	}
 	
 
-
+	/// <summary>
+	/// Inits the obsticle delays.
+	/// </summary>
 	void initObsticleDelays(){
 		LightDelay = SecondWorldTimers.FirstLevel.LightDelay;
 		BlocksDelay=SecondWorldTimers.FirstLevel.BlocksDelay;

@@ -120,7 +120,7 @@ public class playercontroller : MonoBehaviour {
 
     void Start () 
 	{
-		Debug.Log ("Start playerController");
+		Debug.Log (PlayerClass.Speed );
 		fuel = 100f;
 		forwardSpeed = PlayerClass.Speed;
 		shield = false;
@@ -309,7 +309,7 @@ public class playercontroller : MonoBehaviour {
 
 		if (Input.GetButtonDown ("Jump") && playerAlive == true) {
 			subBoost = 3f;
-			forwardSpeed = PlayerClass.Speed;
+			forwardSpeed = PlayerClass.Speed*2;
 			boostMult =2f;
 			boost = boostAmount;
 			inBoost=true;

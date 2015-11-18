@@ -20,7 +20,16 @@ using System.Collections;
 		player = GameObject.Find ("player");
 		playerHealth = player.GetComponent<playercontroller> ().health;
 		speed = player.GetComponent<playercontroller> ().forwardSpeed;
-		swipeSpeed = speed / 2;
+
+		if (player.GetComponent<playercontroller> ().level == 1) {
+			swipeSpeed = 100;
+		} else if (player.GetComponent<playercontroller> ().level == 2) {
+			swipeSpeed = 150;
+		} else if (player.GetComponent<playercontroller> ().level == 3) {
+			swipeSpeed = 200;
+		} 
+
+
 			/////////// Random starting angles:
 			//angles.x = Random.Range (0, 360);
 			//angles.y = Random.Range (0, 360);
