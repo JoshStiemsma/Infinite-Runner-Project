@@ -1,1 +1,0 @@
-README for Josh Stiemsma's Infinite Space Flyer

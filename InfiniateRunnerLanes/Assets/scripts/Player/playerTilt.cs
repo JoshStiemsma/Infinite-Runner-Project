@@ -56,7 +56,7 @@ public class playerTilt : MonoBehaviour {
 			(transform.rotation.y - rotationTarget.transform.rotation.y) >= 0.05 ||
 			(transform.rotation.z - rotationTarget.transform.rotation.z) >= 0.05) {
 			isLerping = true;
-			Debug.Log("facing Forward");
+			//Debug.Log("facing Forward");
 		} else {
 			isLerping = false;
 		}
@@ -74,13 +74,13 @@ public class playerTilt : MonoBehaviour {
 			//transform.localRotation = new Quaternion( 0, 0, 0, 1);
 			//Lerp to zero
 			transform.localRotation = Quaternion.Lerp (transform.rotation, new Quaternion (0, 0, 0, 1), step);
-			Debug.Log ("ReturnRotation");
+			//Debug.Log ("ReturnRotation");
 			//}
 		} else if (playerInput = false && isLerping == false) {
 			transform.eulerAngles = new Vector3 (0, 0, 0);
 			transform.rotation = new Quaternion(0,0,0,1);
 			transform.localRotation = new Quaternion(0,0,0,1);
-			Debug.Log("Set Forward");
+			//Debug.Log("Set Forward");
 
 		} else {
 			transform.localRotation = Quaternion.Lerp (transform.rotation, rotationTarget.rotation, step);

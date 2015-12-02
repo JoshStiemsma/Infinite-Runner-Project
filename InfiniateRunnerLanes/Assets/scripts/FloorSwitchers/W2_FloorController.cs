@@ -4,7 +4,9 @@ using System.Collections;
 public class W2_FloorController : MonoBehaviour {
 	public GameObject player;
 
-     public GameObject FirstFloor;
+	public GameObject FirstFloor;
+	public GameObject FirstFloorcopy;
+
      public GameObject SecondFloor;
      public GameObject ThirdFloor;
 	public GameObject FourthFloor;
@@ -14,7 +16,7 @@ public class W2_FloorController : MonoBehaviour {
     public GameObject EigthFloor;
 
 
-
+	public Mesh normalMesh;
 
 
     private Vector3 firstPos;
@@ -48,60 +50,68 @@ public class W2_FloorController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (player.transform.GetComponent<playercontroller> ().health <= 0) {
+			Debug.Log ("Reset firstMesh");
+			FirstFloor.transform.GetComponent<MeshFilter>().mesh = normalMesh;
+			FirstFloor.transform.GetComponent<MeshCollider>().sharedMesh = null;
+			FirstFloor.transform.GetComponent<MeshCollider>().sharedMesh = normalMesh;
 
+			FirstFloorcopy.transform.GetComponent<MeshFilter>().mesh = normalMesh;
+
+		}
 
 
 		if (player.transform.position.z >=100 && firstSwitch==false)
         {
-			Debug.Log("Switch First Floor");
+			//Debug.Log("Switch First Floor");
 			FirstFloor.transform.GetComponent<W2_FloorSwitch>().SwitchMesh();
 			firstSwitch=true;
 			eigthSwitch=false;
         }
 		else if (player.transform.position.z >=200 && secondSwitch==false)
 		{
-			Debug.Log("Switch 2 Floor");
+			//Debug.Log("Switch 2 Floor");
 			SecondFloor.transform.GetComponent<W2_FloorSwitch>().SwitchMesh();
 			secondSwitch=true;
 		}
 		else if (player.transform.position.z >=300 && thirdSwitch==false)
 		{
-			Debug.Log("Switch 3 Floor");
+			//Debug.Log("Switch 3 Floor");
 			thirdSwitch=true;
 			ThirdFloor.transform.GetComponent<W2_FloorSwitch>().SwitchMesh();
 
 		}
         else if (player.transform.position.z >= 400 && fourthSwitch == false)
         {
-            Debug.Log("Switch 4 Floor");
+          //  Debug.Log("Switch 4 Floor");
             fourthSwitch = true;
             FourthFloor.transform.GetComponent<W2_FloorSwitch>().SwitchMesh();
 
         }
         else if (player.transform.position.z >= 500 && fifthSwitch == false)
         {
-            Debug.Log("Switch 5 Floor");
+           // Debug.Log("Switch 5 Floor");
             fifthSwitch = true;
             FifthFloor.transform.GetComponent<W2_FloorSwitch>().SwitchMesh();
 
         }
         else if (player.transform.position.z >= 600 && sixthSwitch == false)
         {
-            Debug.Log("Switch 6 Floor");
+           // Debug.Log("Switch 6 Floor");
             sixthSwitch = true;
             SixthFloor.transform.GetComponent<W2_FloorSwitch>().SwitchMesh();
 
         }
         else if (player.transform.position.z >= 700 && seventhSwitch == false)
         {
-            Debug.Log("Switch 7 Floor");
+           // Debug.Log("Switch 7 Floor");
             seventhSwitch = true;
             SeventhFloor.transform.GetComponent<W2_FloorSwitch>().SwitchMesh();
 
         }
         else if (player.transform.position.z <=25 && eigthSwitch==false)
 		{
-			Debug.Log("Switch 8 Floor");
+			//Debug.Log("Switch 8 Floor");
 			eigthSwitch=true;
 			firstSwitch=false;
 			secondSwitch=false;

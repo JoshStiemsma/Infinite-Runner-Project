@@ -16,28 +16,25 @@ using System.Collections;
 		
 	private float playerHealth;
 
+	public bool Clone;
+
 		void Start () {
 		player = GameObject.Find ("player");
 		playerHealth = player.GetComponent<playercontroller> ().health;
 		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 
 		if (player.GetComponent<playercontroller> ().level == 1) {
-			swipeSpeed = 100;
+			swipeSpeed = 25;
 		} else if (player.GetComponent<playercontroller> ().level == 2) {
-			swipeSpeed = 150;
+			swipeSpeed = 75;
 		} else if (player.GetComponent<playercontroller> ().level == 3) {
-			swipeSpeed = 200;
+			swipeSpeed = 100;
 		} 
 
 
-			/////////// Random starting angles:
-			//angles.x = Random.Range (0, 360);
-			//angles.y = Random.Range (0, 360);
-			//angles.z = Random.Range (0, 360);
+
 			
-			/////////// Spawn off the top of the screen in a random x position:
-			
-			transform.position = new Vector3 (Random.Range(-40f, 40f), 0, 1500);
+			//transform.position = new Vector3 (Random.Range(-40f, 40f), 0, 1500);
 			//transform.localScale = new Vector3(Random.Range(5f, 10f)*(transform.position.x/10),Random.Range(5f, 30f),Random.Range(5f, 30f));
 		}
 		
@@ -60,30 +57,25 @@ using System.Collections;
 		
 		void Update () {
 			
-			////////////////////////////BOOOOOOOST//////////////////////////////
+		if (Clone == true) {
+			//transform.localScale = transform.parent.localScale;
+			transform.position = new Vector3(transform.parent.position.x,transform.parent.position.y,transform.parent.position.z+800);
+		} else if (Clone == false) {
+			
+	
 		playerHealth = player.GetComponent<playercontroller> ().health; 
 		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 		shieldOn = player.GetComponent<playercontroller> ().shield;
 			//////////// Move the object:
-			Vector3 pos = transform.position;
-
-
-		if (pos.x >= 55) {
-			direction = direction*-1;
-		}
-		if (pos.x <= -55) {
-			direction = direction*-1;
-		}
+		Vector3 pos = transform.position;
 		pos.x += direction * swipeSpeed * Time.deltaTime;
-
-
 		if (playerHealth >= .1f) {
-			pos.z -= speed * Time.deltaTime;
+			//pos.z -= speed * Time.deltaTime;
 			transform.position = pos;
 		}else {
 			Destroy (gameObject);
-		}
-			//////////// If off the bottom of the screen, destroy this object:
-			if (pos.z < -8) Destroy (gameObject);
-		}
-	}
+		}//end  if player is dead
+			
+		}//end if clone or not
+	}//endUpdate
+	}//end class

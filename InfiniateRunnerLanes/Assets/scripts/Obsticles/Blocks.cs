@@ -16,7 +16,9 @@ public class Blocks : MonoBehaviour {
 	public GameObject collisionPrefab;
 	
 	private bool gotHit;
-	
+
+	public bool Clone = false;
+
 	void Start () {
 		player = GameObject.Find ("player");
 		health = player.GetComponent<playercontroller> ().health;
@@ -28,11 +30,11 @@ public class Blocks : MonoBehaviour {
 			speed = player.GetComponent<playercontroller> ().forwardSpeed;
 			/////////// Random starting angles:
 		
-
+			if(Clone==false){
 			if(player.GetComponent<playercontroller> ().level==1){
-			scales.x = Random.Range (10f, 30f);
-			scales.y = Random.Range (75f, 100f);
-			scales.z = Random.Range (10f, 100f);
+					scales.x = Random.Range (10f, 30f);
+					scales.y = Random.Range (75f, 100f);
+					scales.z = Random.Range (10f, 100f);
 			} else if (player.GetComponent<playercontroller> ().level==2){
 				scales.y = Random.Range (10f, 30f);
 				scales.x = Random.Range (75f, 100f);
@@ -50,12 +52,19 @@ public class Blocks : MonoBehaviour {
 					scales.z = Random.Range (10f, 100f);
 
 				}
+				
+			}
+				transform.localScale = scales;
+			}else if(Clone==true){
+				transform.localScale = transform.parent.localScale;
+				transform.position = new Vector3(transform.parent.position.x,transform.parent.position.y,transform.parent.position.z+800);
+
 			}
 		
 			/////////// Spawn off the top of the screen in a random x position:
 		
-			transform.position = new Vector3 (Random.Range (-38f, 38f), Random.Range (-40f, 40f), 2000);
-			transform.localScale = scales;
+
+		
 		}
 
 		
@@ -69,10 +78,10 @@ public class Blocks : MonoBehaviour {
 			if (col.gameObject.tag == "Player" && shieldOn == false) {	
 				player.GetComponent<playercontroller> ().health -= 25.0f;
 				Debug.Log("Player Hit Block");
-				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
+				//Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 			} else if (col.gameObject.tag == "Player" && shieldOn == true) {
 				player.GetComponent<playercontroller> ().shield = false;
-				Instantiate (collisionPrefab, transform.position, Quaternion.identity);
+				//Instantiate (collisionPrefab, transform.position, Quaternion.identity);
 			} 
 
 
@@ -99,31 +108,5 @@ public class Blocks : MonoBehaviour {
 	}
 	
 	
-	void Update () {
-		shieldOn = player.GetComponent<playercontroller> ().shield;
-		health = player.GetComponent<playercontroller> ().health;
-			////////////////////////////BOOOOOOOST//////////////////////////////
-		speed = player.GetComponent<playercontroller> ().forwardSpeed;
 
-		
-		
-		//////////// Move the object:
-		Vector3 pos = transform.position;
-		pos.z -= speed * Time.deltaTime;
-
-		if(health >= .1f){
-		transform.position = pos;
-		} else{//if health is under 0
-			transform.position = transform.position;
-		
-		
-			
-		}
-
-
-		if (pos.z < -8){ Destroy (gameObject);
-		}
-
-	
-}
 }

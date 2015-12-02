@@ -61,6 +61,7 @@ public class playercontroller : MonoBehaviour {
 	private bool lastLeftInput;
 	private bool rightReleased = true;
 	private bool leftReleased = true;
+	//public RaycastHit hit;
 	private int tapCount;
 	private float lastTap;
 	private float leeway = 0.4f; // how fast you have to tap
@@ -240,9 +241,23 @@ public class playercontroller : MonoBehaviour {
 					}
 					if (tapCount == 2) {
 					//	Debug.Log ("DoubleTap" + horizontal);
-						inRoll = true;
-						inLeftRoll = true;
-							GetComponent<Animation>().Play("RollLeft");
+						Debug.Log ("Call RollLeft");
+						RaycastHit hit;
+						if(Physics.Raycast(transform.position, Vector3.left , out hit))
+						{
+							Debug.Log ("Cast ray to the left");
+							
+
+								if(hit.distance>50){
+									Rollleft();
+								}
+							
+							
+							
+							
+							
+						}
+
 					}
 					// etc.
 					if (tapCount == maxtaps)
@@ -266,16 +281,27 @@ public class playercontroller : MonoBehaviour {
 					lastRightInput = true;
 					rightReleased=false;
 					tapCount++;
-					Debug.Log ("firstTap");
+					//Debug.Log ("firstTap");
 					if (tapCount == 1) {
-						Debug.Log ("Tap" + horizontal);
+						//Debug.Log ("Tap" + horizontal);
 						
 					}
 					if (tapCount == 2) {
-						Debug.Log ("DoubleTap" + horizontal);
-						inRoll = true;
-						inRightRoll = true;
-						GetComponent<Animation>().Play("RollRight");
+						Debug.Log ("Call RollRight");
+						RaycastHit hit;
+						if(Physics.Raycast(transform.position, Vector3.right , out hit))
+						{
+							Debug.Log ("Cast ray to the right");
+							
+							if(hit.distance>50){
+								Rollright();
+							}
+
+
+
+
+						}
+
 					}
 					// etc.
 					if (tapCount == maxtaps)
@@ -395,6 +421,25 @@ public class playercontroller : MonoBehaviour {
 
 		
 	}
+	/// <summary>
+	/// Rollright this instance.
+	/// </summary>
+	void Rollright(){
+		Debug.Log ("RollRight");
+		inRoll = true;
+		inRightRoll = true;
+		GetComponent<Animation>().Play("RollRight");
+
+	}
+
+	void Rollleft(){
+		Debug.Log ("Rollleft");
+		inRoll = true;
+		inLeftRoll = true;
+		GetComponent<Animation>().Play("RollLeft");
+		
+	}
+
 
 void ExplosionParticle(){
 		var cloneExp = Instantiate (prefabexplosion, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 1f), gameObject.transform.rotation);
@@ -422,6 +467,7 @@ void ExplosionParticle(){
 	/// Resets the level.
 	/// </summary>
 	public void ResetLevel(){
+		Debug.Log ("resetPLAy");
 		fuel = 100f;
 		//Destroy enemies
 		for(var i = 0 ; i < Obsticals.Length ; i ++)

@@ -18,8 +18,6 @@ public class DestroywhenPassed : MonoBehaviour {
 
     void Update()
     {
-        Debug.Log("player z:   " + player.transform.position.z);
-         Debug.Log("object z:   " +transform.position.z);
 
         if (player.transform.position.z <= 5f)
         {
@@ -28,7 +26,7 @@ public class DestroywhenPassed : MonoBehaviour {
 
         if (player.transform.position.z >= transform.position.z && reset ==true)
         {
-            Debug.Log("DESSTROY SELF");
+           // Debug.Log("DESSTROY SELF");
             Destroy(gameObject);
 
 

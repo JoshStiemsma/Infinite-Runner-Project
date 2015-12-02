@@ -6,14 +6,18 @@ public class CollisionDamage : MonoBehaviour {
 	private float playerHealth;
 	private bool shieldOn;
 	public float Damage = 25f;
-
+	/// <summary>
+	/// Start this instance.
+	/// </summary>
 	void Start() {
 		player = GameObject.Find ("player"); 
 		shieldOn = player.GetComponent<playercontroller> ().shield;
 		playerHealth = player.GetComponent<playercontroller> ().health;
 	}
 
-
+/// <summary>
+/// Raises the collision enter event.
+/// </summary>
 	void OnCollisionEnter(Collision col)
 	{
 		playerHealth = player.GetComponent<playercontroller> ().health;
