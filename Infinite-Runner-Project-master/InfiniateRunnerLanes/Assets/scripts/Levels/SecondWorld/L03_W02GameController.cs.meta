@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 3d682bae420f2b340a6a00b2919f5e6e
+timeCreated: 1449529141
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - AsteroidPrefab: {instanceID: 0}
+  - enBholePrefab: {instanceID: 0}
+  - CrossAsteroidPrefab: {instanceID: 0}
+  - enemyShipPrefab: {instanceID: 0}
+  - tubePrefab: {instanceID: 0}
+  - gasCloudPrefab: {instanceID: 0}
+  - enSpinningPrefab: {instanceID: 0}
+  - enSwipePrefab: {instanceID: 0}
+  - BlocksPrefab: {instanceID: 0}
+  - fanLeftPrefab: {fileID: 180566, guid: ba69a91dbc0e1194baa395df43f46eaf, type: 2}
+  - fanRightPrefab: {fileID: 137648, guid: a332c677cfa1a164385b24f0ab7d61e1, type: 2}
+  - fanUpPrefab: {fileID: 130092, guid: 414e09cf9e95c8646ac7a8637c6400e4, type: 2}
+  - fanDownPrefab: {fileID: 128760, guid: 677a5df24c434974db55332e29025ccf, type: 2}
+  - MedHoleWallPrefab: {instanceID: 0}
+  - pickUp01Prefab: {instanceID: 0}
+  - fuelCellPrefab: {instanceID: 0}
+  - shieldPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
