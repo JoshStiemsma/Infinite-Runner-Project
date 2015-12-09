@@ -1,3 +1,0 @@
-<TextureAtlas imagePath="Health01.png">
-	<SubTexture name="health01.psd" x="0" y="0" width="525" height="224"/>
-</TextureAtlas>
