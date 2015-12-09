@@ -5,8 +5,8 @@ README for Josh Stiemsma's Infinite Space Flyer
 
 WASD-Arrows for vertical and horizontal movement on the screen
 
-Z Grows the player
-X Shirnks the player
+q Grows the player
+e Shirnks the player
 
 SPACE BAR is Boost
 
